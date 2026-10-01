@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marin Industries | Soluciones digitales para negocios locales</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Configuración básica de Tailwind -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            marinBg: "#0A0B0D",
+            marinSurface: "#16181C",
+            marinBorder: "#2B2E33",
+            marinText: "#ECEDEE",
+            marinMuted: "#9098A1",
+            marinDim: "#676D75",
+            marinAccent: "#FFB000"
+          },
+          fontFamily: {
+
+            mono: ["Electrolize", "SFMono-Regular", "Consolas", "monospace"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="bg-[#070a0e] text-[#e7eaed]">
+
+  <!-- Header -->
+  <header>
+    <div class="section-shell flex min-h-[76px] items-center justify-between"> <a href="#"
+        class="flex items-center gap-3">
+        <div class="h-10 w-10 overflow-hidden border border-white/10"> <img src="assets/logo.png"
+            alt="Marin Industries Logo" class="w-full h-full object-cover" />
+        </div>
+
+        <div>
+          <p class="font-semibold leading-none text-white">Marin Industries</p>
+          <span class="text-[10px] uppercase tracking-[0.14em] text-[#68717c]">
+            Ingeniería · Tecnología · Industria
+          </span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-xs font-medium uppercase tracking-[0.08em] text-[#929aa4]"> <a
+          href="#nosotros" class="interactive-line hover:text-white transition-colors">Quiénes somos</a>
+        <a href="#servicios" class="interactive-line transition-colors hover:text-white">Servicios</a>
+        <a href="#casos" class="interactive-line transition-colors hover:text-white">Casos de éxito</a>
+        <a href="#contacto" class="interactive-line transition-colors hover:text-white">Contactos</a>
+      </nav>
+
+      <button id="menuBtn" class="md:hidden text-white" aria-label="Abrir menú">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-[#252c35] px-6 py-4">
+      <nav class="flex flex-col gap-4 text-sm font-medium text-[#929aa4]">
+        <a href="#nosotros" class="mobile-link">Quiénes somos</a>
+        <a href="#servicios" class="mobile-link">Servicios</a>
+        <a href="#casos" class="mobile-link">Casos de éxito</a>
+        <a href="#contacto" class="mobile-link">Contactos</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section className="technical-grid relative overflow-hidden border-b border-brandLine bg-brandBg pb-24 pt-36 text-brandDark">
+  <div className="section-shell relative z-10 grid items-end gap-16 lg:grid-cols-[1.25fr_0.75fr]">
+
+    <div className="fade-in">
+      <span className="eyebrow mb-6">
+        Aliado tecnológico para negocios locales e industria
+      </span>
+
+      <h1 className="max-w-5xl text-5xl font-medium leading-[0.95] tracking-[-0.04em] md:text-7xl lg:text-8xl">
+        Soluciones de ingeniería, tecnología y soporte técnico para crecer con confianza.
+      </h1>
+
+      <p className="mb-8 mt-6 max-w-xl text-lg text-brandText">
+        En Marin Industries acompañamos a negocios, industrias y hogares con proyectos de
+        ingeniería, desarrollo de software, mecatrónica, biomédica y servicios técnicos
+        para equipos y dispositivos en casa e industria.
+      </p>
+
+      {/* CTA */}
+      <div className="mb-24 flex flex-col gap-8 sm:flex-row">
+        <Link
+          href="/#contacto"
+          className="border border-brandAccent bg-brandAccent px-6 py-3 text-center font-semibold text-brandBg transition hover:bg-brandAccentHover"
+        >
+          Solicitar una propuesta
+        </Link>
+
+        <Link
+          href="/#servicios"
+          className="border border-brandLine px-6 py-3 text-center font-semibold text-brandDark transition hover:border-brandAccent hover:text-brandAccent"
+        >
+          Ver servicios
+        </Link>
+      </div>
+    </div>
+
+    <div className="fade-in">
+      <div className="card-subtle p-6">
+        <p className="technical-label mb-2">
+          Soluciones para
+        </p>
+
+        <h2 className="mb-6 text-2xl font-medium text-brandDark">
+          Industria, negocios locales y hogar
+        </h2>
+
+        <div className="space-y-4">
+
+          <div className="flex items-start gap-4">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-[#7dd3fc]/40 font-mono text-sm text-[#7dd3fc]">
+              01
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-brandDark">
+                Proyectos de ingeniería
+              </h3>
+
+              <p className="text-sm text-brandText">
+                Soluciones personalizadas para procesos, desarrollo y optimización.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-brandLine font-mono text-sm text-brandText">
+              02
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-brandDark">
+                Soporte técnico
+              </h3>
+
+              <p className="text-sm text-brandText">
+                Atención para equipos y dispositivos en casa, comercio e industria.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-brandLine font-mono text-sm text-brandText">
+              03
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-brandDark">
+                Transformación digital
+              </h3>
+
+              <p className="text-sm text-brandText">
+                Herramientas que ayudan a operar mejor, vender más y crecer con orden.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- Quiénes somos -->
+  <section id="nosotros" className="bg-white py-20">
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+
+      <div class="fade-in">
+        <span class="eyebrow">
+          Quiénes somos
+        </span>
+        <h2 class="text-3xl md:text-4xl font-medium text-white mt-3 mb-6 tracking-[-0.02em]">
+          Una empresa nacida del esfuerzo, la visión y el deseo de ayudar.
+        </h2>
+
+        <p class="text-[#929aa4] leading-relaxed mb-5">
+          Marin Industries nace de una historia familiar marcada por la determinación de construir algo propio y servir
+          con honestidad a la comunidad. Su nombre honra el legado del abuelo del fundador, quien enseñó el valor del
+          trabajo, la perseverancia y el compromiso con los demás.
+        </p>
+
+        <p class="text-[#929aa4] leading-relaxed">
+          Inspirada en esa historia, la empresa surge al identificar una necesidad muy presente en pequeños negocios: la
+          dificultad de adaptarse a la era digital. Por ello, Marin Industries busca acompañar a comercios,
+          emprendedores y familias en su transformación digital mediante herramientas tecnológicas accesibles, útiles y
+          adaptadas a su realidad.
+        </p>
+      </div>
+
+      <div class="fade-in grid sm:grid-cols-2 gap-6">
+        <div class="card p-7">
+          <span class="technical-label">01 / Misión</span>
+          <p class="text-[#929aa4] mt-3">
+            Llegar a los negocios locales de la región con soluciones tecnológicas inteligentes e innovadoras que
+            faciliten sus servicios, tanto para su personal como para sus clientes.
+          </p>
+        </div>
+
+        <div class="card-subtle p-7">
+          <span class="technical-label">02 / Visión</span>
+          <p class="text-[#929aa4] mt-3">
+            Utilizar tecnologías aplicadas para la sustentabilidad y preservación del ecosistema global, mejorando la
+            calidad de vida de la sociedad.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Valores -->
+  <section class="border-b border-white/10 bg-[#0d1117] py-24">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="text-center max-w-3xl mx-auto mb-12 fade-in">
+        <span class="eyebrow justify-center">Nuestros principios</span>
+        <h2 class="text-3xl md:text-4xl font-medium text-white mt-3 tracking-[-0.02em]">
+          Tecnología con propósito humano
+        </h2>
+        <p class="text-[#929aa4] mt-4">
+          No se trata solo de crear software. Se trata de entender los problemas reales de cada negocio y construir
+          herramientas que sí puedan usar en su día a día.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-px bg-[#252c35] border border-[#252c35] fade-in">
+        <div class="bg-[#0d1117] p-6">
+          <h3 class="font-semibold text-lg text-white mb-3">Honestidad</h3>
+          <p class="text-[#929aa4]">Propuestas claras, soluciones realistas y comunicación directa durante todo el
+            proceso.</p>
+        </div>
+
+        <div class="bg-[#0d1117] p-6">
+          <h3 class="font-semibold text-lg text-white mb-3">Innovación accesible</h3>
+          <p class="text-[#929aa4]">Tecnología adaptada a las posibilidades y necesidades de cada negocio local.</p>
+        </div>
+
+        <div class="bg-[#0d1117] p-6">
+          <h3 class="font-semibold text-lg text-white mb-3">Acompañamiento</h3>
+          <p class="text-[#929aa4]">Apoyo antes, durante y después de implementar una solución digital.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios" class="border-b border-white/10 bg-[#070a0e] py-24">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="max-w-3xl mb-12 fade-in">
+        <span class="eyebrow">
+          Qué hacemos
+        </span>
+        <h2 class="text-3xl md:text-4xl font-medium text-white mt-3 mb-4 tracking-[-0.02em]">
+          Soluciones específicas y personalizadas para cada necesidad.
+        </h2>
+        <p class="text-[#929aa4]">
+          Destacamos los proyectos de ingeniería como nuestro punto fuerte, mientras acompañamos a la industria,
+          negocios
+          locales, granjeros, agrónomos y hogares con servicios técnicos y tecnológicos de valor real.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#252c35] border border-[#252c35] fade-in">
+
+        <article class="service-card p-6">
+          <div class="icon-box mb-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-3">Proyectos de ingeniería</h3>
+          <p class="text-[#929aa4]">
+            Soluciones de ingeniería industrial, software, mecatrónica y biomédica, pensadas para cada contexto.
+          </p>
+        </article>
+
+        <article class="service-card p-6">
+          <div class="icon-box mb-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="9" y="9" width="6" height="6" />
+              <path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2" />
+              <rect x="4" y="4" width="16" height="16" rx="1" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-3">Software y sistemas</h3>
+          <p class="text-[#929aa4]">
+            Desarrollo de sistemas de gestión, automatización y herramientas que mejoran la operación diaria.
+          </p>
+        </article>
+
+        <article class="service-card p-6">
+          <div class="icon-box mb-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="7" y="2" width="10" height="20" rx="1.5" />
+              <path d="M11 18h2" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-3">Aplicaciones móviles</h3>
+          <p class="text-[#929aa4]">
+            Apps prácticas para pedidos, servicios, seguimiento y atención más rápida.
+          </p>
+        </article>
+
+        <article class="service-card p-6">
+          <div class="icon-box mb-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-3">Sitios web</h3>
+          <p class="text-[#929aa4]">
+            Presencia digital profesional para mostrar tus servicios, atraer clientes y generar confianza.
+          </p>
+        </article>
+
+        <article class="service-card p-6">
+          <div class="icon-box mb-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3" />
+              <path d="M18 3v4h-4M6 21v-4h4" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-3">Automatización</h3>
+          <p class="text-[#929aa4]">
+            Simplificación de procesos repetitivos para ahorrar tiempo y reducir errores.
+          </p>
+        </article>
+
+        <article class="service-card p-6">
+          <div class="icon-box mb-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M14.7 6.3a4 4 0 11-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 015.4-5.4l-2.6 2.6-2-2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-white mb-3">Servicios técnicos</h3>
+          <p class="text-[#929aa4]">
+            Soporte para equipos y dispositivos en casa, comercio e industria, con enfoque práctico y cercano.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  {/* Casos de éxito */}
+  <section id="casos" className="border-b border-brandLine bg-brandBg py-20">
+    <div className="section-shell">
+
+      <div className="mb-20 max-w-3xl fade-in">
+        <span className="eyebrow">Casos de éxito</span>
+
+        <h2 className="mt-3 mb-4 text-3xl font-medium tracking-[-0.02em] text-brandDark md:text-4xl">
+          Ejemplos de soluciones que mejoran la operación diaria
+        </h2>
+
+        <p className="text-brandText">
+          Estos casos reflejan problemas de administración, producción, control y
+          organización que se resolvieron con mayor fluidez, comodidad y practicidad.
+        </p>
+      </div>
+
+      <div className="grid gap-12 md:grid-cols-3">
+
+        {/* Yolanda's — Inventario */}
+        <article className="case-card fade-in">
+
+          <span className="case-tab">
+            Sistema de inventario
+          </span>
+
+          <div className="case-visual">
+            <div className="mock-window">
+              <div className="mock-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <div className="mb-3 flex gap-2">
+                <div className="h-14 flex-1 border border-[#252c35] bg-[#0d1117] p-2">
+                  <p className="text-[9px] font-medium text-[#68717c]">
+                    Stock activo
+                  </p>
+
+                  <p className="text-sm font-bold text-white">
+                    248
+                  </p>
+
+                  <div class="mock-bar mt-1">
+                    <div class="mock-bar-fill" style="width: 78%;"></div>
+                  </div>
+                </div>
+
+                <div className="h-14 flex-1 border border-[#252c35] bg-[#0d1117] p-2">
+                  <p className="text-[9px] font-medium text-[#68717c]">
+                    Ventas hoy
+                  </p>
+
+                  <p className="text-sm font-bold text-white">
+                    $4,320
+                  </p>
+
+                  <div className="mock-bar mt-1">
+                    <div class="mock-bar-fill" style="width: 55%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mock-row">
+                <div className="mock-icon-box flex items-center justify-center text-sm mock-emoji">
+                  📦
+                </div>
+
+                <div className="flex-1">
+                  <div class="mock-bar" style="width: 70%;">
+                    <div className="mock-bar-fill" style="width: 85%;"></div>
+                  </div>
+                </div>
+
+                <span className="text-[10px] font-semibold text-[#7dd3fc]">
+                  +12
+                </span>
+              </div>
+
+              <div className="mock-row">
+                <div className="mock-icon-box flex items-center justify-center text-sm mock-emoji">
+                  🧴
+                </div>
+
+                <div className="flex-1">
+                  <div class="mock-bar" style="width: 70%;">
+                    <div class="mock-bar-fill" style="width: 60%;"></div>
+                  </div>
+                </div>
+
+                <span className="text-[10px] font-semibold text-[#929aa4]">
+                  3 bajo
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-6 pt-5">
+            <div className="mb-3 flex items-center justify-between">
+              <span className="tag tag-accent">
+                Yolanda's
+              </span>
+
+              <span className="text-xs font-medium text-[#68717c]">
+                Retail local
+              </span>
+            </div>
+
+            <h3 className="mb-2 text-xl font-semibold text-brandDark">
+              Control de ventas e inventario
+            </h3>
+
+            <p className="mb-5 text-sm leading-relaxed text-brandText">
+              Pasamos de registros dispersos a un panel centralizado que muestra
+              stock, ventas y alertas en un solo lugar.
+            </p>
+
+            <div className="space-y-2">
+              <div className="benefit-chip">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+
+                Inventario actualizado en tiempo real
+              </div>
+
+              <div className="benefit-chip">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+
+                Menos errores en ventas y reposición
+              </div>
+
+              <div className="benefit-chip">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z" />
+                </svg>
+
+                Reportes claros para tomar decisiones
+              </div>
+            </div>
+          </div>
+        </article>
+
+
+        {/* Terrazitas — Punto de venta */}
+        <article className="case-card fade-in">
+
+          <span className="case-tab">
+            Punto de venta
+          </span>
+
+          <div className="case-visual">
+            <div className="mock-window">
+              <div className="mock-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <p className="mb-2 text-[10px] font-semibold text-[#929aa4]">
+                Nueva venta — Terrazitas
+              </p>
+
+              <div className="mock-row">
+                <div className="mock-icon-box flex items-center justify-center text-sm mock-emoji">
+                  🌮
+                </div>
+
+                <div className="flex-1">
+                  <p className="text-[10px] font-semibold text-white">
+                    Orden #042
+                  </p>
+
+                  <p className="text-[9px] text-[#68717c]">
+                    2 items
+                  </p>
+                </div>
+
+                <span className="text-[11px] font-bold text-white">
+                  $185
+                </span>
+              </div>
+
+              <div className="mock-row">
+                <div className="mock-icon-box flex items-center justify-center text-sm mock-emoji">
+                  🥤
+                </div>
+
+                <div className="flex-1">
+                  <p className="text-[10px] font-semibold text-white">
+                    Orden #043
+                  </p>
+
+                  <p className="text-[9px] text-[#68717c]">
+                    3 items
+                  </p>
+                </div>
+
+                <span className="text-[11px] font-bold text-white">
+                  $240
+                </span>
+              </div>
+
+              <div className="mock-row">
+                <div className="mock-icon-box flex items-center justify-center text-sm mock-emoji">
+                  🍰
+                </div>
+
+                <div className="flex-1">
+                  <p className="text-[10px] font-semibold text-white">
+                    Orden #044
+                  </p>
+
+                  <p className="text-[9px] text-[#68717c]">
+                    1 item
+                  </p>
+                </div>
+
+                <span className="text-[11px] font-bold text-white">
+                  $95
+                </span>
+              </div>
+
+              <div className="mock-pos-total">
+                <span>Total del turno</span>
+                <span>$3,870</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-6 pt-5">
+            <div className="mb-3 flex items-center justify-between">
+              <span className="tag tag-accent">
+                Terrazitas
+              </span>
+
+              <span className="text-xs font-medium text-[#68717c]">
+                Restaurante
+              </span>
+            </div>
+
+            <h3 className="mb-2 text-xl font-semibold text-brandDark">
+              Punto de venta y seguimiento operativo
+            </h3>
+
+            <p className="mb-5 text-sm leading-relaxed text-brandText">
+              Una interfaz práctica para registrar pedidos, cerrar turnos y dar
+              seguimiento a la operación sin depender de papel.
+            </p>
+
+            <div className="space-y-2">
+              <div className="benefit-chip">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+
+                Atención más ágil en horas pico
+              </div>
+
+              <div className="benefit-chip">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+
+                Menos carga manual al final del día
+              </div>
+
+              <div className="benefit-chip">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+
+                Mejor experiencia para el equipo y clientes
+              </div>
+            </div>
+          </div>
+        </article>
+
+
+        {/* Limon-Son — Lavadora */}
+        <article className="case-card fade-in">
+
+          <span className="case-tab">
+            Automatización industrial
+          </span>
+
+          <div className="case-visual">
+            <div className="mock-window" style="bottom: -0.5rem; padding-bottom: 18px;">
+              <div className="mock-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <p className="mb-1 text-center text-[10px] font-semibold text-[#929aa4]">
+                Proceso de lavado — Limon-Son
+              </p>
+
+              <div className="mock-process">
+                <div className="mock-step mock-emoji">
+                  🍋
+                </div>
+
+                <span className="mock-arrow">
+                  →
+                </span>
+
+                <div class="mock-step mock-emoji"
+                  style="width: 64px; height: 64px; font-size: 26px; border-color: rgba(125, 211, 252, 0.35);">
+                  ⚙️
+                </div>
+
+                <span className="mock-arrow">
+                  →
+                </span>
+
+                <div className="mock-step mock-emoji">
+                  ✨
+                </div>
+              </div>
+
+              <div className="mt-3 flex gap-2">
+                <div className="flex-1 border border-[#252c35] bg-[#0d1117] p-2 text-center">
+                  <p className="text-[9px] text-[#68717c]">
+                    Entrada
+                  </p>
+
+                  <p className="text-xs font-bold text-white">
+                    120 kg/h
+                  </p>
+                </div>
+
+                <div className="flex-1 border border-[#7dd3fc]/30 bg-[#0d1117] p-2 text-center">
+                  <p className="text-[9px] text-[#68717c]">
+                    Eficiencia
+                  </p>
+
+                  <p className="text-xs font-bold text-[#7dd3fc]">
+                    +35%
+                  </p>
+                </div>
+
+                <div className="flex-1 border border-[#252c35] bg-[#0d1117] p-2 text-center">
+                  <p className="text-[9px] text-[#68717c]">
+                    Calidad
+                  </p>
+
+                  <p className="text-xs font-bold text-white">
+                    Estable
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-6 pt-5">
+            <div className="mb-3 flex items-center justify-between">
+              <span className="tag tag-accent">
+                Limon-Son
+              </span>
+
+              <span className="text-xs font-medium text-[#68717c]">
+                Producción
+              </span>
+            </div>
+
+            <h3 className="mb-2 text-xl font-semibold text-brandDark">
+              Solución para el lavado de frutas
+            </h3>
+
+            <p className="mb-5 text-sm leading-relaxed text-brandText">
+              Diseñamos una solución de ingeniería para optimizar el lavado,
+              reducir variabilidad y dar control al proceso productivo.
+            </p>
+
+            <div className="space-y-2">
+              <div className="benefit-chip">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+
+                Proceso más práctico y repetible
+              </div>
+
+              <div className="benefit-chip">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+
+                Mejor control de producción y calidad
+              </div>
+
+              <div className="benefit-chip">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+
+                Resultados más ordenados y medibles
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  </div>
+  </div>
+  </section>
+
+  <!-- Proceso -->
+  <section class="py-20 border-b border-white/10 bg-[#0d1117]">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="max-w-3xl mb-12 fade-in">
+        <span class="eyebrow">
+          Cómo trabajamos
+        </span>
+        <h2 class="text-3xl md:text-4xl font-medium text-white mt-3 mb-4 tracking-[-0.02em]">
+          Un proceso claro desde la idea hasta la implementación.
+        </h2>
+        <p class="text-[#929aa4]">
+          Cada solución inicia entendiendo el negocio, sus problemas y sus objetivos. Después se diseña una herramienta
+          útil, realista y escalable.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-5 gap-px bg-[#252c35] border border-[#252c35] fade-in">
+
+        <div class="process-step bg-[#0d1117] p-5">
+          <span class="process-number">01</span>
+          <h3 class="font-semibold text-white mt-2 mb-2">Diagnóstico</h3>
+          <p class="text-sm text-[#929aa4]">Analizamos necesidades, procesos y oportunidades de mejora.</p>
+        </div>
+
+        <div class="process-step bg-[#0d1117] p-5">
+          <span class="process-number">02</span>
+          <h3 class="font-semibold text-white mt-2 mb-2">Propuesta</h3>
+          <p class="text-sm text-[#929aa4]">Definimos la solución, alcance, funcionalidades y prioridades.</p>
+        </div>
+
+        <div class="process-step bg-[#0d1117] p-5">
+          <span class="process-number">03</span>
+          <h3 class="font-semibold text-white mt-2 mb-2">Desarrollo</h3>
+          <p class="text-sm text-[#929aa4]">Construimos la herramienta con enfoque práctico y funcional.</p>
+        </div>
+
+        <div class="process-step bg-[#0d1117] p-5">
+          <span class="process-number">04</span>
+          <h3 class="font-semibold text-white mt-2 mb-2">Implementación</h3>
+          <p class="text-sm text-[#929aa4]">Instalamos, configuramos y capacitamos al equipo del negocio.</p>
+        </div>
+
+        <div class="process-step bg-[#0d1117] p-5">
+          <span class="process-number">05</span>
+          <h3 class="font-semibold text-white mt-2 mb-2">Acompañamiento</h3>
+          <p class="text-sm text-[#929aa4]">Damos seguimiento para mejorar y ajustar la solución.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contacto" class="technical-grid py-20 bg-[#070a0e] text-white">
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+
+      <div class="fade-in">
+        <span class="eyebrow">
+          Contáctanos
+        </span>
+        <h2 class="text-3xl md:text-5xl font-medium mt-3 mb-6 tracking-[-0.03em]">
+          Digitaliza tu negocio con una solución hecha a tu medida.
+        </h2>
+        <p class="text-[#929aa4] max-w-xl">
+          Si tienes un negocio local y quieres mejorar tu administración, atención o presencia digital, Marin Industries
+          puede ayudarte a dar el siguiente paso.
+        </p>
+      </div>
+
+      <div class="fade-in form-panel p-6 md:p-8">
+        <h3 class="text-xl font-semibold text-white mb-2">Iniciar una conversación</h3>
+        <p class="text-[#929aa4] text-sm mb-6">
+          Cuéntanos brevemente qué necesitas y te responderemos en horario laboral de lunes a viernes, de 9:00 a 18:00.
+        </p>
+
+        <form class="space-y-4">
+          <div>
+            <label class="form-label" for="nombre">Nombre completo</label>
+            <input id="nombre" type="text" placeholder="Tu nombre" required class="form-field" />
+          </div>
+
+          <div>
+            <label class="form-label" for="telefono">Teléfono o WhatsApp</label>
+            <input id="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ej. 662 123 4567" required
+              class="form-field" />
+          </div>
+
+          <div>
+            <label class="form-label" for="negocio">Nombre de la empresa o negocio</label>
+            <input id="negocio" type="text" placeholder="Nombre de tu negocio" required class="form-field" />
+          </div>
+
+          <div>
+            <label class="form-label" for="servicio">Servicio de interés</label>
+            <select id="servicio" required class="form-field">
+              <option value="" selected disabled>Selecciona una opción</option>
+              <option value="Proyectos de ingeniería">Proyectos de ingeniería</option>
+              <option value="Sistema de gestión">Sistema de gestión</option>
+              <option value="Aplicación móvil">Aplicación móvil</option>
+              <option value="Sitio web">Sitio web</option>
+              <option value="Automatización">Automatización</option>
+              <option value="Servicios técnicos">Servicios técnicos</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label" for="problema">Problema a resolver</label>
+            <select id="problema" required class="form-field">
+              <option value="" selected disabled>Selecciona una opción</option>
+              <option value="Administrativos">Administrativos</option>
+              <option value="Producción">Producción</option>
+              <option value="Control">Control</option>
+              <option value="Ventas e inventario">Ventas e inventario</option>
+              <option value="Presencia digital">Presencia digital</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label" for="mensaje">Descripción breve</label>
+            <textarea id="mensaje" rows="4" placeholder="Cuéntanos qué necesita tu negocio" required
+              class="form-field"></textarea>
+          </div>
+
+          <button type="submit"
+            class="w-full px-6 py-3 border border-[#7dd3fc] bg-[#7dd3fc] text-[#070a0e] font-semibold hover:bg-white hover:border-white transition">
+            Enviar solicitud
+          </button>
+
+          <div id="formStatus" class="text-sm text-[#929aa4]" aria-live="polite"></div>
+
+          <p class="text-xs text-[#68717c]">
+            Tu mensaje se enviará a nuestro equipo por WhatsApp y correo para iniciar la conversación.
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-[#252c35] bg-[#070a0e] text-[#68717c] py-8">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-4 text-sm">
+      <p>© 2026 Marin Industries. Todos los derechos reservados.</p>
+      <p>Soluciones digitales para negocios locales.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Menú móvil
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
+
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+      });
+    });
+
+    // Animaciones al hacer scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
+
+    document.querySelectorAll(".fade-in").forEach(element => {
+      observer.observe(element);
+    });
+
+    const form = document.querySelector("form");
+    const formStatus = document.getElementById("formStatus");
+
+    if (form) {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const nombreInput = document.getElementById("nombre");
+        const contactoInput = document.getElementById("telefono");
+        const negocioInput = document.getElementById("negocio");
+        const servicioInput = document.getElementById("servicio");
+        const problemaInput = document.getElementById("problema");
+        const mensajeInput = document.getElementById("mensaje");
+
+        const nombre = (nombreInput?.value || "").trim();
+        const contacto = (contactoInput?.value || "").trim();
+        const negocio = (negocioInput?.value || "").trim();
+        const servicio = (servicioInput?.value || "").trim();
+        const problema = (problemaInput?.value || "").trim();
+        const mensaje = (mensajeInput?.value || "").trim();
+
+        const missingFields = [];
+        if (!nombre) missingFields.push("nombre completo");
+        if (!contacto) {
+          missingFields.push("teléfono o WhatsApp");
+        } else {
+          const phoneFormatPattern = /^\+?[0-9\s().-]+$/;
+          const phoneDigits = contacto.replace(/\D/g, "");
+          if (!phoneFormatPattern.test(contacto) || phoneDigits.length < 7 || phoneDigits.length > 15) {
+            missingFields.push("un teléfono o WhatsApp válido");
+          }
+        }
+        if (!negocio) missingFields.push("nombre de la empresa o negocio");
+        if (!servicio) missingFields.push("servicio de interés");
+        if (!problema) missingFields.push("problema a resolver");
+        if (!mensaje) missingFields.push("descripción breve");
+
+        if (missingFields.length > 0) {
+          if (formStatus) {
+            formStatus.textContent = `Completa los siguientes campos antes de enviar: ${missingFields.join(", ")}.`;
+            formStatus.className = "text-sm text-[#f87171]";
+          }
+          return;
+        }
+
+        const asunto = `Solicitud de contacto - ${negocio}`;
+        const textoWhatsApp = `Hola Marin Industries. Soy ${nombre}. Contacto: ${contacto}. Empresa: ${negocio}. Servicio de interés: ${servicio}. Problema a resolver: ${problema}. Detalles: ${mensaje}`;
+
+        const whatsappUrl = `https://wa.me/526624059283?text=${encodeURIComponent(textoWhatsApp)}`;
+
+        window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
+        if (formStatus) {
+          formStatus.textContent = `Gracias, ${nombre}. Tu solicitud fue preparada para enviarse a nuestro equipo.`;
+          formStatus.className = "text-sm text-[#7dd3fc]";
+        }
+
+        form.reset();
+      });
+    }
+  </script>
+
+
+</body>
+
+</html>
