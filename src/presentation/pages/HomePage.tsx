@@ -8,6 +8,7 @@ import { PageShell } from "../components/layout/PageShell";
 import { InfoPanel } from "../components/home/InfoPanel";
 import { Hero } from "../components/home/Hero";
 import { CaseAccordion } from "../components/home/CaseAccordion";
+import SalesPreview from "../components/home/SalesPreview";
 import { SectionRail } from "../components/home/SectionRail";
 
 type HomePageProps = {
@@ -25,6 +26,16 @@ function MockDots() {
 }
 
 function CaseStudies({ studies }: { studies: CaseStudy[] }) {
+  const visuals = studies.map((study) =>
+    study.visual === "pos" ? (
+      <SalesPreview key={study.id} />
+    ) : (
+      <div key={study.id} className="media-slot">
+        <span>IMAGEN / GIF · {study.tag.toUpperCase()}</span>
+      </div>
+    )
+  );
+
   return (
     <section id="casos" data-tone="base" className="ca-section">
       {" "}
@@ -38,11 +49,7 @@ function CaseStudies({ studies }: { studies: CaseStudy[] }) {
 
         <CaseAccordion
           studies={studies}
-          visuals={studies.map((study) => (
-            <div key={study.id} className="media-slot">
-              <span>IMAGEN / GIF · {study.tag.toUpperCase()}</span>
-            </div>
-          ))}
+          visuals={visuals}
         />
       </div>
     </section>

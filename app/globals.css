@@ -813,3 +813,30 @@
 .hr-feature {
   box-shadow: var(--card-shadow);
 }
+
+/* ===== Vista previa del módulo de ventas (Casos) ===== */
+.sp-link { cursor: pointer; text-decoration: none; }
+.sp-window { transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1); }
+.sp-link:hover .sp-window,
+.sp-link:focus-visible .sp-window { transform: translateY(-6px); }
+
+.sp-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px; }
+.sp-kpis > div { padding: 6px 8px; background: #0d0f12; border: 1px solid #2a2d33; }
+.sp-kpis small { display: block; font-size: 9px; color: #68717c; }
+.sp-kpis p { font-family: 'Electrolize', sans-serif; font-size: 13px; color: #fff; }
+
+.sp-order { font-family: 'Electrolize', sans-serif; font-size: 10px; color: #ffb000; }
+.sp-client { font-size: 9px; color: #8b919a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sp-amount { font-family: 'Electrolize', sans-serif; font-size: 11px; color: #fff; }
+
+.sp-cta {
+  position: absolute; right: 1rem; bottom: 1rem; z-index: 5; padding: 0.55rem 1rem;
+  font-size: 0.8rem; gap: 0.5rem;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.25s ease;
+}
+.sp-link:hover .sp-cta,
+.sp-link:focus-visible .sp-cta { opacity: 1; transform: none; }
+
+/* En celular no hay hover: el botón siempre visible */
+@media (hover: none) { .sp-cta { opacity: 1; transform: none; } }
