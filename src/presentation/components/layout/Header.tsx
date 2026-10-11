@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 
 const navItems = [
   { label: "Convocatorias", href: "/convocatorias" },
-  { label: "Catálogo", href: "/catalogo" },
+  { label: "Servicios", href: "/catalogo" },
   { label: "Cotización", href: "/cotizacion" },
   { label: "Recursos humanos", href: "/rh" },
+  { label: "Productos", href: "/tienda" },
 ];
 
 export function Header() {
@@ -64,18 +65,24 @@ export function Header() {
 
         <div className="flex items-center gap-6">
           <nav className="hidden items-center gap-8 text-sm font-medium lg:flex">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive(item.href) ? "page" : undefined}
-                className={`transition hover:text-brandAccent ${
-                  isActive(item.href) ? "text-brandAccent" : "text-brandText"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const esTienda = item.label === "Productos";
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  target={esTienda ? "_blank" : undefined}
+                  rel={esTienda ? "noopener noreferrer" : undefined}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={`transition hover:text-brandAccent ${
+                    isActive(item.href) ? "text-brandAccent" : "text-brandText"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <button
