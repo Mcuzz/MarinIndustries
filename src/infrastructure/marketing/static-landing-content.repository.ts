@@ -54,6 +54,11 @@ const landingContent: LandingContent = {
       title: "Recursos humanos",
       copy: "Entrada separada para expedientes, matriz de aptitudes y control interno autorizado.",
       href: "/rh"
+    },
+    {
+      title: "Tienda de productos",
+      copy: "Explora productos, consulta precios y revisa su disponibilidad.",
+      href: "/tienda",
     }
   ],
   process: ["Diagnostico", "Propuesta", "Desarrollo", "Implementacion", "Acompanamiento"],
