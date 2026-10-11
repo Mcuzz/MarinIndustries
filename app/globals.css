@@ -840,3 +840,331 @@
 
 /* En celular no hay hover: el botón siempre visible */
 @media (hover: none) { .sp-cta { opacity: 1; transform: none; } }
+
+
+/*ESTILOS DE LA PAGE DE VENTAS*/
+
+/* ===== Tienda de productos ===== */
+
+.tienda-section {
+  min-height: 80vh;
+  padding: 8rem 0 4rem;
+}
+
+.tienda-encabezado {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.tienda-titulo {
+  margin-top: 1rem;
+  color: var(--brand-dark);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.1;
+}
+
+.tienda-descripcion {
+  margin-top: 0.75rem;
+  color: var(--brand-text);
+}
+
+.tienda-carrito {
+  flex-shrink: 0;
+}
+
+.tienda-controles {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) minmax(160px, 240px) auto;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 2rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--brand-line);
+  border-bottom: 1px solid var(--brand-line);
+}
+
+.tienda-busqueda,
+.tienda-categoria {
+  display: grid;
+  gap: 0.5rem;
+  color: var(--brand-dark);
+  font-size: 0.8rem;
+}
+
+.tienda-busqueda input,
+.tienda-categoria select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0.7rem 0.8rem;
+  color: var(--brand-dark);
+  background: var(--brand-surface);
+  border: 1px solid var(--brand-line);
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.producto-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--brand-line);
+  background: var(--brand-surface);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.producto-card:hover {
+  border-color: var(--brand-accent);
+}
+
+.producto-imagen {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: var(--brand-surface-alt);
+  cursor: pointer;
+}
+
+.producto-imagen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.producto-imagen:hover img {
+  transform: scale(1.04);
+}
+
+.producto-oferta {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.35rem 0.55rem;
+  color: var(--on-accent);
+  background: var(--brand-accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.producto-contenido {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.1rem;
+}
+
+.producto-categoria {
+  color: var(--brand-muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.producto-titulo {
+  margin-top: 0.65rem;
+  color: var(--brand-dark);
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.producto-precio {
+  margin-top: 0.8rem;
+  color: var(--brand-dark);
+  font-family: "Electrolize", sans-serif;
+  font-size: 1.4rem;
+}
+
+.producto-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.producto-acciones .btn {
+  padding: 0.7rem 0.8rem;
+  font-size: 0.78rem;
+}
+
+.producto-acciones button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.producto-descripcion,
+.producto-existencia {
+  margin-top: 1rem;
+  color: var(--brand-text);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.producto-expandido-contenedor {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.producto-card--expandida {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.producto-card--expandida .producto-imagen {
+  height: 100%;
+  min-height: 320px;
+  aspect-ratio: auto;
+}
+
+.producto-card--expandida .producto-contenido {
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.producto-card--expandida .producto-titulo {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.producto-card--expandida .producto-precio {
+  font-size: 2rem;
+}
+
+.tienda-vacio {
+  padding: 3rem 0;
+  color: var(--brand-muted);
+  text-align: center;
+}
+
+.tienda-pie {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--brand-line);
+  color: var(--brand-muted);
+  font-size: 0.85rem;
+}
+
+.tienda-pie a {
+  color: var(--accent-text);
+}
+
+.tienda-modal-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgb(0 0 0 / 75%);
+}
+
+.tienda-modal {
+  position: relative;
+  width: min(100%, 480px);
+  padding: 2rem;
+  border: 1px solid var(--brand-line);
+  background: var(--brand-surface);
+  color: var(--brand-text);
+}
+
+.tienda-modal h2 {
+  margin-top: 1rem;
+  color: var(--brand-dark);
+  font-size: 1.8rem;
+}
+
+.tienda-modal p {
+  margin: 1rem 0 1.5rem;
+  line-height: 1.6;
+}
+
+.tienda-modal-cerrar {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--brand-line);
+  color: var(--brand-dark);
+  font-size: 1.5rem;
+}
+
+@media (max-width: 1023px) {
+  .productos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .producto-expandido-contenedor {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .tienda-encabezado {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .tienda-controles {
+    grid-template-columns: 1fr;
+  }
+
+  .productos-grid {
+    gap: 0.75rem;
+  }
+
+  .producto-contenido {
+    padding: 0.8rem;
+  }
+
+  .producto-titulo {
+    font-size: 1rem;
+  }
+
+  .producto-precio {
+    font-size: 1.15rem;
+  }
+
+  .producto-acciones .btn {
+    width: 100%;
+  }
+
+  .producto-card--expandida {
+    grid-template-columns: 1fr;
+  }
+
+  .producto-card--expandida .producto-imagen {
+    min-height: 220px;
+  }
+
+  .tienda-pie {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .producto-imagen img {
+    transition: none;
+  }
+}
+/*FIN DE ESTILOS DE PAGE DE VENTAS*/
