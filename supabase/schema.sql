@@ -198,6 +198,17 @@ ALTER TABLE public.convocatorias ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.perfiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.ordenes_venta ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.orden_detalles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.sucursales ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.clientes ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Lectura pública de sucursales"
+    ON public.sucursales FOR SELECT
+    USING (true);
+
+CREATE POLICY "Lectura de clientes para usuarios autenticados"
+    ON public.clientes FOR SELECT
+    USING (auth.role() = 'authenticated');
+
 
 -- Lectura pública para la tienda (cualquiera puede ver categorías, productos activos e imágenes)
 CREATE POLICY "Lectura pública de categorías"
