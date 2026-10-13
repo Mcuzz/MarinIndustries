@@ -12,73 +12,19 @@ import { CarritoItem } from "./CarritoItem";
 const CARRITO_STORAGE_KEY = "marin.store.cart";
 const TASA_IVA = 0.16;
 
-//PENDIENTE CREAR UN SERVICIO PARA OBTENER EL INVENTARIO DESDE EL BACKEND, POR AHORA SE USAN PRODUCTOS ESTATICOS
-const productosIniciales: Producto[] = [ //esto lo tengo que quitar, ya mandaron el inventario
-  {
-    id: "P001",
-    nombre: "Herramienta de precisión",
-    precio: 850,
-    descripcion:
-      "Herramienta de precisión para trabajos de mantenimiento y operaciones técnicas.",
-    existencia: 12,
-    imagen:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSbFAOO6BmRCf20_t6KPqwIHTrJWJ56Zjz-j35sYvC6bN-bdwwPxooQBSm&s=10",
-    categoria: "Herramientas",
-    oferta: true,
-  },
-  {
-    id: "P002",
-    nombre: "Equipo de protección",
-    precio: 420,
-    descripcion:
-      "Equipo de protección para actividades de trabajo industrial.",
-    existencia: 20,
-    imagen:
-      "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&w=900&q=80",
-    categoria: "Seguridad",
-  },
-  {
-    id: "P003",
-    nombre: "Accesorios industriales",
-    precio: 630,
-    descripcion:
-      "Accesorios para tareas generales de instalación y mantenimiento.",
-    existencia: 8,
-    imagen:
-      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80",
-    categoria: "Accesorios",
-  },
-  {
-    id: "P004",
-    nombre: "Kit de mantenimiento",
-    precio: 1250,
-    descripcion:
-      "Conjunto de herramientas para trabajos de revisión y mantenimiento.",
-    existencia: 5,
-    imagen:
-      "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=900&q=80",
-    categoria: "Herramientas",
-  },
-  {
-    id: "P005",
-    nombre: "Consumibles técnicos",
-    precio: 280,
-    descripcion:
-      "Materiales de consumo para actividades de mantenimiento.",
-    existencia: 30,
-    imagen:
-      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=900&q=80",
-    categoria: "Consumibles",
-  },
-];
+import { container } from "@/src/infrastructure/composition/root-container";
+import { productosEstaticos } from "@/src/infrastructure/products/static-product.repository";
 
 const moneda = (precio: number) =>
+
   new Intl.NumberFormat("es-MX", {
     style: "currency",
     currency: "MXN",
   }).format(precio);
 
 export function GridProductos() {
+  const [productos, setProductos] = useState<Producto[]>(productosEstaticos);
+  const [cargando, setCargando] = useState(false);
   const [busqueda, setBusqueda] = useState("");
   const [categoria, setCategoria] = useState("Todas");
   const [soloOfertas, setSoloOfertas] = useState(false);
@@ -89,6 +35,29 @@ export function GridProductos() {
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [carritoCargado, setCarritoCargado] = useState(false);
 
+  // Cargar productos desde la base de datos (Supabase o respaldo estático)
+  useEffect(() => {
+    let activo = true;
+    setCargando(true);
+    container.products
+      .listProducts({ soloActivos: true })
+      .then((items) => {
+        if (activo && items.length > 0) {
+          setProductos(items);
+        }
+      })
+      .catch((err) => {
+        console.warn("No se pudieron cargar productos de la base de datos:", err);
+      })
+      .finally(() => {
+        if (activo) setCargando(false);
+      });
+
+    return () => {
+      activo = false;
+    };
+  }, []);
+
   useEffect(() => {
     try {
       const guardado = window.localStorage.getItem(CARRITO_STORAGE_KEY);
@@ -98,7 +67,7 @@ export function GridProductos() {
           Object.fromEntries(
             Object.entries(cantidades).filter(
               ([id, cantidad]) =>
-                productosIniciales.some((producto) => producto.id === id) &&
+                productos.some((producto) => producto.id === id) &&
                 Number.isInteger(cantidad) &&
                 cantidad > 0
             )
@@ -109,7 +78,7 @@ export function GridProductos() {
       window.localStorage.removeItem(CARRITO_STORAGE_KEY);
     }
     setCarritoCargado(true);
-  }, []);
+  }, [productos]);
 
   useEffect(() => {
     if (!carritoCargado) return;
@@ -135,15 +104,15 @@ export function GridProductos() {
   const categorias = useMemo(
     () => [
       "Todas",
-      ...new Set(productosIniciales.map((producto) => producto.categoria)),
+      ...new Set(productos.map((producto) => producto.categoria)),
     ],
-    []
+    [productos]
   );
 
   const productosFiltrados = useMemo(() => {
     const termino = busqueda.trim().toLowerCase();
 
-    return productosIniciales.filter((producto) => {
+    return productos.filter((producto) => {
       const coincideTexto =
         producto.nombre.toLowerCase().includes(termino) ||
         producto.descripcion.toLowerCase().includes(termino);
@@ -155,13 +124,13 @@ export function GridProductos() {
 
       return coincideTexto && coincideCategoria && coincideOferta;
     });
-  }, [busqueda, categoria, soloOfertas]);
+  }, [productos, busqueda, categoria, soloOfertas]);
 
   const totalArticulos = Object.values(carrito).reduce(
     (total, cantidad) => total + cantidad,
     0
   );
-  const articulosCarrito = productosIniciales.flatMap((producto) => {
+  const articulosCarrito = productos.flatMap((producto) => {
     const cantidad = carrito[producto.id] ?? 0;
     return cantidad > 0 ? [{ producto, cantidad }] : [];
   });
@@ -199,9 +168,10 @@ export function GridProductos() {
     });
   };
 
-  const productoSeleccionado = productosIniciales.find(
+  const productoSeleccionado = productos.find(
     (producto) => producto.id === productoExpandido
   );
+
 
   return (
     <section className="tienda-section">
