@@ -22,8 +22,17 @@ const moneda = (precio: number) =>
     currency: "MXN",
   }).format(precio);
 
-export function GridProductos() {
-  const [productos, setProductos] = useState<Producto[]>(productosEstaticos);
+type GridProductosProps = {
+  productosInicialesProp?: Producto[];
+};
+
+export function GridProductos({ productosInicialesProp }: GridProductosProps = {}) {
+  const [productos, setProductos] = useState<Producto[]>(
+    productosInicialesProp && productosInicialesProp.length > 0
+      ? productosInicialesProp
+      : productosEstaticos
+  );
+
   const [cargando, setCargando] = useState(false);
   const [busqueda, setBusqueda] = useState("");
   const [categoria, setCategoria] = useState("Todas");
