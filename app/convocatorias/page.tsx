@@ -3,7 +3,10 @@ import { container } from "@/src/infrastructure/composition/root-container";
 import { createSupabaseServerClient } from "@/src/infrastructure/supabase/server";
 import { JobOpeningsPage } from "@/src/presentation/pages/JobOpeningsPage";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
+
   const supabase = await createSupabaseServerClient();
 
   const {

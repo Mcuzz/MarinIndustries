@@ -1,16 +1,9 @@
 
 "use client";
 
-export type Producto = {
-  id: string;
-  nombre: string;
-  precio: number;
-  descripcion: string;
-  existencia: number;
-  imagen: string;
-  categoria: string;
-  oferta?: boolean;
-};
+import type { Producto } from "@/src/domain/products/product.entity";
+export type { Producto };
+
 
 type TarjetaProductoProps = {
   producto: Producto;

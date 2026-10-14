@@ -7,6 +7,11 @@ import { staticHrAccessRepository } from "../hr/static-hr-access.repository";
 import { staticJobOpeningRepository } from "../jobs/static-job-opening.repository";
 import { staticLandingContentRepository } from "../marketing/static-landing-content.repository";
 
+import { listCategories } from "@/src/application/products/use-cases/list-categories.use-case";
+import { listProducts } from "@/src/application/products/use-cases/list-products.use-case";
+import type { FiltroProductos } from "@/src/domain/products/product.entity";
+import { supabaseProductRepository } from "../products/supabase-product.repository";
+
 export const container = {
   marketing: {
     getLandingContent: () => getLandingContent(staticLandingContentRepository)
@@ -19,5 +24,13 @@ export const container = {
   },
   hr: {
     getAccessOverview: () => getHrAccessOverview(staticHrAccessRepository)
+  },
+  products: {
+    listProducts: (filtro?: FiltroProductos) =>
+      listProducts(supabaseProductRepository, filtro),
+    listCategories: () => listCategories(supabaseProductRepository),
+    getProductById: (id: string) =>
+      supabaseProductRepository.obtenerProductoPorId(id),
   }
 };
+
