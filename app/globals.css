@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=Electrolize:wght@400;500;600&display=swap');
-  
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Electrolize&display=swap');  
 
 @tailwind base;
 @tailwind components;
@@ -7,67 +6,65 @@
 
 /* ===== Tonos de sección ===== */
 :root {
- --card-shadow: none;
+  color-scheme: light;
 
-  --brand-bg: #0a0b0d;
-  --brand-surface: #16181c;
-  --brand-surface-alt: #1c1f24;
-  --brand-line: #2a2d33;
+  /* Fondo y superficies */
+  --brand-bg: #F7F7F5;
+  --brand-surface: #FFFFFF;
+  --brand-surface-alt: #F0F1EF;
 
-  --brand-light: #111316;        /* tone-alt */
-  --brand-blue: #1a1d22;
-  --brand-blue-deep: #050607;    /* tone-deep */
+  /* Líneas y divisores */
+  --brand-line: #DCDDDA;
 
-  --brand-dark: #ecedee;
-  --brand-text: #c9cdd3;
-  --brand-muted: #8b919a;
+  /* Identidad corporativa */
+  --brand-light: #F0F1EF;
+  --brand-blue: #E7ECF1;
+  --brand-blue-deep: #142B45;
+  --brand-dark: #252D36;
 
-  --brand-accent: #ffb000;
-  --brand-accent-hover: #ffc94d;
-  --brand-accent-soft: #2a2410;
-  --accent-text: #ffb000;        /* en oscuro el amarillo puro ya contrasta */
-  --on-accent: #0a0b0d;
+  /* Textos */
+  --brand-text: #41464D;
+  --brand-muted: #737982;
+
+  /* Acento amarillo */
+  --brand-accent: #FFB000;
+  --brand-accent-hover: #E5A000;
+  --brand-accent-soft: #FFF3D6;
+
+  /* Contraste */
+  --accent-text: #252D36;
+  --on-accent: #252D36;
+
+  /* Sombras */
+  --card-shadow: 0 4px 16px rgba(20, 43, 69, 0.05);
+}
+.ct-section {
+  background: var(--brand-blue-deep);
+  color: var(--brand-bg);
+}
+.ct-title {
+  margin: 0.9rem 0 1rem;
+  max-width: 34rem;
+  font-size: clamp(1.75rem, 3.4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
-.dark {
-
-
-   /* Superficies: base gris perla, tarjetas blancas encima */
-  --brand-bg: #f4f5f7;
-  --brand-surface: #ffffff;
-  --brand-surface-alt: #eceef2;
-  --brand-line: #cfd4dc;
-
-  /* Tonos de sección: tres escalones bien distintos */
-  --brand-light: #e3e6ec;        /* tone-alt */
-  --brand-blue: #eceef2;
-  --brand-blue-deep: #cdd2db;    /* tone-deep */
-
-  /* Texto */
-  --brand-dark: #14151a;
-  --brand-text: #3f434d;
-  --brand-muted: #50555f;
-
-  /* Acento */
-  --brand-accent: #ffb000;
-  --brand-accent-hover: #ffc94d;
-  --brand-accent-soft: #fff1cc;
-  --accent-text: #7a4f00;        /* ámbar más oscuro: ahora también lee bien sobre los grises */
-  --on-accent: #0a0b0d;
-
-  /* Sombra de tarjetas (solo claro) */
-  --card-shadow: 0 1px 0 rgba(20, 21, 26, 0.05), 0 10px 24px -14px rgba(20, 21, 26, 0.28);
+.ct-lead {
+  color: #DCDDDA;
 }
+
 
 @layer base {
   body {
     background: var(--brand-bg);
     @apply font-sans text-brandText;
   }
-  h1, h2, h3 {
-    @apply font-display ;
-    font-family: 'Electrolize', sans-serif;
-  }
+  h1,
+h2,
+h3 {
+  @apply font-display;
+}
   ::selection {
     @apply bg-brandAccent text-brandBg;
   }
@@ -223,14 +220,14 @@
 /* ===== Placeholder de multimedia (reemplázalo por <img>, <video>, gif) ===== */
 .media-slot {
   position: relative; width: 100%; display: flex; align-items: center; justify-content: center;
-  background: #c8102e; border: 1px solid var(--brand-line);
+ background: var(--brand-blue-deep); border: 1px solid var(--brand-line);
   background-image:
     linear-gradient(to top right, transparent calc(50% - 0.5px), rgba(255,255,255,.35) 50%, transparent calc(50% + 0.5px)),
     linear-gradient(to top left, transparent calc(50% - 0.5px), rgba(255,255,255,.35) 50%, transparent calc(50% + 0.5px));
 }
 .media-slot span {
   font-family: 'Electrolize', sans-serif; font-size: 11px; letter-spacing: 0.08em;
-  color: #fff; background: #c8102e; padding: 4px 10px;
+  color: #fff; background: var(--brand-blue-deep); padding: 4px 10px;
 }
 
 /* ===== Panel deslizable (cabe en una pantalla) ===== */
@@ -548,10 +545,10 @@
 }
 .ct-grid { width: 100%; display: grid; gap: 2rem; align-items: center; }
 .ct-title {
-  margin: 0.9rem 0 1rem; max-width: 34rem; color: var(--brand-dark);
+  margin: 0.9rem 0 1rem; max-width: 34rem; 
   font-size: clamp(1.75rem, 3.4vw, 3rem); line-height: 1.05; letter-spacing: -0.02em;
 }
-.ct-lead { max-width: 30rem; font-size: 0.95rem; color: var(--brand-text); }
+.ct-lead { max-width: 30rem; font-size: 0.95rem;  }
 
 .ct-panel { padding: 1.5rem; }
 .ct-h3 { font-size: 1.35rem; color: var(--brand-dark); margin-bottom: 0.35rem; }
