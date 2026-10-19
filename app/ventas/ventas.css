@@ -249,3 +249,48 @@
 @media print {
   header, footer, .mh-section, .vt-summary, .vt-pay-actions { display: none !important; }
 }
+
+
+
+.vt-confirmation-header {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: 1.5rem 0 2rem;
+  text-align: center;
+}
+
+.vt-confirmation-header .qa-title {
+  max-width: 36rem;
+}
+
+.vt-confirmation-header .qa-text {
+  max-width: 44rem;
+}
+
+.vt-confirmation-icon {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 1.5rem;
+}
+
+.vt-confirmation-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  margin-bottom: 1.5rem;
+  border-top: 1px solid var(--border-color, #d4d4d4);
+  border-bottom: 1px solid var(--border-color, #d4d4d4);
+}
+
+@media (max-width: 640px) {
+  .vt-confirmation-details {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

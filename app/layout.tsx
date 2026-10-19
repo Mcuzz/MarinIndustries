@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./ventas/ventas.css";
 
 export const metadata: Metadata = {
   title: "Marin Industries | Soluciones digitales para negocios locales",
