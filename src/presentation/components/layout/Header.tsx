@@ -15,33 +15,8 @@ const navItems = [
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
 
-    if (savedTheme === "dark") {
-      document.documentElement.classList.add("dark");
-      setDarkMode(true);
-    } else {
-      document.documentElement.classList.remove("dark");
-      setDarkMode(false);
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const nextTheme = !darkMode;
-
-    setDarkMode(nextTheme);
-
-    if (nextTheme) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  };
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
@@ -85,14 +60,7 @@ export function Header() {
             })}
           </nav>
 
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label={darkMode ? "Activar modo claro" : "Activar modo oscuro"}
-            className="flex h-9 w-9 items-center justify-center border border-brandLine text-brandDark transition hover:border-brandAccent hover:text-brandAccent"
-          >
-            {darkMode ? "☀" : "☾"}
-          </button>
+        
 
           <button
             type="button"
