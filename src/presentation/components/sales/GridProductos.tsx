@@ -1,22 +1,21 @@
-
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import {
-  TarjetaProducto,
-  type Producto,
-} from "./TarjetaProducto";
+import { TarjetaProducto, type Producto } from "./TarjetaProducto";
 import { CarritoItem } from "./CarritoItem";
 
 const CARRITO_STORAGE_KEY = "marin.store.cart";
 const TASA_IVA = 0.16;
 
+
 import { container } from "@/src/infrastructure/composition/root-container";
 import { productosEstaticos } from "@/src/infrastructure/products/static-product.repository";
 
-const moneda = (precio: number) =>
+import { useRouter } from "next/navigation";
+import { saveStoreCheckout } from "@/src/infrastructure/sales/store-checkout.storage";
 
+const moneda = (precio: number) =>
   new Intl.NumberFormat("es-MX", {
     style: "currency",
     currency: "MXN",
@@ -26,11 +25,13 @@ type GridProductosProps = {
   productosInicialesProp?: Producto[];
 };
 
-export function GridProductos({ productosInicialesProp }: GridProductosProps = {}) {
+export function GridProductos({
+  productosInicialesProp,
+}: GridProductosProps = {}) {
   const [productos, setProductos] = useState<Producto[]>(
     productosInicialesProp && productosInicialesProp.length > 0
       ? productosInicialesProp
-      : productosEstaticos
+      : productosEstaticos,
   );
 
   const [cargando, setCargando] = useState(false);
@@ -38,11 +39,12 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
   const [categoria, setCategoria] = useState("Todas");
   const [soloOfertas, setSoloOfertas] = useState(false);
   const [productoExpandido, setProductoExpandido] = useState<string | null>(
-    null
+    null,
   );
   const [carrito, setCarrito] = useState<Record<string, number>>({});
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [carritoCargado, setCarritoCargado] = useState(false);
+  const router = useRouter();
 
   // Cargar productos desde la base de datos (Supabase o respaldo estático)
   useEffect(() => {
@@ -56,7 +58,10 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
         }
       })
       .catch((err) => {
-        console.warn("No se pudieron cargar productos de la base de datos:", err);
+        console.warn(
+          "No se pudieron cargar productos de la base de datos:",
+          err,
+        );
       })
       .finally(() => {
         if (activo) setCargando(false);
@@ -78,9 +83,9 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
               ([id, cantidad]) =>
                 productos.some((producto) => producto.id === id) &&
                 Number.isInteger(cantidad) &&
-                cantidad > 0
-            )
-          )
+                cantidad > 0,
+            ),
+          ),
         );
       }
     } catch {
@@ -94,8 +99,7 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
 
     try {
       window.localStorage.setItem(CARRITO_STORAGE_KEY, JSON.stringify(carrito));
-    } catch {
-    }
+    } catch {}
   }, [carrito, carritoCargado]);
 
   useEffect(() => {
@@ -115,7 +119,7 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
       "Todas",
       ...new Set(productos.map((producto) => producto.categoria)),
     ],
-    [productos]
+    [productos],
   );
 
   const productosFiltrados = useMemo(() => {
@@ -137,7 +141,7 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
 
   const totalArticulos = Object.values(carrito).reduce(
     (total, cantidad) => total + cantidad,
-    0
+    0,
   );
   const articulosCarrito = productos.flatMap((producto) => {
     const cantidad = carrito[producto.id] ?? 0;
@@ -145,7 +149,7 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
   });
   const subtotal = articulosCarrito.reduce(
     (total, articulo) => total + articulo.producto.precio * articulo.cantidad,
-    0
+    0,
   );
   const iva = subtotal * TASA_IVA;
   const total = subtotal + iva;
@@ -178,9 +182,8 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
   };
 
   const productoSeleccionado = productos.find(
-    (producto) => producto.id === productoExpandido
+    (producto) => producto.id === productoExpandido,
   );
-
 
   return (
     <section className="tienda-section">
@@ -200,7 +203,8 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
             onClick={() => setCarritoAbierto(true)}
             aria-label={`Ver carrito, ${totalArticulos} artículos`}
           >
-            Carrito <span className="tienda-carrito-cantidad">{totalArticulos}</span>
+            Carrito{" "}
+            <span className="tienda-carrito-cantidad">{totalArticulos}</span>
           </button>
         </header>
 
@@ -328,7 +332,10 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
 
             {articulosCarrito.length > 0 ? (
               <div className="carrito-cuerpo">
-                <div className="carrito-articulos" aria-label="Artículos del carrito">
+                <div
+                  className="carrito-articulos"
+                  aria-label="Artículos del carrito"
+                >
                   {articulosCarrito.map(({ producto, cantidad }) => (
                     <CarritoItem
                       key={producto.id}
@@ -342,12 +349,24 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
                   ))}
                 </div>
 
-                <aside className="carrito-resumen" aria-label="Resumen de precios">
+                <aside
+                  className="carrito-resumen"
+                  aria-label="Resumen de precios"
+                >
                   <h3>Resumen</h3>
                   <dl>
-                    <div><dt>Subtotal</dt><dd>{moneda(subtotal)}</dd></div>
-                    <div><dt>IVA (16%)</dt><dd>{moneda(iva)}</dd></div>
-                    <div className="carrito-total"><dt>Total</dt><dd>{moneda(total)}</dd></div>
+                    <div>
+                      <dt>Subtotal</dt>
+                      <dd>{moneda(subtotal)}</dd>
+                    </div>
+                    <div>
+                      <dt>IVA (16%)</dt>
+                      <dd>{moneda(iva)}</dd>
+                    </div>
+                    <div className="carrito-total">
+                      <dt>Total</dt>
+                      <dd>{moneda(total)}</dd>
+                    </div>
                   </dl>
                   <button
                     type="button"
@@ -355,6 +374,33 @@ export function GridProductos({ productosInicialesProp }: GridProductosProps = {
                     onClick={() => setCarrito({})}
                   >
                     Vaciar carrito
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary carrito-continuar"
+                    disabled={articulosCarrito.length === 0}
+                    onClick={() => {
+                      if (articulosCarrito.length === 0) return;
+
+                      saveStoreCheckout({
+                        items: articulosCarrito.map(
+                          ({ producto, cantidad }) => ({
+                            id: producto.id,
+                            nombre: producto.nombre,
+                            precio: producto.precio,
+                            cantidad,
+                          }),
+                        ),
+                        subtotal,
+                        iva,
+                        total,
+                      });
+
+                      setCarritoAbierto(false);
+                      router.push("/tienda/pago");
+                    }}
+                  >
+                    Completar compra
                   </button>
                   <button
                     type="button"
