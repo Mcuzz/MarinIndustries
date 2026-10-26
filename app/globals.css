@@ -1384,3 +1384,546 @@
   }
 }
 /*FIN DE ESTILOS DE PAGE DE VENTAS*/
+
+
+/* =========================================================
+   MARIN INDUSTRIES — PRODUCTO EDITORIAL Y COMPARTIR
+   ========================================================= */
+
+/* Plantilla para la imagen del producto */
+
+.editorial-producto {
+  --editorial-accent: #ffb000;
+  --editorial-ink: #172b40;
+  --editorial-muted: #69737d;
+  --editorial-line: #c8cbc9;
+  --editorial-paper: #f0f0ec;
+  --editorial-image-bg: #e6e7e1;
+
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 5% 6%;
+  color: var(--editorial-ink);
+  background:
+    linear-gradient(
+      90deg,
+      transparent 49.9%,
+      rgb(23 43 64 / 4%) 50%,
+      transparent 50.1%
+    ),
+    var(--editorial-paper);
+  font-family: "IBM Plex Sans", Arial, sans-serif;
+  container-type: inline-size;
+}
+
+.editorial-producto *,
+.editorial-producto *::before,
+.editorial-producto *::after {
+  box-sizing: border-box;
+}
+
+.editorial-producto__header,
+.editorial-producto__marca,
+.editorial-producto__base {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.editorial-producto__header {
+  flex: 0 0 auto;
+  min-width: 0;
+  padding-bottom: 3%;
+  border-bottom: 1px solid var(--editorial-line);
+}
+
+.editorial-producto__marca {
+  justify-content: flex-start;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.editorial-producto__marca-punto {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  background: var(--editorial-accent);
+}
+
+.editorial-producto__serie,
+.editorial-producto__etiqueta,
+.editorial-producto__moneda,
+.editorial-producto__base,
+.editorial-producto__indice {
+  font-family: "Electrolize", "IBM Plex Sans", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.07em;
+}
+
+.editorial-producto__serie {
+  color: var(--editorial-muted);
+  text-align: right;
+}
+
+.editorial-producto__titulo {
+  flex: 0 0 auto;
+  min-width: 0;
+  padding: 3.5% 0 2.5%;
+}
+
+.editorial-producto__etiqueta {
+  display: block;
+  color: var(--editorial-muted);
+  line-height: 1.4;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.editorial-producto__titulo h2 {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0.35em 0 0;
+  color: var(--editorial-ink);
+  font-size: clamp(22px, 5.4cqw, 30px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.editorial-producto__regla {
+  width: 100%;
+  height: 2px;
+  margin-top: 3%;
+  background: #d8dad6;
+}
+
+.editorial-producto__regla span {
+  display: block;
+  width: 16%;
+  height: 100%;
+  background: var(--editorial-accent);
+}
+
+/* La fotografía recibe el espacio flexible principal */
+
+.editorial-producto__imagen {
+  position: relative;
+  display: grid;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  place-items: center;
+  overflow: hidden;
+  background: var(--editorial-image-bg);
+}
+
+.editorial-producto__imagen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: contain;
+  object-position: center;
+}
+
+.editorial-producto__sin-imagen {
+  padding: 1rem;
+  color: var(--editorial-muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.editorial-producto__indice {
+  position: absolute;
+  right: 3%;
+  bottom: 3%;
+  max-width: 80%;
+  padding: 0.5em 0.7em;
+  color: var(--editorial-ink);
+  background: var(--editorial-paper);
+}
+
+/* Descripción y precio */
+
+.editorial-producto__footer {
+  display: grid;
+  flex: 0 0 auto;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  align-items: start;
+  gap: 4%;
+  padding: 3.5% 0 3%;
+}
+
+.editorial-producto__descripcion {
+  min-width: 0;
+}
+
+.editorial-producto__descripcion p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0.4em 0 0;
+  color: #374656;
+  font-size: 11px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.editorial-producto__precio {
+  display: flex;
+  min-width: 0;
+  max-width: 100%;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+  text-align: right;
+}
+
+.editorial-producto__precio strong {
+  color: var(--editorial-ink);
+  font-family: "Electrolize", "IBM Plex Sans", sans-serif;
+  font-size: clamp(17px, 4.4cqw, 24px);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.editorial-producto__moneda {
+  max-width: 130px;
+  color: var(--editorial-muted);
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+/* Pie editorial */
+
+.editorial-producto__base {
+  flex: 0 0 auto;
+  min-width: 0;
+  margin-top: auto;
+  padding-top: 2.5%;
+  border-top: 1px solid var(--editorial-line);
+  color: var(--editorial-muted);
+  font-size: 8px;
+  letter-spacing: 0.045em;
+}
+
+.editorial-producto__base span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   MODAL DE VISTA PREVIA Y COMPARTIR
+   ========================================================= */
+
+.compartir-producto-modal {
+  position: relative;
+  display: grid;
+  width: min(100%, 760px);
+  height: min(92vh, 900px);
+  height: min(92dvh, 900px);
+  max-height: 92vh;
+  max-height: 92dvh;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  border: 1px solid var(--brand-line, #d2d7db);
+  background: var(--brand-surface, #fff);
+  color: var(--brand-text, #172b40);
+}
+
+.compartir-producto-modal__header,
+.compartir-producto-modal__acciones {
+  min-width: 0;
+  padding: 1.25rem;
+}
+
+.compartir-producto-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--brand-line, #d2d7db);
+}
+
+.compartir-producto-modal__header > div {
+  min-width: 0;
+}
+
+.compartir-producto-modal__header h2 {
+  margin-top: 0.35rem;
+  color: var(--brand-dark, #172b40);
+  font-size: 1.4rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.compartir-producto-modal__header p {
+  margin-top: 0.4rem;
+  overflow-wrap: anywhere;
+}
+
+.compartir-producto-modal__cerrar {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  place-items: center;
+  border: 1px solid var(--brand-line, #d2d7db);
+  background: transparent;
+  color: var(--brand-dark, #172b40);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.compartir-producto-modal__preview {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 1.25rem;
+  background: var(--brand-surface-alt, #f0f1f1);
+}
+
+.compartir-producto-modal__lienzo {
+  width: min(100%, 432px);
+  margin: 0 auto;
+  box-shadow: 0 12px 35px rgb(0 0 0 / 12%);
+}
+
+.compartir-producto-modal__lienzo > div,
+.compartir-producto-modal__lienzo .editorial-producto {
+  width: 100%;
+}
+
+.compartir-producto-modal__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  border-top: 1px solid var(--brand-line, #d2d7db);
+  background: var(--brand-surface, #fff);
+}
+
+.compartir-producto-modal__acciones .btn {
+  flex: 1 1 145px;
+  min-width: 0;
+}
+
+.compartir-producto-modal__estado {
+  width: 100%;
+  margin: 0;
+  color: var(--brand-muted, #69737d);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* Plantilla independiente para exportación PNG.
+   No debe ocultarse la plantilla de la vista previa. */
+
+.editorial-producto-exportacion {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: -10000px;
+  width: 540px;
+  height: 675px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.editorial-producto-exportacion .editorial-producto {
+  width: 540px;
+  height: 675px;
+  min-width: 540px;
+  min-height: 675px;
+  max-width: none;
+  aspect-ratio: auto;
+}
+
+/* =========================================================
+   PÁGINA PÚBLICA DE PRODUCTO COMPARTIDO
+   ========================================================= */
+
+.producto-publico {
+  padding: clamp(2rem, 5vw, 5rem) 1.25rem;
+}
+
+.producto-publico__contenedor {
+  width: min(100%, 1100px);
+  margin-inline: auto;
+}
+
+.producto-publico__volver {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--brand-text, #172b40);
+  text-decoration: none;
+}
+
+.producto-publico__volver:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.producto-publico__tarjeta {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  overflow: hidden;
+  border: 1px solid var(--brand-line, #d2d7db);
+  background: var(--brand-surface, #fff);
+}
+
+.producto-publico__imagen {
+  display: grid;
+  min-width: 0;
+  min-height: 360px;
+  place-items: center;
+  padding: clamp(1rem, 3vw, 3rem);
+  background: var(--brand-surface-alt, #f0f1f1);
+}
+
+.producto-publico__imagen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.producto-publico__contenido {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 4rem);
+}
+
+.producto-publico__categoria {
+  margin-top: 1.5rem;
+  color: var(--brand-muted, #69737d);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.producto-publico__contenido h1 {
+  margin-top: 0.75rem;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.producto-publico__precio {
+  margin-top: 1.25rem;
+  color: var(--brand-text, #172b40);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.producto-publico__descripcion {
+  margin: 1.25rem 0 2rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.producto-publico__nota {
+  margin-top: 2rem;
+  color: var(--brand-muted, #69737d);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .compartir-producto-modal {
+    width: 100%;
+    height: 94vh;
+    height: 94dvh;
+    max-height: 94vh;
+    max-height: 94dvh;
+  }
+
+  .compartir-producto-modal__header,
+  .compartir-producto-modal__acciones {
+    padding: 0.85rem;
+  }
+
+  .compartir-producto-modal__preview {
+    padding: 0.75rem;
+  }
+
+  .compartir-producto-modal__lienzo {
+    width: min(100%, 400px);
+  }
+
+  .compartir-producto-modal__acciones {
+    gap: 0.5rem;
+  }
+
+  .compartir-producto-modal__acciones .btn {
+    flex: 1 1 120px;
+  }
+
+  .editorial-producto__serie {
+    max-width: 45%;
+    font-size: 8px;
+  }
+
+  .editorial-producto__base {
+    gap: 0.5rem;
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 720px) {
+  .producto-publico__tarjeta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .producto-publico__imagen {
+    min-height: 260px;
+    max-height: 420px;
+  }
+
+  .producto-publico__imagen img {
+    max-height: 360px;
+  }
+
+  .producto-publico__contenido {
+    padding: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .compartir-producto-modal *,
+  .producto-publico * {
+    scroll-behavior: auto;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
