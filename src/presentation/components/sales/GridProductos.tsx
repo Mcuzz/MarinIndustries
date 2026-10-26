@@ -5,8 +5,11 @@ import Link from "next/link";
 import { TarjetaProducto, type Producto } from "./TarjetaProducto";
 import { CarritoItem } from "./CarritoItem";
 
+import { CompartirProductoModal } from "./CompartirProductoModal";
+
 const CARRITO_STORAGE_KEY = "marin.store.cart";
 const TASA_IVA = 0.16;
+
 
 
 import { container } from "@/src/infrastructure/composition/root-container";
@@ -45,6 +48,9 @@ export function GridProductos({
   const [carritoAbierto, setCarritoAbierto] = useState(false);
   const [carritoCargado, setCarritoCargado] = useState(false);
   const router = useRouter();
+
+  const [productoParaCompartir, setProductoParaCompartir] =
+  useState<Producto | null>(null);
 
   // Cargar productos desde la base de datos (Supabase o respaldo estático)
   useEffect(() => {
@@ -252,6 +258,7 @@ export function GridProductos({
                 onExpandir={() => setProductoExpandido(producto.id)}
                 onAgregarCarrito={agregarAlCarrito}
                 onVerCarrito={() => setCarritoAbierto(true)}
+                onCompartir={setProductoParaCompartir}
               />
             ))}
           </div>
@@ -297,9 +304,17 @@ export function GridProductos({
                 setProductoExpandido(null);
                 setCarritoAbierto(true);
               }}
+              onCompartir={setProductoParaCompartir}
             />
           </section>
         </div>
+      )}
+
+      {productoParaCompartir && (
+        <CompartirProductoModal
+          producto={productoParaCompartir}
+          onCerrar={() => setProductoParaCompartir(null)}
+        />
       )}
 
       {carritoAbierto && (

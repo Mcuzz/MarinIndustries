@@ -1,9 +1,7 @@
-
 "use client";
 
 import type { Producto } from "@/src/domain/products/product.entity";
 export type { Producto };
-
 
 type TarjetaProductoProps = {
   producto: Producto;
@@ -12,6 +10,7 @@ type TarjetaProductoProps = {
   onAgregarCarrito: (producto: Producto) => void;
   onCerrar?: () => void;
   onVerCarrito?: () => void;
+  onCompartir: (producto: Producto) => void;
 };
 
 const moneda = (precio: number) =>
@@ -27,6 +26,7 @@ export function TarjetaProducto({
   onAgregarCarrito,
   onCerrar,
   onVerCarrito,
+  onCompartir,
 }: TarjetaProductoProps) {
   return (
     <article
@@ -40,9 +40,7 @@ export function TarjetaProducto({
         tabIndex={expandida ? -1 : 0}
       >
         <img src={producto.imagen} alt={producto.nombre} />
-        {producto.oferta && (
-          <span className="producto-oferta">OFERTA</span>
-        )}
+        {producto.oferta && <span className="producto-oferta">OFERTA</span>}
       </button>
 
       <div className="producto-contenido">
@@ -89,6 +87,14 @@ export function TarjetaProducto({
                 onClick={onCerrar}
               >
                 Regresar
+              </button>
+              <button
+                type="button"
+                className="btn btn-ghost"
+                onClick={() => onCompartir(producto)}
+                aria-label={`Compartir ${producto.nombre}`}
+              >
+                Compartir
               </button>
             </>
           )}
