@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -70,60 +69,114 @@ export function CompartirProductoModal({
 
     await document.fonts.ready;
 
-    const imagenes = Array.from(plantilla.querySelectorAll("img"));
-
-    await Promise.all(
-      imagenes.map(async (imagen) => {
-        if (!imagen.complete || imagen.naturalWidth === 0) {
-          await new Promise<void>((resolve, reject) => {
-            imagen.addEventListener("load", () => resolve(), {
-              once: true,
-            });
-
-            imagen.addEventListener(
-              "error",
-              () =>
-                reject(
-                  new Error("No se pudo cargar la imagen del producto."),
-                ),
-              { once: true },
-            );
-          });
-        }
-
-        if (imagen.decode) {
-          await imagen.decode();
-        }
-      }),
+    const imagenes = Array.from(
+      plantilla.querySelectorAll<HTMLImageElement>("img"),
     );
 
-    const { toCanvas } = await import("html-to-image");
+    // Guardamos las URL originales para restaurarlas al terminar.
+    const fuentesOriginales = imagenes.map((imagen) =>
+      imagen.getAttribute("src"),
+    );
 
-    const dimensiones = plantilla.getBoundingClientRect();
-    const ancho = dimensiones.width;
-    const alto = dimensiones.height;
+    try {
+      // Convertimos las imágenes remotas a datos locales para la captura.
+      const fuentesData = await Promise.all(
+        imagenes.map(async (imagen): Promise<string> => {
+          const url = imagen.currentSrc || imagen.src;
 
-    if (!ancho || !alto) {
-      throw new Error("La plantilla no tiene dimensiones visibles.");
+          if (!url) {
+            throw new Error("La imagen del producto no tiene una URL.");
+          }
+
+          if (url.startsWith("data:")) {
+            return url;
+          }
+
+          const respuesta = await fetch(url, {
+            mode: "cors",
+            cache: "no-store",
+          });
+
+          if (!respuesta.ok) {
+            throw new Error(
+              `No se pudo descargar una imagen del producto (${respuesta.status}).`,
+            );
+          }
+
+          const archivo = await respuesta.blob();
+
+          return await new Promise<string>((resolve, reject) => {
+            const lector = new FileReader();
+
+            lector.onload = () => {
+              if (typeof lector.result === "string") {
+                resolve(lector.result);
+              } else {
+                reject(new Error("No se pudo preparar la imagen para el PNG."));
+              }
+            };
+
+            lector.onerror = () => {
+              reject(new Error("No se pudo leer la imagen del producto."));
+            };
+
+            lector.readAsDataURL(archivo);
+          });
+        }),
+      );
+
+      // La captura utilizará las imágenes convertidas, no las URL remotas.
+      imagenes.forEach((imagen, indice) => {
+        imagen.src = fuentesData[indice];
+      });
+
+      await Promise.all(
+        imagenes.map(async (imagen) => {
+          if (imagen.decode) {
+            await imagen.decode();
+          }
+        }),
+      );
+
+      const { toCanvas } = await import("html-to-image");
+
+      const dimensiones = plantilla.getBoundingClientRect();
+      const ancho = dimensiones.width;
+      const alto = dimensiones.height;
+
+      if (!ancho || !alto) {
+        throw new Error("La plantilla no tiene dimensiones visibles.");
+      }
+
+      const canvas = await toCanvas(plantilla, {
+        width: ancho,
+        height: alto,
+        pixelRatio: 2,
+        backgroundColor: "#f0f0ec",
+        cacheBust: true,
+      });
+
+      const blob = await new Promise<Blob | null>((resolve) => {
+        canvas.toBlob(resolve, "image/png");
+      });
+
+      if (!blob) {
+        throw new Error("No se pudo convertir la vista previa a PNG.");
+      }
+
+      return blob;
+    } finally {
+      // Restauramos las URL originales, incluso si la captura falla.
+      imagenes.forEach((imagen, indice) => {
+        const fuenteOriginal = fuentesOriginales[indice];
+
+        if (fuenteOriginal === null) {
+          imagen.removeAttribute("src");
+        } else {
+          imagen.setAttribute("src", fuenteOriginal);
+        }
+      });
     }
-
-    const canvas = await toCanvas(plantilla, {
-      width: ancho,
-      height: alto,
-      pixelRatio: 2,
-      backgroundColor: "#f0f0ec",
-      cacheBust: true,
-    });
-
-    const blob = await new Promise<Blob | null>((resolve) => {
-      canvas.toBlob(resolve, "image/png");
-    });
-
-    if (!blob) {
-      throw new Error("No se pudo convertir la vista previa a PNG.");
-    }
-
-    return blob;
   };
 
   const descargarBlob = (blob: Blob) => {
@@ -195,16 +248,11 @@ export function CompartirProductoModal({
 
     try {
       const blob = await generarImagen();
-      const archivo = new File(
-        [blob],
-        `marin-${producto.id}-producto.png`,
-        { type: "image/png" },
-      );
+      const archivo = new File([blob], `marin-${producto.id}-producto.png`, {
+        type: "image/png",
+      });
 
-      if (
-        navigator.share &&
-        navigator.canShare?.({ files: [archivo] })
-      ) {
+      if (navigator.share && navigator.canShare?.({ files: [archivo] })) {
         await navigator.share({
           title: producto.nombre,
           text: `${texto}\n\n${enlace}`,
@@ -241,9 +289,7 @@ export function CompartirProductoModal({
     }
   };
 
-  const abrirRedSocial = (
-    red: "facebook" | "x" | "whatsapp",
-  ) => {
+  const abrirRedSocial = (red: "facebook" | "x" | "whatsapp") => {
     if (!enlace) {
       setEstado("El enlace del producto todavía no está disponible.");
       return;
@@ -279,13 +325,9 @@ export function CompartirProductoModal({
       >
         <header className="compartir-producto-modal__header">
           <div>
-            <span className="eyebrow">
-              MARIN INDUSTRIES / SOCIAL ASSETS
-            </span>
+            <span className="eyebrow">MARIN INDUSTRIES / SOCIAL ASSETS</span>
 
-            <h2 id="compartir-producto-titulo">
-              Compartir producto
-            </h2>
+            <h2 id="compartir-producto-titulo">Compartir producto</h2>
 
             <p>{producto.nombre}</p>
           </div>
