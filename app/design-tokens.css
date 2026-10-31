@@ -1,0 +1,161 @@
+/* Marin Industries design system: institutional palette and shared scales. */
+:root {
+  color-scheme: light;
+
+  /* Light theme: derived from the existing paper, navy and industrial amber palette. */
+  --color-background: #f7f7f5;
+  --color-foreground: #252d36;
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f0f1ef;
+  --color-surface-elevated: #ffffff;
+  --color-text-primary: #252d36;
+  --color-text-secondary: #41464d;
+  --color-text-secondary-rgb: 65 70 77;
+  --color-text-muted: #626a73;
+  --color-border: #d4d7d4;
+  --color-border-strong: #aeb4b5;
+  --color-accent: #ffb000;
+  --color-accent-rgb: 255 176 0;
+  --color-accent-hover: #e5a000;
+  --color-accent-soft: #fff3d6;
+  --color-accent-foreground: #252d36;
+  --color-interactive: #142b45;
+  --color-interactive-rgb: 20 43 69;
+  --color-interactive-hover: #203e5d;
+  --color-success: #166534;
+  --color-warning: #92400e;
+  --color-danger: #b4233c;
+  --color-info: #1d4ed8;
+  --color-purple: #7e22ce;
+  --color-focus: #142b45;
+  --color-contrast-text: #f7f7f5;
+  --color-shadow: 20 43 69;
+  --color-overlay: 0 0 0;
+  --color-payment-card: #14151a;
+  --color-payment-card-highlight: #2a2d33;
+  --color-payment-chip: #ffcf66;
+  --color-preview-background: #0a0b0d;
+  --color-preview-surface: #0d0f12;
+  --color-preview-border: #2a2d33;
+  --color-preview-detail: #3b3f45;
+
+  /* Compatibility aliases used by the existing Tailwind utilities and CSS. */
+  --brand-bg: var(--color-background);
+  --brand-surface: var(--color-surface);
+  --brand-surface-alt: var(--color-surface-secondary);
+  --brand-line: var(--color-border);
+  --brand-light: var(--color-surface-secondary);
+  --brand-blue: #e7ecf1;
+  --brand-blue-deep: #142b45;
+  --brand-dark: var(--color-text-primary);
+  --brand-text: var(--color-text-secondary);
+  --brand-muted: var(--color-text-muted);
+  --brand-accent: var(--color-accent);
+  --brand-accent-hover: var(--color-accent-hover);
+  --brand-accent-soft: var(--color-accent-soft);
+  --accent-text: var(--color-accent-foreground);
+  --on-accent: var(--color-accent-foreground);
+  --card-shadow: 0 4px 16px rgb(var(--color-shadow) / 8%);
+
+  /* Type scale. Archivo carries display; Plex Sans and Mono carry functional detail. */
+  --font-display: "Archivo", "IBM Plex Sans", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-technical: "Electrolize", "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --type-display: clamp(3rem, 8vw, 6.5rem);
+  --type-h1: clamp(2.5rem, 5.5vw, 4.5rem);
+  --type-h2: clamp(1.875rem, 3.5vw, 3rem);
+  --type-h3: clamp(1.25rem, 2vw, 1.625rem);
+  --type-subtitle: clamp(1.0625rem, 1.5vw, 1.25rem);
+  --type-body: 1rem;
+  --type-body-small: 0.875rem;
+  --type-label: 0.75rem;
+  --type-meta: 0.6875rem;
+  --type-nav: 0.875rem;
+  --type-button: 0.875rem;
+  --leading-display: 0.98;
+  --leading-heading: 1.08;
+  --leading-body: 1.65;
+
+  /* Shared geometry and spacing. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --content-width: 80rem;
+  --section-gutter: clamp(1rem, 4vw, 2rem);
+  --border-width: 1px;
+  --radius-control: 0;
+}
+
+:root.dark {
+  color-scheme: dark;
+
+  --color-background: #101316;
+  --color-foreground: #edf0f2;
+  --color-surface: #181d22;
+  --color-surface-secondary: #20272e;
+  --color-surface-elevated: #252d35;
+  --color-text-primary: #edf0f2;
+  --color-text-secondary: #c4cbd1;
+  --color-text-secondary-rgb: 196 203 209;
+  --color-text-muted: #a0aab3;
+  --color-border: #39434d;
+  --color-border-strong: #596571;
+  --color-accent: #ffc247;
+  --color-accent-rgb: 255 194 71;
+  --color-accent-hover: #ffd16f;
+  --color-accent-soft: #3b301b;
+  --color-accent-foreground: #171a1d;
+  --color-interactive: #ffc247;
+  --color-interactive-rgb: 255 194 71;
+  --color-interactive-hover: #ffd16f;
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-danger: #fb7185;
+  --color-info: #93c5fd;
+  --color-purple: #d8b4fe;
+  --color-focus: #ffc247;
+  --color-contrast-text: #edf0f2;
+  --color-shadow: 0 0 0;
+  --color-overlay: 0 0 0;
+  --color-payment-card: #0b0e11;
+  --color-payment-card-highlight: #252d35;
+  --color-payment-chip: #ffd16f;
+  --color-preview-background: #080a0c;
+  --color-preview-surface: #101419;
+  --color-preview-border: #343d47;
+  --color-preview-detail: #48525c;
+
+  --brand-blue: #263849;
+  --brand-blue-deep: #111d29;
+}
+
+/* Keep the content width, gutter and typography easy to tune in one place. */
+.section-shell {
+  max-width: var(--content-width);
+  padding-right: var(--section-gutter);
+  padding-left: var(--section-gutter);
+}
+
+.type-display { font-family: var(--font-display); font-size: var(--type-display); font-weight: 800; line-height: var(--leading-display); letter-spacing: -0.055em; }
+.type-h1 { font-family: var(--font-display); font-size: var(--type-h1); font-weight: 800; line-height: var(--leading-heading); letter-spacing: -0.045em; }
+.type-h2 { font-family: var(--font-display); font-size: var(--type-h2); font-weight: 700; line-height: var(--leading-heading); letter-spacing: -0.035em; }
+.type-h3 { font-family: var(--font-display); font-size: var(--type-h3); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; }
+.type-subtitle { font-size: var(--type-subtitle); line-height: 1.5; }
+.type-body { font-size: var(--type-body); line-height: var(--leading-body); }
+.type-secondary { color: var(--color-text-secondary); }
+.type-meta { font-size: var(--type-meta); letter-spacing: 0.07em; }
+
+/* Reusable section tones. Existing pages may combine these with layout classes. */
+[data-tone="base"] { color: var(--color-text-primary); background-color: var(--color-background); }
+[data-tone="alt"] { color: var(--color-text-primary); background-color: var(--color-surface-secondary); }
+[data-tone="contrast"] { color: var(--color-contrast-text); background-color: var(--brand-blue-deep); }
+[data-tone="featured"] { color: var(--color-text-primary); background-color: var(--color-accent-soft); }
+[data-tone="editorial"] { color: var(--color-text-primary); background-color: var(--color-surface); }
+[data-tone="dark"] { color: var(--color-text-primary); background-color: var(--color-surface); }
+

@@ -1,6 +1,5 @@
 "use client";
 
-import type { CSSProperties } from "react";
 import type { Producto } from "./TarjetaProducto";
 
 type PlantillaProductoEditorialProps = {
@@ -17,12 +16,8 @@ const moneda = (precio: number) =>
 export function PlantillaProductoEditorial({
   producto,
 }: PlantillaProductoEditorialProps) {
-  const estilo = {
-    "--editorial-accent": "#ffb000",
-  } as CSSProperties;
-
   return (
-    <article className="editorial-producto" style={estilo}>
+    <article className="editorial-producto">
       <header className="editorial-producto__header">
         <div className="editorial-producto__marca">
           <span className="editorial-producto__marca-punto" />

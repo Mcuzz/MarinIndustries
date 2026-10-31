@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
   { label: "Convocatorias", href: "/convocatorias" },
-  { label: "Servicios", href: "/catalogo" },
+  { label: "Servicios", href: "/servicios" },
   { label: "Cotización", href: "/cotizacion" },
   { label: "Recursos humanos", href: "/rh" },
   { label: "Productos", href: "/tienda" },
@@ -15,8 +16,6 @@ const navItems = [
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-
-
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
@@ -38,7 +37,7 @@ export function Header() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 lg:gap-6">
           <nav className="hidden items-center gap-8 text-sm font-medium lg:flex">
             {navItems.map((item) => {
               const esTienda = item.label === "Productos";
@@ -60,7 +59,7 @@ export function Header() {
             })}
           </nav>
 
-        
+          <ThemeToggle />
 
           <button
             type="button"
