@@ -41,9 +41,9 @@ const landingContent: LandingContent = {
       href: "/convocatorias"
     },
     {
-      title: "Catalogo y costos",
-      copy: "Servicios y productos con precios estaticos o rangos iniciales mientras se define administracion.",
-      href: "/catalogo"
+      title: "Servicios",
+      copy: "Explora nuestras soluciones digitales por suscripción y los servicios de desarrollo personalizado.",
+      href: "/servicios"
     },
     {
       title: "Cotizacion",

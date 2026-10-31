@@ -23,13 +23,33 @@ export function QuotePage() {
           <div className="section-shell qt-grid">
             <form className="qf-card">
               <div className="qf-group">
-                <span className="qf-group-label">01 / Datos del solicitante</span>
+                <span className="qf-group-label">
+                  01 / Datos del solicitante
+                </span>
 
                 <div className="qf-row">
-                  <Field id="nombre" label="Nombre o razón social" placeholder="Nombre del solicitante" />
-                  <Field id="rfc" label="RFC" placeholder="RFC para filtro fiscal" />
-                  <Field id="correo" label="Correo" placeholder="correo@empresa.com" type="email" />
-                  <Field id="telefono" label="Teléfono" placeholder="662 123 4567" type="tel" />
+                  <Field
+                    id="nombre"
+                    label="Nombre o razón social"
+                    placeholder="Nombre del solicitante"
+                  />
+                  <Field
+                    id="rfc"
+                    label="RFC"
+                    placeholder="RFC para filtro fiscal"
+                  />
+                  <Field
+                    id="correo"
+                    label="Correo"
+                    placeholder="correo@empresa.com"
+                    type="email"
+                  />
+                  <Field
+                    id="telefono"
+                    label="Teléfono"
+                    placeholder="662 123 4567"
+                    type="tel"
+                  />
                 </div>
               </div>
 
@@ -38,9 +58,13 @@ export function QuotePage() {
 
                 <div className="qf-stack">
                   <div>
-                    <label htmlFor="tipo" className="qf-label">Tipo de proyecto</label>
+                    <label htmlFor="tipo" className="qf-label">
+                      Tipo de proyecto
+                    </label>
                     <select id="tipo" className="qf-input" defaultValue="">
-                      <option value="" disabled>Selecciona una opción</option>
+                      <option value="" disabled>
+                        Selecciona una opción
+                      </option>
                       <option>Sitio web</option>
                       <option>Sistema administrativo</option>
                       <option>Inventario / punto de venta</option>
@@ -50,7 +74,9 @@ export function QuotePage() {
                   </div>
 
                   <div>
-                    <label htmlFor="alcance" className="qf-label">Descripción del alcance</label>
+                    <label htmlFor="alcance" className="qf-label">
+                      Descripción del alcance
+                    </label>
                     <textarea
                       id="alcance"
                       rows={5}
@@ -78,13 +104,16 @@ export function QuotePage() {
               <ul>
                 {pending.map((item, i) => (
                   <li key={item} className="pn-row">
-                    <span className="pn-row-n">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="pn-row-n">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     <span className="pn-row-t">{item}</span>
                   </li>
                 ))}
               </ul>
 
-              <Link href="/catalogo" className="btn btn-ghost qa-btn">
+              <Link href="/servicios#a-medida" className="btn btn-ghost qa-btn">
+                {" "}
                 Ver catálogo
                 <span aria-hidden="true">→</span>
               </Link>
@@ -109,8 +138,15 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="qf-label">{label}</label>
-      <input id={id} type={type} placeholder={placeholder} className="qf-input" />
+      <label htmlFor={id} className="qf-label">
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        className="qf-input"
+      />
     </div>
   );
 }
