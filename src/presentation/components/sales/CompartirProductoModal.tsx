@@ -141,6 +141,7 @@ export function CompartirProductoModal({
       const { toCanvas } = await import("html-to-image");
 
       const dimensiones = plantilla.getBoundingClientRect();
+      const fondoPlantilla = window.getComputedStyle(plantilla).backgroundColor;
       const ancho = dimensiones.width;
       const alto = dimensiones.height;
 
@@ -152,7 +153,7 @@ export function CompartirProductoModal({
         width: ancho,
         height: alto,
         pixelRatio: 2,
-        backgroundColor: "#f0f0ec",
+        backgroundColor: fondoPlantilla,
         cacheBust: true,
       });
 
