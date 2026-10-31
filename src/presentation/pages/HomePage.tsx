@@ -33,7 +33,7 @@ function CaseStudies({ studies }: { studies: CaseStudy[] }) {
       <div key={study.id} className="media-slot">
         <span>IMAGEN / GIF · {study.tag.toUpperCase()}</span>
       </div>
-    )
+    ),
   );
 
   return (
@@ -47,10 +47,9 @@ function CaseStudies({ studies }: { studies: CaseStudy[] }) {
           </h2>
         </div>
 
-        <CaseAccordion
-          studies={studies}
-          visuals={visuals}
-        />
+        <CaseAccordion studies={studies} visuals={visuals} />
+
+
       </div>
     </section>
   );
@@ -62,54 +61,23 @@ export function HomePage({ content }: HomePageProps) {
       <main>
         <SectionRail />
         <Hero />
+        <div className="suite-home-cta">
+          <div>
+            <span className="eyebrow">MARIN INDUSTRIES / SERVICE SUITE</span>
+            <h3>¿Buscas una solución para tu negocio?</h3>
+            <p>
+              Explora nuestras herramientas digitales y encuentra la solución
+              que mejor se adapte a tus operaciones.
+            </p>
+          </div>
+
+          <Link href="/servicios#suite" className="suite-home-button">
+            ADQUIERE NUESTROS SERVICIOS
+            <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
         <InfoPanel services={content.services} process={content.process} />
         <CaseStudies studies={content.caseStudies} />
-
-        <section data-tone="alt" className="border-b border-brandLine bg-brandBg py-20">
-          {" "}
-          <div className="section-shell">
-            <div className="mb-12 max-w-3xl">
-              <span className="eyebrow">Nuevos modulos</span>
-
-              <h2 className="mt-3 text-3xl font-bold text-brandDark md:text-4xl">
-                Base preparada para crecer mas alla de la landing.
-              </h2>
-
-              <p className="mt-4 text-brandText">
-                Estas areas dejan listo el camino para las solicitudes recibidas
-                sin prometer todavia un sistema completo que requiere reglas y
-                permisos.
-              </p>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {content.modules.map((module) => (
-                <Link
-                  key={module.href}
-                  href={module.href}
-                  className="group card p-6 transition hover:-translate-y-1 hover:border-brandAccent"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <h3 className="text-xl font-bold text-brandDark">
-                      {module.title}
-                    </h3>
-
-                    <span
-                      aria-hidden="true"
-                      className="shrink-0 text-3xl font-light leading-none text-brandText transition-all duration-300 group-hover:translate-x-2 group-hover:text-brandAccent"
-                    >
-                      →
-                    </span>
-                  </div>
-
-                  <p className="mt-3 text-sm leading-relaxed text-brandText">
-                    {module.copy}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
 
         <section id="contacto" data-tone="deep" className="ct-section">
           {" "}
