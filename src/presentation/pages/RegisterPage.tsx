@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ThemeToggle } from "../components/layout/ThemeToggle";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { createSupabaseBrowserClient } from "@/src/infrastructure/supabase/client";
@@ -61,7 +62,7 @@ export function RegisterPage() {
   }
 
   return (
-    <main className="grid min-h-screen bg-[#f4f5f2] lg:grid-cols-[1.05fr_0.95fr]">
+    <main className="grid min-h-screen bg-brandBg lg:grid-cols-[1.05fr_0.95fr]">
       <section className="relative flex min-h-[34vh] flex-col justify-between overflow-hidden bg-brandBlueDeep px-7 py-7 text-white sm:px-12 sm:py-10 lg:min-h-screen lg:px-16 lg:py-12">
         <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full border border-white/10" />
         <div className="absolute -right-10 -top-10 h-52 w-52 rounded-full border border-brandAccent/30" />
@@ -95,20 +96,23 @@ export function RegisterPage() {
 
       <section className="flex items-center justify-center px-6 py-12 sm:px-12">
         <div className="w-full max-w-md">
-          <Link
-            href="/"
-            className="text-sm font-medium text-slate-500 transition hover:text-brandDark"
-          >
-            ← Volver al sitio
-          </Link>
+          <div className="flex items-center justify-between gap-4">
+            <Link
+              href="/"
+              className="text-sm font-medium text-brandMuted transition hover:text-brandDark"
+            >
+              ← Volver al sitio
+            </Link>
+            <ThemeToggle />
+          </div>
           <div className="mt-10">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brandMuted">
               Nueva cuenta
             </p>
             <h2 className="mt-2 text-3xl font-bold text-brandDark">
               Crear cuenta
             </h2>
-            <p className="mt-3 text-sm leading-6 text-slate-600">
+            <p className="mt-3 text-sm leading-6 text-brandText">
               Completa tus datos para registrarte.
             </p>
           </div>
@@ -117,7 +121,7 @@ export function RegisterPage() {
             <div>
               <label
                 htmlFor="full-name"
-                className="mb-2 block text-sm font-semibold text-slate-700"
+                className="mb-2 block text-sm font-semibold text-brandText"
               >
                 Nombre completo
               </label>
@@ -128,13 +132,13 @@ export function RegisterPage() {
                 autoComplete="name"
                 required
                 placeholder="Tu nombre"
-                className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brandBlue focus:ring-2 focus:ring-brandBlue/15"
+                className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
             <div>
               <label
                 htmlFor="email"
-                className="mb-2 block text-sm font-semibold text-slate-700"
+                className="mb-2 block text-sm font-semibold text-brandText"
               >
                 Correo electrónico
               </label>
@@ -145,13 +149,13 @@ export function RegisterPage() {
                 autoComplete="email"
                 required
                 placeholder="nombre@empresa.com"
-                className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brandBlue focus:ring-2 focus:ring-brandBlue/15"
+                className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
             <div>
               <label
                 htmlFor="password"
-                className="mb-2 block text-sm font-semibold text-slate-700"
+                className="mb-2 block text-sm font-semibold text-brandText"
               >
                 Contraseña
               </label>
@@ -163,13 +167,13 @@ export function RegisterPage() {
                 minLength={8}
                 required
                 placeholder="Al menos 8 caracteres"
-                className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brandBlue focus:ring-2 focus:ring-brandBlue/15"
+                className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
             <div>
               <label
                 htmlFor="confirm-password"
-                className="mb-2 block text-sm font-semibold text-slate-700"
+                className="mb-2 block text-sm font-semibold text-brandText"
               >
                 Confirmar contraseña
               </label>
@@ -181,27 +185,27 @@ export function RegisterPage() {
                 minLength={8}
                 required
                 placeholder="Repite tu contraseña"
-                className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brandBlue focus:ring-2 focus:ring-brandBlue/15"
+                className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-brandAccent px-5 py-3.5 text-sm font-bold text-brandDark transition hover:bg-brandAccentHover focus:outline-none focus:ring-2 focus:ring-brandBlue focus:ring-offset-2 disabled:cursor-wait disabled:opacity-60"
+              className="w-full bg-brandAccent px-5 py-3.5 text-sm font-bold text-brandDark transition hover:bg-brandAccentHover focus:outline-none focus:ring-2 focus:ring-interactive focus:ring-offset-2 disabled:cursor-wait disabled:opacity-60"
             >
               {isSubmitting ? "Creando cuenta..." : "Crear cuenta"}
             </button>
             {message ? (
               <p
                 role="status"
-                className="border-l-2 border-brandAccent bg-white px-4 py-3 text-sm text-slate-700"
+                className="border-l-2 border-brandAccent bg-brandSurface px-4 py-3 text-sm text-brandText"
               >
                 {message}
               </p>
             ) : null}
           </form>
 
-          <p className="mt-8 border-t border-slate-200 pt-5 text-sm text-slate-500">
+          <p className="mt-8 border-t border-brandLine pt-5 text-sm text-brandMuted">
             ¿Ya tienes cuenta?{" "}
             <Link
               href="/login"

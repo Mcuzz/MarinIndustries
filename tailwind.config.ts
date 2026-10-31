@@ -11,6 +11,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        background: "var(--color-background)",
+        foreground: "var(--color-foreground)",
+        surfaceElevated: "var(--color-surface-elevated)",
+        textPrimary: "var(--color-text-primary)",
+        textSecondary: "var(--color-text-secondary)",
+        textMuted: "var(--color-text-muted)",
+        borderStrong: "var(--color-border-strong)",
+        interactive: "rgb(var(--color-interactive-rgb) / <alpha-value>)",
+        interactiveHover: "var(--color-interactive-hover)",
+        success: "var(--color-success)",
+        warning: "var(--color-warning)",
+        danger: "var(--color-danger)",
         brandBg: "var(--brand-bg)",
         brandSurface: "var(--brand-surface)",
         brandSurfaceAlt: "var(--brand-surface-alt)",
@@ -18,16 +30,17 @@ const config: Config = {
         brandDark: "var(--brand-dark)",
         brandBlue: "var(--brand-blue)",
         brandBlueDeep: "var(--brand-blue-deep)",
-        brandAccent: "var(--brand-accent)",
+        brandAccent: "rgb(var(--color-accent-rgb) / <alpha-value>)",
         brandAccentSoft: "var(--brand-accent-soft)",
         brandAccentHover: "var(--brand-accent-hover)",
         brandLight: "var(--brand-light)",
-        brandText: "var(--brand-text)"
+        brandText: "rgb(var(--color-text-secondary-rgb) / <alpha-value>)",
+        brandMuted: "var(--brand-muted)"
       },
 
       fontFamily: {
-        sans: ['"IBM Plex Sans"', "system-ui", "sans-serif"],
-        display: ["Archivo", '"IBM Plex Sans"', "sans-serif"],
+        sans: ["var(--font-body)"],
+        display: ["var(--font-display)"],
         mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"]
       },
 

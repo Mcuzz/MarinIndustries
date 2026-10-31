@@ -64,7 +64,7 @@ export function ContactForm() {
           type="text"
           placeholder="Tu nombre"
           required
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
+          className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         />
       </div>
 
@@ -80,7 +80,7 @@ export function ContactForm() {
           autoComplete="tel"
           placeholder="Ej. 662 123 4567"
           required
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
+          className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         />
       </div>
 
@@ -94,7 +94,7 @@ export function ContactForm() {
           type="text"
           placeholder="Nombre de tu negocio"
           required
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
+          className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         />
       </div>
 
@@ -107,7 +107,7 @@ export function ContactForm() {
           name="servicio"
           required
           defaultValue=""
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
+          className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         >
           <option value="" disabled>
             Selecciona una opcion
@@ -129,7 +129,7 @@ export function ContactForm() {
           name="problema"
           required
           defaultValue=""
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
+          className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         >
           <option value="" disabled>
             Selecciona una opcion
@@ -152,7 +152,7 @@ export function ContactForm() {
           rows={4}
           placeholder="Cuentanos que necesita tu negocio"
           required
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
+          className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         />
       </div>
 
@@ -164,13 +164,13 @@ export function ContactForm() {
       </button>
 
       <div
-        className={`text-sm ${statusType === "error" ? "text-red-600" : "text-slate-600"}`}
+        className={`text-sm ${statusType === "error" ? "text-danger" : "text-brandText"}`}
         aria-live="polite"
       >
         {status}
       </div>
 
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-brandMuted">
         Tu mensaje se enviara por WhatsApp para iniciar la conversacion.
       </p>
     </form>

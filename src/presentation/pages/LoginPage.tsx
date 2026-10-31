@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ThemeToggle } from "../components/layout/ThemeToggle";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { createSupabaseBrowserClient } from "@/src/infrastructure/supabase/client";
@@ -43,7 +44,7 @@ export function LoginPage() {
   }
 
   return (
-    <main className="grid min-h-screen bg-[#f4f5f2] lg:grid-cols-[1.05fr_0.95fr]">
+    <main className="grid min-h-screen bg-brandBg lg:grid-cols-[1.05fr_0.95fr]">
       <section className="relative flex min-h-[34vh] flex-col justify-between overflow-hidden bg-brandBlueDeep px-7 py-7 text-white sm:px-12 sm:py-10 lg:min-h-screen lg:px-16 lg:py-12">
         <Link href="/" className="relative flex w-fit items-center gap-3">
           <img
@@ -75,21 +76,23 @@ export function LoginPage() {
 
       <section className="flex items-center justify-center px-6 py-12 sm:px-12">
         <div className="w-full max-w-md">
-          <Link
-            href="/"
-            className="text-sm font-medium text-slate-700 transition hover:text-brandDark"
-          >
-            {" "}
-            ← Volver al sitio
-          </Link>
+          <div className="flex items-center justify-between gap-4">
+            <Link
+              href="/"
+              className="text-sm font-medium text-brandText transition hover:text-brandDark"
+            >
+              ← Volver al sitio
+            </Link>
+            <ThemeToggle />
+          </div>
           <div className="mt-10">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-700">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brandText">
               Bienvenido
             </p>
-            <h2 className="mt-2 text-3xl font-bold text-slate-900">
+            <h2 className="mt-2 text-3xl font-bold text-brandDark">
               Iniciar sesión
             </h2>
-            <p className="mt-3 text-sm leading-6 text-slate-700">
+            <p className="mt-3 text-sm leading-6 text-brandText">
               Introduce tus datos para continuar a tu cuenta.
             </p>
           </div>
@@ -98,7 +101,7 @@ export function LoginPage() {
             <div>
               <label
                 htmlFor="email"
-                className="mb-2 block text-sm font-semibold text-slate-700"
+                className="mb-2 block text-sm font-semibold text-brandText"
               >
                 Correo electrónico
               </label>
@@ -109,13 +112,13 @@ export function LoginPage() {
                 autoComplete="username"
                 required
                 placeholder="nombre@empresa.com"
-                className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brandBlue focus:ring-2 focus:ring-brandBlue/15"
+                className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
             <div>
               <label
                 htmlFor="password"
-                className="mb-2 block text-sm font-semibold text-slate-700"
+                className="mb-2 block text-sm font-semibold text-brandText"
               >
                 Contraseña
               </label>
@@ -126,10 +129,10 @@ export function LoginPage() {
                 autoComplete="current-password"
                 required
                 placeholder="Ingresa tu contraseña"
-                className="w-full border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brandBlue focus:ring-2 focus:ring-brandBlue/15"
+                className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
-            <label className="flex items-center gap-2 text-sm text-slate-600">
+            <label className="flex items-center gap-2 text-sm text-brandText">
               <input
                 type="checkbox"
                 name="remember"
@@ -140,36 +143,36 @@ export function LoginPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-brandAccent px-5 py-3.5 text-sm font-bold text-brandDark transition hover:bg-brandAccentHover focus:outline-none focus:ring-2 focus:ring-brandBlue focus:ring-offset-2"
+              className="w-full bg-brandAccent px-5 py-3.5 text-sm font-bold text-brandDark transition hover:bg-brandAccentHover focus:outline-none focus:ring-2 focus:ring-interactive focus:ring-offset-2"
             >
               {isSubmitting ? "Ingresando..." : "Iniciar sesión"}
             </button>
             {message ? (
               <p
                 role="status"
-                className="border-l-2 border-brandAccent bg-white px-4 py-3 text-sm text-slate-700"
+                className="border-l-2 border-brandAccent bg-brandSurface px-4 py-3 text-sm text-brandText"
               >
                 {message}
               </p>
             ) : null}
           </form>
 
-          <p className="mt-5 text-center text-sm text-slate-700">
+          <p className="mt-5 text-center text-sm text-brandText">
             ¿No tienes cuenta?{" "}
             <Link
               href="/registro"
-              className="font-semibold text-slate-400 underline underline-offset-4"
+              className="font-semibold text-brandMuted underline underline-offset-4"
             >
               Crear cuenta
             </Link>
           </p>
 
-          <p className="mt-8 border-t border-slate-200 pt-5 text-sm text-slate-700">
+          <p className="mt-8 border-t border-brandLine pt-5 text-sm text-brandText">
             {" "}
             ¿Necesitas ayuda?{" "}
             <Link
               href="/#contacto"
-              className="font-semibold text-slate-400 underline underline-offset-4"
+              className="font-semibold text-brandMuted underline underline-offset-4"
             >
               Contacta con Marin Industries
             </Link>
