@@ -1,0 +1,206 @@
+
+{
+  "header": {
+    "navigation": {
+      "announcements": "Announcements",
+      "services": "Services",
+      "quotation": "Get a quote",
+      "humanResources": "Human resources",
+      "products": "Products"
+    },
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "language": {
+    "spanish": "Spanish",
+    "english": "English"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "MARIN INDUSTRIES / ENGINEERING AND TECHNOLOGY",
+      "index": "SONORA, MX · 2026",
+      "overline": "ENGINEERING / AUTOMATION / SUPPORT",
+      "title": {
+  "line1": "Engineering",
+  "line2": "and technology",
+  "line3": "for growth."
+},
+      "description": "Software, mechatronics, biomedical engineering, and technical support solutions for businesses, industries, and households.",
+      "primaryAction": "REQUEST A PROPOSAL",
+      "secondaryAction": "EXPLORE SERVICES"
+    },
+    "suite": {
+      "eyebrow": "MARIN INDUSTRIES / SERVICE SUITE",
+      "title": "Looking for a solution for your business?",
+      "description": "Explore our digital tools and find the solution that best fits your operations.",
+      "action": "GET OUR SERVICES"
+    },
+    "infoPanel": {
+      "tabs": {
+        "services": "What We Do",
+        "company": "Who We Are",
+        "process": "How We Work"
+      },
+      "services": {
+        "intro": "Engineering projects are our main focus. We support industries, local businesses, farmers, agronomists, and households with solutions that deliver real value.",
+        "items": {
+          "01": {
+            "title": "Engineering Projects",
+            "copy": "Industrial, software, mechatronics, and biomedical solutions tailored to each context."
+          },
+          "02": {
+            "title": "Software and Systems",
+            "copy": "Management systems, automation, and tools that improve daily operations."
+          },
+          "03": {
+            "title": "Mobile Applications",
+            "copy": "Practical apps for orders, services, tracking, and faster customer support."
+          },
+          "04": {
+            "title": "Websites",
+            "copy": "Professional digital presence to showcase services, attract customers, and build trust."
+          },
+          "05": {
+            "title": "Automation",
+            "copy": "Simplifying repetitive processes to save time and reduce errors."
+          },
+          "06": {
+            "title": "Technical Services",
+            "copy": "Support for equipment and devices at home, in businesses, and in industrial environments."
+          }
+        }
+      },
+      "company": {
+        "story": "Marin Industries was born from a family story shaped by the determination to build something of our own and serve the community with honesty. Its name honors the founder's grandfather and his legacy.",
+        "purpose": "Recognizing how difficult it can be for small businesses to adapt to the digital age, we support businesses, entrepreneurs, and families with accessible, useful tools tailored to their needs.",
+        "missionLabel": "01 / MISSION",
+        "mission": "To reach local businesses throughout the region with intelligent and innovative technological solutions that make their services easier to deliver.",
+        "visionLabel": "02 / VISION",
+        "vision": "To apply technology to sustainability and the preservation of the global ecosystem, improving society's quality of life."
+      },
+      "process": {
+        "intro": "Every solution starts with understanding your business. Then, we design a useful, realistic, and scalable tool.",
+        "steps": {
+          "01": {
+            "title": "Assessment",
+            "description": "We analyze needs, processes, and opportunities."
+          },
+          "02": {
+            "title": "Proposal",
+            "description": "We define the solution, scope, and priorities."
+          },
+          "03": {
+            "title": "Development",
+            "description": "We build with a practical and functional approach."
+          },
+          "04": {
+            "title": "Implementation",
+            "description": "We install, configure, and train your team."
+          },
+          "05": {
+            "title": "Ongoing Support",
+            "description": "We follow up to make adjustments and improvements."
+          }
+        }
+      },
+      "media": {
+        "services": "IMAGE / GIF · SERVICES",
+        "company": "IMAGE / GIF · TEAM",
+        "process": "IMAGE / GIF · PROCESS"
+      }
+    },
+    "caseStudies": {
+      "eyebrow": "Success Stories",
+      "title": "Examples of solutions that improve daily operations",
+      "next": "Next case",
+      "contact": "Go to contact",
+      "openCase": "Open case",
+      "mediaPlaceholder": "IMAGE / GIF",
+      "items": {
+        "yolandas-inventory": {
+          "sector": "Retail",
+          "type": "Inventory System",
+          "title": "Inventory and Sales Management",
+          "copy": "A practical dashboard for tracking incoming stock, outgoing stock, sales, and inventory without relying on scattered records.",
+          "benefits": [
+            "Clear inventory control",
+            "Fewer errors when recording sales",
+            "Information ready for decision-making"
+          ]
+        },
+        "terrazitas-pos": {
+          "sector": "Restaurant",
+          "type": "Point of Sale",
+          "title": "Point of Sale and Operational Tracking",
+          "copy": "An interface for recording orders, closing shifts, and tracking operations without relying on paper records.",
+          "benefits": [
+            "Faster service during peak hours",
+            "Less manual work at closing time",
+            "A better experience for the team"
+          ]
+        },
+        "limon-son-washing": {
+          "sector": "Production",
+          "type": "Industrial Automation",
+          "title": "Fruit Washing Solution",
+          "copy": "An engineering solution designed to optimize washing, reduce variability, and improve control over the production process.",
+          "benefits": [
+            "A more practical and repeatable process",
+            "Better production control",
+            "Measurable results"
+          ]
+        }
+      }
+    },
+    "sectionRail": {
+      "ariaLabel": "Page sections",
+      "mobileLabel": "Go to a section",
+      "sections": {
+        "inicio": "Home",
+        "empresa": "Company",
+        "casos": "Cases",
+        "contacto": "Contact"
+      }
+    },
+    "contact": {
+      "eyebrow": "Contact",
+      "title": "Digitize your business with a solution tailored to your needs.",
+      "description": "Tell us what you need, and we will get back to you to start working on a proposal.",
+      "cardTitle": "Start a Conversation",
+      "cardDescription": "Share some context about your business and the type of solution you are looking for.",
+      "form": {
+        "fullName": "Full name",
+        "fullNamePlaceholder": "Your name",
+        "phone": "Phone or WhatsApp",
+        "phonePlaceholder": "e.g. 662 123 4567",
+        "businessName": "Company or business name",
+        "businessNamePlaceholder": "Your business name",
+        "service": "Service of interest",
+        "selectOption": "Select an option",
+        "problem": "Problem to solve",
+        "description": "Brief description",
+        "descriptionPlaceholder": "Tell us what your business needs",
+        "submit": "Send request",
+        "success": "Thank you. Your request has been prepared to be sent to our team.",
+        "note": "Your message will be sent through WhatsApp to start the conversation.",
+        "services": {
+          "Proyectos de ingeniería": "Engineering projects",
+          "Sistema de gestión": "Management system",
+          "Aplicación móvil": "Mobile application",
+          "Sitio web": "Website",
+          "Automatización": "Automation",
+          "Servicios técnicos": "Technical services",
+          "Otro": "Other"
+        },
+        "problems": {
+          "Administrativos": "Administrative",
+          "Producción": "Production",
+          "Control": "Control",
+          "Ventas e inventario": "Sales and inventory",
+          "Presencia digital": "Digital presence",
+          "Otro": "Other"
+        }
+      }
+    }
+  }
+}

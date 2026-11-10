@@ -4,18 +4,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useLanguage } from "../../i18n/LanguageProvider";
 
 const navItems = [
-  { label: "Convocatorias", href: "/convocatorias" },
-  { label: "Servicios", href: "/servicios" },
-  { label: "Cotización", href: "/cotizacion" },
-  { label: "Recursos humanos", href: "/rh" },
-  { label: "Productos", href: "/tienda" },
-];
+  { label: "announcements", href: "/convocatorias" },
+  { label: "services", href: "/servicios" },
+  { label: "quotation", href: "/cotizacion" },
+  { label: "humanResources", href: "/rh" },
+  { label: "products", href: "/tienda" },
+] as const;
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { language, setLanguage, translations } = useLanguage();
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
@@ -40,7 +42,7 @@ export function Header() {
         <div className="flex items-center gap-4 lg:gap-6">
           <nav className="hidden items-center gap-8 text-sm font-medium lg:flex">
             {navItems.map((item) => {
-              const esTienda = item.label === "Productos";
+              const esTienda = item.label === "products";
 
               return (
                 <Link
@@ -53,19 +55,53 @@ export function Header() {
                     isActive(item.href) ? "text-brandAccent" : "text-brandText"
                   }`}
                 >
-                  {item.label}
+                  {translations.header.navigation[item.label]}
                 </Link>
               );
             })}
           </nav>
 
           <ThemeToggle />
+          <div
+            className="flex items-center gap-1 rounded-md border border-brandLine p-1"
+            aria-label="Seleccionar idioma"
+          >
+            <button
+              type="button"
+              onClick={() => setLanguage("es")}
+              aria-pressed={language === "es"}
+              className={`rounded px-2 py-1 text-xs font-semibold transition ${
+                language === "es"
+                  ? "bg-brandAccent text-brandDark"
+                  : "text-brandText hover:text-brandAccent"
+              }`}
+            >
+              ES
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setLanguage("en")}
+              aria-pressed={language === "en"}
+              className={`rounded px-2 py-1 text-xs font-semibold transition ${
+                language === "en"
+                  ? "bg-brandAccent text-brandDark"
+                  : "text-brandText hover:text-brandAccent"
+              }`}
+            >
+              EN
+            </button>
+          </div>
 
           <button
             type="button"
             className="lg:hidden"
             onClick={() => setOpen((prev) => !prev)}
-            aria-label="Abrir menú"
+            aria-label={
+              open
+                ? translations.header.closeMenu
+                : translations.header.openMenu
+            }
             aria-expanded={open}
           >
             <span className="block h-0.5 w-7 bg-brandDark" />
@@ -87,7 +123,7 @@ export function Header() {
                   isActive(item.href) ? "text-brandAccent" : "text-brandText"
                 }`}
               >
-                {item.label}
+                {translations.header.navigation[item.label]}
               </Link>
             ))}
           </nav>
