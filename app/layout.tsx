@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./ventas/ventas.css";
+import { LanguageProvider } from "../src/presentation/i18n/LanguageProvider";
 
 export const metadata: Metadata = {
   title: "Marin Industries | Soluciones digitales para negocios locales",
   description:
     "Soluciones de ingenieria, tecnologia, automatizacion y soporte tecnico para negocios locales e industria.",
   icons: {
-    icon: "/assets/logo.png"
-  }
+    icon: "/assets/logo.png",
+  },
 };
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -27,11 +28,13 @@ export default function RootLayout({
                 const dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
                 document.documentElement.classList.toggle("dark", dark);
               } catch (_) {}
-            })();`
+            })();`,
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }
