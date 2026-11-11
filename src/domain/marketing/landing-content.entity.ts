@@ -19,6 +19,7 @@ export type CaseStudy = {
   copy: string;
   benefits: string[];
   visual: "inventory" | "pos" | "washing";
+  img?: string[];
 };
 
 export type LandingContent = {

@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { PageShell } from "../components/layout/PageShell";
 import type { ServiceOffering } from "@/src/domain/catalog/service-offering.entity";
+import { useLanguage } from "../i18n/LanguageProvider";
 
 const services = [
   {
@@ -59,6 +62,9 @@ type ServiceSuitePageProps = {
 };
 
 export function ServiceSuitePage({ catalog }: ServiceSuitePageProps) {
+  const { translations } = useLanguage();
+  const t = translations.suite;
+  const common = translations.common;
   return (
     <PageShell>
       <main className="suite-page">
@@ -74,16 +80,14 @@ export function ServiceSuitePage({ catalog }: ServiceSuitePageProps) {
 
             <div className="suite-hero-content">
               <div>
-                <span className="suite-overline">
-                  SOFTWARE / SOLUTIONS / MANAGEMENT
-                </span>
+                  <span className="suite-overline">{t.heroOverline}</span>
 
                 <h1>
-                  Technology
+                  {t.heroTitle[0]}
                   <br />
-                  for better
+                  {t.heroTitle[1]}
                   <br />
-                  <span>operations.</span>
+                  <span>{t.heroTitle[2]}</span>
                 </h1>
               </div>
 
@@ -91,12 +95,11 @@ export function ServiceSuitePage({ catalog }: ServiceSuitePageProps) {
                 <span className="suite-description-index">01 — 03</span>
 
                 <p>
-                  Herramientas digitales diseñadas para simplificar procesos,
-                  organizar operaciones y ayudar a los negocios a crecer.
+                  {t.description}
                 </p>
 
                 <Link href="#servicios" className="suite-link">
-                  EXPLORAR SERVICIOS <span>↓</span>
+                  {t.explore} <span>↓</span>
                 </Link>
               </div>
             </div>
@@ -115,17 +118,17 @@ export function ServiceSuitePage({ catalog }: ServiceSuitePageProps) {
           <div className="section-shell">
             <div className="suite-section-heading">
               <div>
-                <span className="eyebrow">01 / AVAILABLE SERVICES</span>
-                <h2>Explora nuestras soluciones.</h2>
+                <span className="eyebrow">{t.sectionLabel}</span>
+                <h2>{t.available}</h2>
               </div>
 
-              <span className="suite-counter">03 PRODUCTS</span>
+              <span className="suite-counter">{t.productCount}</span>
             </div>
 
             <div className="suite-service-list">
-              {services.map((service) => (
-                <article className="suite-service-card" key={service.number}>
-                  <div className="suite-service-number">{service.number}</div>
+              {t.products.map((service, serviceIndex) => (
+                <article className="suite-service-card" key={serviceIndex}>
+                  <div className="suite-service-number">{pad(serviceIndex + 1)}</div>
 
                   <div className="suite-service-main">
                     <span className="suite-category">{service.category}</span>
@@ -145,23 +148,23 @@ export function ServiceSuitePage({ catalog }: ServiceSuitePageProps) {
 
                   <div className="suite-service-details">
                     <div className="suite-subscription-heading">
-                      <span>AVAILABLE SUBSCRIPTIONS</span>
+                      <span>{t.subscriptions}</span>
                       <span>02 OPTIONS</span>
                     </div>
 
                     <div className="suite-subscription-options">
                       <article className="suite-subscription-option">
                         <span className="suite-plan-index">01 / MONTHLY</span>
-                        <h4>Mensual</h4>
-                        <p>Suscripción con renovación mensual.</p>
-                        <strong>Precio por definir</strong>
+                        <h4>{t.monthly}</h4>
+                        <p>{t.monthlyDescription}</p>
+                        <strong>{t.priceTbd}</strong>
                       </article>
 
                       <article className="suite-subscription-option">
                         <span className="suite-plan-index">02 / YEARLY</span>
-                        <h4>Anual</h4>
-                        <p>Suscripción con renovación anual.</p>
-                        <strong>Precio por definir</strong>
+                        <h4>{t.yearly}</h4>
+                        <p>{t.yearlyDescription}</p>
+                        <strong>{t.priceTbd}</strong>
                       </article>
                     </div>
 
@@ -181,10 +184,9 @@ export function ServiceSuitePage({ catalog }: ServiceSuitePageProps) {
             <div className="suite-section-heading">
               <div>
                 <span className="eyebrow">02 / CUSTOM SOLUTIONS</span>
-                <h2>¿Necesitas algo más a la medida?</h2>
+                <h2>{t.customTitle}</h2>
                 <p className="suite-custom-intro">
-                  Desarrollamos soluciones de software e ingeniería adaptadas a
-                  los procesos, objetivos y necesidades de cada organización.
+                  {t.customIntro}
                 </p>
               </div>
 
@@ -193,42 +195,43 @@ export function ServiceSuitePage({ catalog }: ServiceSuitePageProps) {
 
             <div className="jo-head">
               <div>
-                <span className="eyebrow">DESARROLLO Y SERVICIOS</span>
+                <span className="eyebrow">{t.customServices}</span>
               </div>
 
               <p className="jo-count">
-                {pad(catalog.length)} <span>servicios</span>
+                {pad(catalog.length)} <span>{t.serviceCount}</span>
               </p>
             </div>
 
             {catalog.length === 0 ? (
               <p className="jo-empty">
-                Por ahora no hay servicios disponibles en el catálogo.
+                {common.noServices}
               </p>
             ) : (
               <div className="cg-grid">
-                {catalog.map((item, i) => (
-                  <article key={item.id} className="cg-card">
+              {catalog.map((item, i) => {
+                const localized = translations.catalog.items[item.id as keyof typeof translations.catalog.items];
+                return <article key={item.id} className="cg-card">
                     <div className="cg-top">
                       <span className="cg-num">{pad(i + 1)}</span>
-                      <span className="cg-label">CUSTOM SERVICE</span>
+                      <span className="cg-label">{t.customService}</span>
                     </div>
 
-                    <h3 className="cg-name">{item.name}</h3>
+                    <h3 className="cg-name">{localized?.name ?? item.name}</h3>
 
                     <div className="cg-price">
-                      <small>Precio base</small>
+                      <small>{common.basePrice}</small>
                       <p>{item.price}</p>
                     </div>
 
-                    <p className="cg-desc">{item.description}</p>
+                    <p className="cg-desc">{localized?.description ?? item.description}</p>
 
                     <Link href="/cotizacion" className="btn btn-primary cg-btn">
-                      Solicitar cotización
+                      {common.requestQuote}
                       <span aria-hidden="true">→</span>
                     </Link>
-                  </article>
-                ))}
+                  </article>;
+              })}
               </div>
             )}
           </div>
@@ -240,18 +243,15 @@ export function ServiceSuitePage({ catalog }: ServiceSuitePageProps) {
             <span className="eyebrow">03 / GET STARTED</span>
 
             <h2>
-              Tu siguiente paso
-              <br />
-              comienza aquí.
+              {t.contactTitle}
             </h2>
 
             <p>
-              Cuéntanos qué necesita tu negocio. Nuestro equipo puede ayudarte a
-              identificar la solución adecuada para tu operación.
+              {t.contactDescription}
             </p>
 
             <Link href="/#contacto" className="suite-contact-button">
-              HABLAR CON NUESTRO EQUIPO <span>↗</span>
+              {t.contactAction} <span>↗</span>
             </Link>
 
             <span className="suite-contact-footer">

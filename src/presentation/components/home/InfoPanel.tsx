@@ -1,19 +1,12 @@
 "use client";
 
 import type { LandingContent } from "@/src/domain/marketing/landing-content.entity";
+import { useLanguage } from "../../i18n/LanguageProvider";
 
 type InfoPanelProps = {
   services: LandingContent["services"];
   process: LandingContent["process"];
 };
-
-const STEP_COPY = [
-  "Analizamos necesidades, procesos y oportunidades.",
-  "Definimos solución, alcance y prioridades.",
-  "Construimos con enfoque práctico y funcional.",
-  "Instalamos, configuramos y capacitamos al equipo.",
-  "Damos seguimiento para ajustar y mejorar.",
-];
 
 import {
   useCallback,
@@ -23,13 +16,12 @@ import {
   useState,
 } from "react";
 
-const TABS = [
-  { id: "servicios", label: "Qué hacemos" },
-  { id: "nosotros", label: "Quiénes somos" },
-  { id: "proceso", label: "Cómo trabajamos" },
-];
+const TAB_IDS = ["servicios", "nosotros", "proceso"] as const;
+const TAB_KEYS = ["services", "company", "process"] as const;
 
 export function InfoPanel({ services, process }: InfoPanelProps) {
+  const { translations } = useLanguage();
+  const t = translations.home.infoPanel;
   type Pt = { x: number; y: number };
   type Layout = { anchor: Pt; slots: Pt[]; scale: number };
 
@@ -95,7 +87,7 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
   // Los links del navbar (#servicios, #nosotros, #proceso) abren la pestaña correcta
   useEffect(() => {
     const openFromHash = (hash: string) => {
-      const i = TABS.findIndex((t) => `#${t.id}` === hash);
+      const i = TAB_IDS.findIndex((id) => `#${id}` === hash);
       if (i >= 0) setActive(i);
     };
 
@@ -115,11 +107,11 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
   }, []);
 
   const go = (i: number) =>
-    setActive(Math.max(0, Math.min(TABS.length - 1, i)));
+    setActive(Math.max(0, Math.min(TAB_IDS.length - 1, i)));
 
   return (
-<section id="empresa" data-tone="alt" className="pn-section relative">      {TABS.map((t) => (
-        <span key={t.id} id={t.id} className="pn-anchor" aria-hidden />
+    <section id="empresa" data-tone="alt" className="pn-section relative">      {TAB_IDS.map((id) => (
+        <span key={id} id={id} className="pn-anchor" aria-hidden />
       ))}
 
       <div
@@ -138,7 +130,7 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
           />
 
           {/* Etiquetas/títulos flotantes: son el mismo elemento en ambos estados */}
-          {TABS.map((t, i) => {
+          {TAB_IDS.map((id, i) => {
             const isActive = i === active;
             const p = layout
               ? isActive
@@ -148,7 +140,7 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
             const s = layout ? (isActive ? 1 : layout.scale) : 1;
             return (
               <span
-                key={t.id}
+                key={id}
                 ref={(el) => {
                   labelRefs.current[i] = el;
                 }}
@@ -161,7 +153,7 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
                   opacity: layout ? undefined : 0,
                 }}
               >
-                {t.label}
+                {t.tabs[TAB_KEYS[i]]}
               </span>
             );
           })}
@@ -193,23 +185,22 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
                 <div className="pn-body grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
                   <div>
                     <p className="mb-8 max-w-xl text-[var(--brand-text)]">
-                      Proyectos de ingeniería como punto fuerte, acompañando a
-                      la industria, negocios locales, granjeros, agrónomos y
-                      hogares con soluciones de valor real.
+                      {t.services.intro}
                     </p>
                     <ul>
-                      {services.map((s, n) => (
-                        <li key={s.title} className="pn-row">
+                      {services.map((s, n) => {
+                        const localized = t.services.items[s.icon as keyof typeof t.services.items];
+                        return <li key={s.icon} className="pn-row">
                           <span className="pn-row-n">
                             {String(n + 1).padStart(2, "0")}
                           </span>
-                          <span className="pn-row-t">{s.title}</span>
-                          <span className="pn-row-d">{s.copy}</span>
+                          <span className="pn-row-t">{localized?.title ?? s.title}</span>
+                          <span className="pn-row-d">{localized?.copy ?? s.copy}</span>
                         </li>
-                      ))}
+                      })}
                     </ul>
                   </div>
-                  <MediaSlot label="IMAGEN / GIF · SERVICIOS" />
+                  <MediaSlot label={t.media.services} />
                 </div>
               </div>
 
@@ -223,37 +214,27 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
                 <div className="pn-body grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
                   <div>
                     <p className="mb-5 max-w-xl text-[var(--brand-text)]">
-                      Marin Industries nace de una historia familiar marcada por
-                      la determinación de construir algo propio y servir con
-                      honestidad a la comunidad. Su nombre honra el legado del
-                      abuelo del fundador.
+                      {t.company.story}
                     </p>
                     <p className="mb-10 max-w-xl text-[var(--brand-text)]">
-                      Al ver lo difícil que es para los pequeños negocios
-                      adaptarse a la era digital, acompañamos a comercios,
-                      emprendedores y familias con herramientas accesibles,
-                      útiles y adaptadas a su realidad.
+                      {t.company.purpose}
                     </p>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="card p-6">
-                        <span className="eyebrow">01 / MISIÓN</span>
+                        <span className="eyebrow">{t.company.missionLabel}</span>
                         <p className="mt-3 text-sm text-[var(--brand-text)]">
-                          Llegar a los negocios locales de la región con
-                          soluciones tecnológicas inteligentes e innovadoras que
-                          faciliten sus servicios.
+                          {t.company.mission}
                         </p>
                       </div>
                       <div className="card p-6">
-                        <span className="eyebrow">02 / VISIÓN</span>
+                        <span className="eyebrow">{t.company.visionLabel}</span>
                         <p className="mt-3 text-sm text-[var(--brand-text)]">
-                          Aplicar tecnología para la sustentabilidad y
-                          preservación del ecosistema global, mejorando la
-                          calidad de vida de la sociedad.
+                          {t.company.vision}
                         </p>
                       </div>
                     </div>
                   </div>
-                  <MediaSlot label="IMAGEN / GIF · EQUIPO" ratio="4 / 5" />
+                  <MediaSlot label={t.media.company} ratio="4 / 5" />
                 </div>
               </div>
 
@@ -267,32 +248,32 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
                 <div className="pn-body grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
                   <div>
                     <p className="mb-8 max-w-xl text-[var(--brand-text)]">
-                      Cada solución empieza entendiendo tu negocio. Después
-                      diseñamos una herramienta útil, realista y escalable.
+                      {t.process.intro}
                     </p>
                     <ul>
-                      {process.map((step, n) => (
-                        <li key={step} className="pn-row">
+                      {process.map((step, n) => {
+                        const localized = t.process.steps[String(n + 1).padStart(2, "0") as keyof typeof t.process.steps];
+                        return <li key={step} className="pn-row">
                           <span className="pn-row-n">
                             {String(n + 1).padStart(2, "0")}
                           </span>
-                          <span className="pn-row-t">{step}</span>
-                          <span className="pn-row-d">{STEP_COPY[n] ?? ""}</span>
+                          <span className="pn-row-t">{localized?.title ?? step}</span>
+                          <span className="pn-row-d">{localized?.description ?? ""}</span>
                         </li>
-                      ))}
+                      })}
                     </ul>
                   </div>
-                  <MediaSlot label="IMAGEN / GIF · PROCESO" />
+                  <MediaSlot label={t.media.process} />
                 </div>
               </div>
             </div>
           </div>
 
           {/* Fila de etiquetas: parece decoración, funciona como navegación */}
-          <div className="pn-slots" role="tablist" aria-label="Secciones">
-            {TABS.map((t, i) => (
+          <div className="pn-slots" role="tablist" aria-label={translations.common.sections}>
+            {TAB_IDS.map((id, i) => (
               <button
-                key={t.id}
+                key={id}
                 type="button"
                 role="tab"
                 aria-selected={i === active}
@@ -306,13 +287,13 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
                   }}
                   className="pn-slot-text"
                 >
-                  {t.label}
+                  {t.tabs[TAB_KEYS[i]]}
                 </span>
               </button>
             ))}
             <span className="pn-counter">
               {String(active + 1).padStart(2, "0")} /{" "}
-              {String(TABS.length).padStart(2, "0")}
+              {String(TAB_IDS.length).padStart(2, "0")}
             </span>
           </div>
         </div>

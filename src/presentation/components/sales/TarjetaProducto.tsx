@@ -1,6 +1,7 @@
 "use client";
 
 import type { Producto } from "@/src/domain/products/product.entity";
+import { useLanguage } from "../../i18n/LanguageProvider";
 export type { Producto };
 
 type TarjetaProductoProps = {
@@ -28,6 +29,8 @@ export function TarjetaProducto({
   onVerCarrito,
   onCompartir,
 }: TarjetaProductoProps) {
+  const { translations } = useLanguage();
+  const t = translations.store;
   return (
     <article
       className={`producto-card ${expandida ? "producto-card--expandida" : ""}`}
@@ -36,11 +39,11 @@ export function TarjetaProducto({
         type="button"
         className="producto-imagen"
         onClick={expandida ? undefined : onExpandir}
-        aria-label={`Ver detalles de ${producto.nombre}`}
+        aria-label={`${t.details} ${producto.nombre}`}
         tabIndex={expandida ? -1 : 0}
       >
         <img src={producto.imagen} alt={producto.nombre} />
-        {producto.oferta && <span className="producto-oferta">OFERTA</span>}
+        {producto.oferta && <span className="producto-oferta">{t.offer}</span>}
       </button>
 
       <div className="producto-contenido">
@@ -52,11 +55,11 @@ export function TarjetaProducto({
           <>
             <p className="producto-descripcion">{producto.descripcion}</p>
             <p className="producto-existencia">
-              Disponibilidad:{" "}
+              {t.availability}{" "}
               <strong>
                 {producto.existencia > 0
-                  ? `${producto.existencia} unidades`
-                  : "Agotado"}
+                  ? `${producto.existencia} ${t.units}`
+                  : t.outOfStock}
               </strong>
             </p>
           </>
@@ -69,7 +72,7 @@ export function TarjetaProducto({
             disabled={producto.existencia < 1}
             onClick={() => onAgregarCarrito(producto)}
           >
-            Añadir al carrito
+            {t.add}
           </button>
 
           {expandida && (
@@ -79,22 +82,22 @@ export function TarjetaProducto({
                 className="btn btn-ghost"
                 onClick={onVerCarrito}
               >
-                Ver carrito
+                {t.viewCart}
               </button>
               <button
                 type="button"
                 className="btn btn-ghost"
                 onClick={onCerrar}
               >
-                Regresar
+                {t.back}
               </button>
               <button
                 type="button"
                 className="btn btn-ghost"
                 onClick={() => onCompartir(producto)}
-                aria-label={`Compartir ${producto.nombre}`}
+                aria-label={`${t.share} ${producto.nombre}`}
               >
-                Compartir
+                {t.share}
               </button>
             </>
           )}

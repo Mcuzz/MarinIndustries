@@ -69,9 +69,9 @@ const landingContent: LandingContent = {
       sector: "Retail",
       type: "Sistema de inventario",
       title: "Inventario y control de ventas",
-      copy: "Panel practico para controlar entradas, salidas, ventas y existencias sin depender de registros dispersos.",
-      benefits: ["Control claro del stock", "Menos errores al registrar ventas", "Informacion lista para decidir"],
-      visual: "inventory"
+      copy: "Panel practico para controlar entradas, salidas, ventas y existencias sin depender de registros dispersos.", benefits: ["Control claro del stock", "Menos errores al registrar ventas", "Informacion lista para decidir"],
+      visual: "inventory",
+
     },
     {
       id: "terrazitas-pos",
@@ -91,7 +91,8 @@ const landingContent: LandingContent = {
       title: "Solucion para el lavado de frutas",
       copy: "Solucion de ingenieria para optimizar el lavado, reducir variabilidad y dar control al proceso productivo.",
       benefits: ["Proceso mas practico y repetible", "Mejor control de produccion", "Resultados medibles"],
-      visual: "washing"
+      visual: "washing",
+      img: ["/images/cases/limon-son-washing.jpeg"]
     }
   ]
 };

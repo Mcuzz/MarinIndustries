@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { CaseStudy } from "@/src/domain/marketing/landing-content.entity";
+import { useLanguage } from "../../i18n/LanguageProvider";
 
 type CaseAccordionProps = {
   studies: CaseStudy[];
@@ -11,6 +12,8 @@ type CaseAccordionProps = {
 const pad = (n: number) => String(n).padStart(2, "0");
 
 export function CaseAccordion({ studies, visuals }: CaseAccordionProps) {
+  const { translations } = useLanguage();
+  const copy = translations.home.caseStudies;
   const [active, setActive] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const last = studies.length - 1;
@@ -54,6 +57,12 @@ export function CaseAccordion({ studies, visuals }: CaseAccordionProps) {
     >
       {studies.map((s, i) => {
         const isActive = i === active;
+        const translated = copy.items[s.id as keyof typeof copy.items];
+        const title = translated?.title ?? s.title;
+        const type = translated?.type ?? s.type;
+        const sector = translated?.sector ?? s.sector;
+        const description = translated?.copy ?? s.copy;
+        const benefits = translated?.benefits ?? s.benefits;
 
         return (
           <article
@@ -68,7 +77,7 @@ export function CaseAccordion({ studies, visuals }: CaseAccordionProps) {
               type="button"
               className="ca-collapsed"
               aria-expanded={isActive}
-              aria-label={`Abrir caso: ${s.tag}, ${s.type}`}
+              aria-label={`${copy.openCase}: ${s.tag}, ${type}`}
               tabIndex={isActive ? -1 : 0}
               onClick={() => setActive(i)}
             >
@@ -85,21 +94,21 @@ export function CaseAccordion({ studies, visuals }: CaseAccordionProps) {
             {/* Estado abierto */}
             <div className="ca-open" inert={!isActive}>
               <div className="ca-open-inner">
-                <div className="ca-visual">{visuals[i]}</div>
+                <div className="ca-visual">{s.img?.[0] ? <img src={s.img[0]} alt={title} /> : visuals[i]}</div>
 
                 <div className="ca-info">
                   <div className="ca-meta">
                     <span className="ca-badge">{s.tag}</span>
                     <span>
-                      {s.type} · {s.sector}
+                      {type} · {sector}
                     </span>
                   </div>
 
-                  <h3 className="ca-h3">{s.title}</h3>
-                  <p className="ca-copy">{s.copy}</p>
+                  <h3 className="ca-h3">{title}</h3>
+                  <p className="ca-copy">{description}</p>
 
                   <ul className="ca-benefits">
-                    {s.benefits.map((b) => (
+                    {benefits.map((b) => (
                       <li key={b}>
                         <svg
                           viewBox="0 0 24 24"
@@ -121,7 +130,7 @@ export function CaseAccordion({ studies, visuals }: CaseAccordionProps) {
                       className="btn btn-primary ca-next"
                       onClick={() => next(i)}
                     >
-                      {i < last ? "Siguiente caso" : "Ir a contacto"}
+                      {i < last ? copy.next : copy.contact}
                       <span aria-hidden="true">{i < last ? "→" : "↓"}</span>
                     </button>
                     <span className="ca-count">

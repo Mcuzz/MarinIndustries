@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { createWhatsappContactLink } from "@/src/application/contact/use-cases/create-whatsapp-contact-link.use-case";
+import { useLanguage } from "../../i18n/LanguageProvider";
 
 const services = [
   "Proyectos de ingenieria",
@@ -23,6 +24,8 @@ const problems = [
 ];
 
 export function ContactForm() {
+  const { translations } = useLanguage();
+  const t = translations.home.contact.form;
   const [status, setStatus] = useState("");
   const [statusType, setStatusType] = useState<"default" | "error">("default");
 
@@ -41,13 +44,13 @@ export function ContactForm() {
     });
 
     if (!result.ok) {
-      setStatus(result.error);
+      setStatus(translations.home.contact.form.validationError);
       setStatusType("error");
       return;
     }
 
     window.open(result.value, "_blank", "noopener,noreferrer");
-    setStatus("Gracias. Tu solicitud fue preparada para enviarse a nuestro equipo.");
+    setStatus(t.success);
     setStatusType("default");
     form.reset();
   }
@@ -56,13 +59,13 @@ export function ContactForm() {
     <form className="space-y-4" onSubmit={onSubmit}>
       <div>
         <label className="mb-2 block text-sm font-medium" htmlFor="nombre">
-          Nombre completo
+          {t.fullName}
         </label>
         <input
           id="nombre"
           name="nombre"
           type="text"
-          placeholder="Tu nombre"
+          placeholder={t.fullNamePlaceholder}
           required
           className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         />
@@ -70,7 +73,7 @@ export function ContactForm() {
 
       <div>
         <label className="mb-2 block text-sm font-medium" htmlFor="telefono">
-          Telefono o WhatsApp
+          {t.phone}
         </label>
         <input
           id="telefono"
@@ -78,7 +81,7 @@ export function ContactForm() {
           type="tel"
           inputMode="tel"
           autoComplete="tel"
-          placeholder="Ej. 662 123 4567"
+          placeholder={t.phonePlaceholder}
           required
           className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         />
@@ -86,13 +89,13 @@ export function ContactForm() {
 
       <div>
         <label className="mb-2 block text-sm font-medium" htmlFor="negocio">
-          Nombre de la empresa o negocio
+          {t.businessName}
         </label>
         <input
           id="negocio"
           name="negocio"
           type="text"
-          placeholder="Nombre de tu negocio"
+          placeholder={t.businessNamePlaceholder}
           required
           className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         />
@@ -100,7 +103,7 @@ export function ContactForm() {
 
       <div>
         <label className="mb-2 block text-sm font-medium" htmlFor="servicio">
-          Servicio de interes
+          {t.service}
         </label>
         <select
           id="servicio"
@@ -110,11 +113,11 @@ export function ContactForm() {
           className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         >
           <option value="" disabled>
-            Selecciona una opcion
+            {t.selectOption}
           </option>
           {services.map((service) => (
             <option key={service} value={service}>
-              {service}
+              {t.services[service as keyof typeof t.services]}
             </option>
           ))}
         </select>
@@ -122,7 +125,7 @@ export function ContactForm() {
 
       <div>
         <label className="mb-2 block text-sm font-medium" htmlFor="problema">
-          Problema a resolver
+          {t.problem}
         </label>
         <select
           id="problema"
@@ -132,11 +135,11 @@ export function ContactForm() {
           className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         >
           <option value="" disabled>
-            Selecciona una opcion
+            {t.selectOption}
           </option>
           {problems.map((problem) => (
             <option key={problem} value={problem}>
-              {problem}
+              {t.problems[problem as keyof typeof t.problems]}
             </option>
           ))}
         </select>
@@ -144,13 +147,13 @@ export function ContactForm() {
 
       <div>
         <label className="mb-2 block text-sm font-medium" htmlFor="mensaje">
-          Descripcion breve
+          {t.description}
         </label>
         <textarea
           id="mensaje"
           name="mensaje"
           rows={4}
-          placeholder="Cuentanos que necesita tu negocio"
+          placeholder={t.descriptionPlaceholder}
           required
           className="w-full rounded-xl border border-brandLine px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brandAccent"
         />
@@ -160,7 +163,7 @@ export function ContactForm() {
         type="submit"
         className="w-full rounded-xl bg-brandAccent px-6 py-3 font-bold text-brandDark transition hover:bg-brandAccentHover"
       >
-        Enviar solicitud
+        {t.submit}
       </button>
 
       <div
@@ -171,7 +174,7 @@ export function ContactForm() {
       </div>
 
       <p className="text-xs text-brandMuted">
-        Tu mensaje se enviara por WhatsApp para iniciar la conversacion.
+        {t.note}
       </p>
     </form>
   );

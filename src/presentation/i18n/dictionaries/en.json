@@ -13,7 +13,8 @@
   },
   "language": {
     "spanish": "Spanish",
-    "english": "English"
+    "english": "English",
+    "select": "Select language"
   },
   "home": {
     "hero": {
@@ -182,6 +183,7 @@
         "descriptionPlaceholder": "Tell us what your business needs",
         "submit": "Send request",
         "success": "Thank you. Your request has been prepared to be sent to our team.",
+        "validationError": "Check that all fields are complete and the phone number is valid.",
         "note": "Your message will be sent through WhatsApp to start the conversation.",
         "services": {
           "Proyectos de ingeniería": "Engineering projects",
@@ -202,5 +204,130 @@
         }
       }
     }
-  }
+  },
+  "common": {
+    "theme": "Change color theme",
+    "sections": "Sections",
+    "services": "services",
+    "vacancies": "vacancies",
+    "functions": "features",
+    "price": "Price",
+    "basePrice": "Base price",
+    "requestQuote": "Request a quote",
+    "viewCatalog": "View catalog",
+    "noServices": "There are no services available in the catalog right now.",
+    "noOpenings": "There are no open positions right now.",
+    "imageUnavailable": "Image unavailable",
+    "footerRights": "© 2026 Marin Industries. All rights reserved.",
+"footerDescription": "Digital solutions for local businesses.",
+"footerSocialTitle": "Follow us",
+"footerSocialDescription": "Connect with Marin Industries on social media.",
+"footerSocialInstagram": "Instagram",
+"footerSocialTikTok": "TikTok",
+"footerSocialFacebook": "Facebook"
+  },
+  "catalog": {
+    "items": {
+      "website-basic": {"name":"Informational website","description":"Landing page or basic website to present services, contact information, and work examples."},
+      "inventory-system": {"name":"Inventory system","description":"Basic tracking for products, stock, incoming and outgoing items, and reports."},
+      "point-of-sale": {"name":"Point of sale","description":"Sales, product, shift closing, and operations tracking for local businesses."},
+      "process-automation": {"name":"Process automation","description":"Assessment, technical proposal, and development based on equipment, processes, and goals."}
+    },
+    "eyebrow": "Catalog and pricing",
+    "title": "Services with starting prices to begin the conversation",
+    "description": "A static version showing price ranges and setting expectations while the team defines update rules.",
+    "section": "Services",
+    "item": "Service",
+    "empty": "There are no services in the catalog right now."
+  },
+  "jobs": {
+    "items": {
+      "web-intern": {"title":"Web development intern","area":"Software","status":"General opening","description":"Support with interfaces, forms, documentation, and maintenance of internal projects."},
+      "automation-support": {"title":"Automation assistant","area":"Engineering","status":"To be defined","description":"Help document processes, run tests, and prepare technical documentation."},
+      "graphic-designer": {"title":"Collaborating graphic designer","area":"Brand","status":"To be defined","description":"Visual support for brand identity, digital assets, iconography, and sales materials."}
+    },
+    "eyebrow": "Openings system",
+    "title": "Open positions and collaboration opportunities",
+    "description": "Explore available opportunities and learn how you can work with our team.",
+    "publications": "Openings",
+    "initial": "Current openings",
+    "empty": "There are no open positions right now.",
+    "requestInfo": "Request information"
+  },
+  "hr": {
+    "items": {
+      "authorized-access":"Authorized personnel only",
+      "employee-files":"Employee records",
+      "skills-matrix":"Skills and capabilities matrix",
+      "internal-documents":"Internal records and documents"
+    },
+    "eyebrow": "Human resources",
+    "title": "Internal area for employee records and skills",
+    "description": "Access internal tools and resources for authorized personnel.",
+    "restricted": "Restricted access",
+    "authorized": "Authorized access",
+    "privateDescription": "This screen marks the module as private without exposing sensitive information on the public page.",
+    "email": "Work email",
+    "emailPlaceholder": "name@company.com",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "enter": "Sign in",
+    "features": "Module features"
+  },
+  "quote": {
+    "eyebrow": "Project quote",
+    "title": "An initial questionnaire to understand scope, tax details, and needs",
+    "description": "This page organizes information that can later support an automated quote.",
+    "applicant": "01 / Applicant details",
+    "name": "Name or business name",
+    "namePlaceholder": "Applicant name",
+    "taxIdPlaceholder": "Tax ID for screening",
+    "email": "Email",
+    "phone": "Phone",
+    "project": "02 / Project",
+    "projectType": "Project type",
+    "select": "Select an option",
+    "scope": "Scope description",
+    "scopePlaceholder": "Describe the problem, users, current process, and expected outcome.",
+    "prepare": "Prepare request",
+    "pending": "To be defined",
+    "rules": "Automation rules",
+    "requirements": "The following are needed to turn this into an automatic quoting tool:",
+    "items": ["Official prices", "Scope variables", "Administrative criteria", "Approval workflow"],
+    "projectTypes": ["Website", "Administrative system", "Inventory / point of sale", "Industrial automation", "Other"]
+  },
+  "suite": {
+    "heroOverline": "SOFTWARE / SOLUTIONS / MANAGEMENT",
+    "heroTitle": ["Technology", "for better", "operations."],
+    "sectionLabel": "01 / AVAILABLE SERVICES",
+    "productCount": "03 PRODUCTS",
+    "products": [
+      {"category":"OPERATIONS MANAGEMENT","name":"Inventory Manager","title":"Take full control of your inventory.","description":"Manage products, stock, and movements from one centralized platform. Keep control of your resources and make decisions with organized information.","features":["Product registration and organization","Track incoming and outgoing stock","Monitor inventory levels","Movement history","Inventory reports"],"tags":["Inventory","Operations","Management"]},
+      {"category":"SALES MANAGEMENT","name":"Point of Sale (POS)","title":"Simplify every sales operation.","description":"Manage business transactions, organize sales, and centralize information about your commercial operations.","features":["Sales recording","Product management","Transaction control","Operations tracking","Sales reports"],"tags":["Sales","POS","Retail"]},
+      {"category":"CUSTOMER MANAGEMENT","name":"Customer Relationship Management","title":"Build stronger business relationships.","description":"Centralize customer information, organize sales opportunities, and make it easier to follow up on every interaction.","features":["Customer records","Interaction history","Opportunity tracking","Contact organization","Business relationship management"],"tags":["CRM","Customers","Follow-up"]}
+    ],
+    "description": "Digital tools designed to simplify processes, organize operations, and help businesses grow.",
+    "explore": "EXPLORE SERVICES",
+    "available": "Explore our solutions.",
+    "subscriptions": "AVAILABLE SUBSCRIPTIONS",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "monthlyDescription": "Subscription renews monthly.",
+    "yearlyDescription": "Subscription renews yearly.",
+    "priceTbd": "Pricing to be determined",
+    "customTitle": "Need something more tailored?",
+    "customIntro": "We build software and engineering solutions tailored to each organization’s processes, goals, and needs.",
+    "customServices": "DEVELOPMENT AND SERVICES",
+    "customService": "CUSTOM SERVICE",
+    "contactTitle": "Your next step starts here.",
+    "contactDescription": "Tell us what your business needs. Our team can help identify the right solution for your operations.",
+    "contactAction": "TALK TO OUR TEAM",
+    "serviceCount": "services"
+  },
+  "auth": {
+    "portal":"Sign-in portal","loginTitle":"Technology that moves your business.","loginDescription":"Sign in to your Marin Industries workspace.","registerTitle":"Let’s build something better together.","registerDescription":"Create an account to access Marin Industries opportunities.","backHome":"Back to home","loginEyebrow":"PLATFORM ACCESS","loginHeading":"Sign in to your account","loginLead":"Use your credentials to continue.","registerEyebrow":"JOIN MARIN INDUSTRIES","registerHeading":"Create your account","registerLead":"Register to continue.","name":"Full name","namePlaceholder":"Your name","email":"Email address","emailPlaceholder":"name@company.com","password":"Password","passwordPlaceholder":"Enter your password","passwordHint":"At least 8 characters","confirmPassword":"Confirm password","confirmPlaceholder":"Re-enter your password","remember":"Remember me","signIn":"Sign in","signingIn":"Signing in...","create":"Create account","creating":"Creating account...","needAccount":"Don’t have an account yet?","register":"Create an account","haveAccount":"Already have an account?","login":"Sign in","contactPrompt":"Need help hiring or using our services?","contact":"Contact us","loginError":"Could not sign in. Check your email and password, then try again.","connectionError":"Could not connect. Check the configuration and try again.","passwordMismatch":"Passwords do not match.","accountCreated":"Account created. Check your email to confirm your address before signing in.","registrationError":"Could not create the account. Check your details and try again."
+  },
+  "theme": { "toggle": "Toggle light and dark mode" }
+  ,"store": {
+    "catalog":"Product catalog","description":"Explore available products and view their details.","cart":"Cart","viewCart":"View cart","search":"Search products","searchPlaceholder":"Name or description...","category":"Category","showAll":"Show all","offers":"View deals","emptyResults":"No products match those criteria.","productsFound":"products found","requestQuote":"Request a quote","details":"Details for","closeDetails":"Close details","order":"MARIN INDUSTRIES / ORDER","articles":"items","closeCart":"Close cart","cartItems":"Cart items","priceSummary":"Price summary","summary":"Summary","subtotal":"Subtotal","tax":"VAT (16%)","total":"Total","clear":"Empty cart","checkout":"Complete purchase","continue":"Continue shopping","emptyCart":"Your cart is empty.","explore":"Browse products","loading":"Loading products...","error":"Products could not be loaded.","offer":"DEAL","availability":"Availability:","units":"units","outOfStock":"Out of stock","add":"Add to cart","back":"Back","share":"Share","perUnit":"per unit","quantity":"Quantity","reduce":"Reduce quantity","increase":"Increase quantity","remove":"Remove"}
 }

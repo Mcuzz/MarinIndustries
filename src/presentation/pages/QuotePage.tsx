@@ -1,22 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import { ModuleHero } from "../components/ModuleHero";
 import { PageShell } from "../components/layout/PageShell";
-
-const pending = [
-  "Precios oficiales",
-  "Variables de alcance",
-  "Criterios administrativos",
-  "Flujo de aprobación",
-];
+import { useLanguage } from "../i18n/LanguageProvider";
 
 export function QuotePage() {
+  const { translations } = useLanguage();
+  const t = translations.quote;
   return (
     <PageShell>
       <main>
         <ModuleHero
-          eyebrow="Cotización de proyectos"
-          title="Filtro inicial para entender alcance, datos fiscales y necesidades"
-          description="Esta página ordena la información que después puede alimentar una cotización automatizada."
+          eyebrow={t.eyebrow}
+          title={t.title}
+          description={t.description}
         />
 
         <section data-tone="alt" className="qt-section">
@@ -24,29 +22,29 @@ export function QuotePage() {
             <form className="qf-card">
               <div className="qf-group">
                 <span className="qf-group-label">
-                  01 / Datos del solicitante
+                  {t.applicant}
                 </span>
 
                 <div className="qf-row">
                   <Field
                     id="nombre"
-                    label="Nombre o razón social"
-                    placeholder="Nombre del solicitante"
+                    label={t.name}
+                    placeholder={t.namePlaceholder}
                   />
                   <Field
                     id="rfc"
                     label="RFC"
-                    placeholder="RFC para filtro fiscal"
+                    placeholder={t.taxIdPlaceholder}
                   />
                   <Field
                     id="correo"
-                    label="Correo"
+                    label={t.email}
                     placeholder="correo@empresa.com"
                     type="email"
                   />
                   <Field
                     id="telefono"
-                    label="Teléfono"
+                    label={t.phone}
                     placeholder="662 123 4567"
                     type="tel"
                   />
@@ -54,55 +52,51 @@ export function QuotePage() {
               </div>
 
               <div className="qf-group">
-                <span className="qf-group-label">02 / Proyecto</span>
+                <span className="qf-group-label">{t.project}</span>
 
                 <div className="qf-stack">
                   <div>
                     <label htmlFor="tipo" className="qf-label">
-                      Tipo de proyecto
+                      {t.projectType}
                     </label>
                     <select id="tipo" className="qf-input" defaultValue="">
                       <option value="" disabled>
-                        Selecciona una opción
+                        {t.select}
                       </option>
-                      <option>Sitio web</option>
-                      <option>Sistema administrativo</option>
-                      <option>Inventario / punto de venta</option>
-                      <option>Automatización industrial</option>
-                      <option>Otro</option>
+                      {t.projectTypes.map((type, index) => <option key={index} value={index}>{type}</option>)}
                     </select>
                   </div>
 
                   <div>
                     <label htmlFor="alcance" className="qf-label">
-                      Descripción del alcance
+                      {t.scope}
                     </label>
                     <textarea
                       id="alcance"
                       rows={5}
                       className="qf-input qf-textarea"
-                      placeholder="Describe el problema, usuarios, proceso actual y resultado esperado."
+                      placeholder={t.scopePlaceholder}
                     />
                   </div>
                 </div>
               </div>
 
               <button type="button" className="btn btn-primary qf-submit">
-                Preparar solicitud
+                {t.prepare}
                 <span aria-hidden="true">→</span>
               </button>
             </form>
 
             <aside className="qa-card">
-              <span className="eyebrow">Pendiente por definir</span>
-              <h2 className="qa-title">Reglas para automatizar</h2>
+              <span className="eyebrow">{t.pending}</span>
+              <h2 className="qa-title">{t.rules}</h2>
 
               <p className="qa-text">
-                Para convertir esto en cotizador automático se necesitan:
+                {t.requirements}
               </p>
 
               <ul>
-                {pending.map((item, i) => (
+                {t.items.map((item, i) => (
                   <li key={item} className="pn-row">
                     <span className="pn-row-n">
                       {String(i + 1).padStart(2, "0")}
@@ -114,7 +108,7 @@ export function QuotePage() {
 
               <Link href="/servicios#a-medida" className="btn btn-ghost qa-btn">
                 {" "}
-                Ver catálogo
+                {translations.common.viewCatalog}
                 <span aria-hidden="true">→</span>
               </Link>
             </aside>

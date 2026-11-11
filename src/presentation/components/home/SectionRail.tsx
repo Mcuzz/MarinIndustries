@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "../../i18n/LanguageProvider";
 
-const SECTIONS = [
-  { id: "inicio", label: "Inicio" },
-  { id: "empresa", label: "Empresa" },
-  { id: "casos", label: "Casos" },
-  { id: "contacto", label: "Contacto" },
-];
+const SECTION_IDS = ["inicio", "empresa", "casos", "contacto"] as const;
 
 export function SectionRail() {
+  const { translations } = useLanguage();
+  const labels = translations.home.sectionRail.sections;
+  const sections = SECTION_IDS.map((id) => ({ id, label: labels[id as keyof typeof labels] }));
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -23,7 +22,7 @@ export function SectionRail() {
       const line = window.innerHeight * 0.4;
       let current = 0;
 
-      SECTIONS.forEach((s, i) => {
+      sections.forEach((s, i) => {
         const el = document.getElementById(s.id);
         if (el && el.getBoundingClientRect().top <= line) current = i;
       });
@@ -79,8 +78,8 @@ export function SectionRail() {
   return (
     <div ref={boxRef}>
       {/* Desktop: riel de marcas */}
-      <nav className="rail" aria-label="Secciones de la página">
-        {SECTIONS.map((s, i) => (
+      <nav className="rail" aria-label={translations.home.sectionRail.ariaLabel}>
+        {sections.map((s, i) => (
           <button
             key={s.id}
             type="button"
@@ -102,15 +101,15 @@ export function SectionRail() {
           type="button"
           className="rail-m-btn"
           aria-expanded={open}
-          aria-label="Ir a una sección"
+          aria-label={translations.home.sectionRail.mobileLabel}
           onClick={() => setOpen((o) => !o)}
         >
           {pad(active + 1)}
-          <span>/{pad(SECTIONS.length)}</span>
+          <span>/{pad(sections.length)}</span>
         </button>
 
         <div className="rail-m-menu" data-open={open} inert={!open}>
-          {SECTIONS.map((s, i) => (
+          {sections.map((s, i) => (
             <button
               key={s.id}
               type="button"

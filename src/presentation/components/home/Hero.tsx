@@ -50,10 +50,10 @@ export function Hero() {
 
         <div
           className="home-hero-bottom"
-          aria-label="Información de Marin Industries"
+          aria-label={translations.home.hero.eyebrow}
         >
           <span>MARIN INDUSTRIES</span>
-          <span>INGENIERÍA · TECNOLOGÍA · SERVICIO</span>
+          <span>{translations.home.hero.overline}</span>
           <span>SONORA, MX</span>
         </div>
       </div>
