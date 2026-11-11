@@ -13,7 +13,8 @@
   },
   "language": {
     "spanish": "Español",
-    "english": "Inglés"
+    "english": "Inglés",
+    "select": "Seleccionar idioma"
   },
   "home": {
     "hero": {
@@ -182,6 +183,7 @@
         "descriptionPlaceholder": "Cuéntanos qué necesita tu negocio",
         "submit": "Enviar solicitud",
         "success": "Gracias. Tu solicitud fue preparada para enviarse a nuestro equipo.",
+        "validationError": "Revisa que todos los campos estén completos y que el teléfono sea válido.",
         "note": "Tu mensaje se enviará por WhatsApp para iniciar la conversación.",
         "services": {
           "Proyectos de ingeniería": "Proyectos de ingeniería",
@@ -202,5 +204,130 @@
         }
       }
     }
-  }
+  },
+  "common": {
+    "theme": "Cambiar tema de color",
+    "sections": "Secciones",
+    "services": "servicios",
+    "vacancies": "vacantes",
+    "functions": "funciones",
+    "price": "Precio",
+    "basePrice": "Precio base",
+    "requestQuote": "Solicitar cotización",
+    "viewCatalog": "Ver catálogo",
+    "noServices": "Por ahora no hay servicios disponibles en el catálogo.",
+    "noOpenings": "Por ahora no hay convocatorias abiertas.",
+    "imageUnavailable": "Imagen no disponible",
+    "footerRights": "© 2026 Marin Industries. Todos los derechos reservados.",
+    "footerDescription": "Soluciones digitales para negocios locales.",
+    "footerSocialTitle": "Síguenos",
+    "footerSocialDescription": "Conecta con Marin Industries en nuestras redes sociales.",
+    "footerSocialInstagram": "Instagram",
+    "footerSocialTikTok": "TikTok",
+    "footerSocialFacebook": "Facebook"
+  },
+  "catalog": {
+    "items": {
+      "website-basic": {"name":"Sitio web informativo","description":"Landing o sitio básico para presentar servicios, contacto y casos de trabajo."},
+      "inventory-system": {"name":"Sistema de inventario","description":"Control inicial de productos, existencias, entradas, salidas y reportes básicos."},
+      "point-of-sale": {"name":"Punto de venta","description":"Registro de ventas, productos, cortes y control operativo para negocios locales."},
+      "process-automation": {"name":"Automatización de procesos","description":"Diagnóstico, propuesta técnica y desarrollo según equipo, proceso y objetivos."}
+    },
+    "eyebrow": "Catálogo y costos",
+    "title": "Servicios con costos base para iniciar conversaciones",
+    "description": "Versión estática para mostrar rangos y ordenar expectativas mientras administración define reglas de actualización.",
+    "section": "Servicios",
+    "item": "Servicio",
+    "empty": "Por ahora no hay servicios en el catálogo."
+  },
+  "jobs": {
+    "items": {
+      "web-intern": {"title":"Practicante de desarrollo web","area":"Software","status":"Convocatoria base","description":"Apoyo en interfaces, formularios, documentación y mantenimiento de proyectos internos."},
+      "automation-support": {"title":"Apoyo en automatización","area":"Ingeniería","status":"Por definir","description":"Participación en levantamiento de procesos, pruebas y documentación técnica."},
+      "graphic-designer": {"title":"Diseñador gráfico colaborador","area":"Marca","status":"Por definir","description":"Soporte visual para identidad, piezas digitales, iconografía y presentación comercial."}
+    },
+    "eyebrow": "Sistema de convocatorias",
+    "title": "Vacantes y oportunidades de colaboración",
+    "description": "Consulta oportunidades disponibles y conoce las opciones para colaborar con nuestro equipo.",
+    "publications": "Publicaciones",
+    "initial": "Convocatorias iniciales",
+    "empty": "Por ahora no hay convocatorias abiertas.",
+    "requestInfo": "Solicitar información"
+  },
+  "hr": {
+    "items": {
+      "authorized-access":"Acceso solo para personal autorizado",
+      "employee-files":"Expedientes de colaboradores",
+      "skills-matrix":"Matriz de aptitudes y capacidades",
+      "internal-documents":"Historial y documentos internos"
+    },
+    "eyebrow": "Recursos humanos",
+    "title": "Área interna para control de expedientes y aptitudes",
+    "description": "Acceso para personal autorizado a herramientas y recursos internos.",
+    "restricted": "Acceso restringido",
+    "authorized": "Acceso autorizado",
+    "privateDescription": "Esta pantalla marca el módulo como privado sin exponer información sensible en la página pública.",
+    "email": "Correo institucional",
+    "emailPlaceholder": "correo@empresa.com",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Tu contraseña",
+    "enter": "Entrar",
+    "features": "Funciones del módulo"
+  },
+  "quote": {
+    "eyebrow": "Cotización de proyectos",
+    "title": "Filtro inicial para entender alcance, datos fiscales y necesidades",
+    "description": "Esta página ordena la información que después puede alimentar una cotización automatizada.",
+    "applicant": "01 / Datos del solicitante",
+    "name": "Nombre o razón social",
+    "namePlaceholder": "Nombre del solicitante",
+    "taxIdPlaceholder": "RFC para filtro fiscal",
+    "email": "Correo",
+    "phone": "Teléfono",
+    "project": "02 / Proyecto",
+    "projectType": "Tipo de proyecto",
+    "select": "Selecciona una opción",
+    "scope": "Descripción del alcance",
+    "scopePlaceholder": "Describe el problema, usuarios, proceso actual y resultado esperado.",
+    "prepare": "Preparar solicitud",
+    "pending": "Pendiente por definir",
+    "rules": "Reglas para automatizar",
+    "requirements": "Para convertir esto en cotizador automático se necesitan:",
+    "items": ["Precios oficiales", "Variables de alcance", "Criterios administrativos", "Flujo de aprobación"],
+    "projectTypes": ["Sitio web", "Sistema administrativo", "Inventario / punto de venta", "Automatización industrial", "Otro"]
+  },
+  "suite": {
+    "heroOverline": "SOFTWARE / SOLUCIONES / GESTIÓN",
+    "heroTitle": ["Tecnología", "para mejores", "operaciones."],
+    "sectionLabel": "01 / SERVICIOS DISPONIBLES",
+    "productCount": "03 PRODUCTOS",
+    "products": [
+      {"category":"GESTIÓN DE OPERACIONES","name":"Administrador de Inventario","title":"Control total de tu inventario.","description":"Administra tus productos, existencias y movimientos desde una plataforma centralizada. Mantén el control de tus recursos y toma decisiones con información organizada.","features":["Registro y organización de productos","Control de entradas y salidas","Seguimiento de existencias","Historial de movimientos","Reportes de inventario"],"tags":["Inventario","Operaciones","Gestión"]},
+      {"category":"ADMINISTRACIÓN DE VENTAS","name":"Punto de venta (POS)","title":"Simplifica cada operación de venta.","description":"Gestiona las transacciones de tu negocio, organiza tus ventas y centraliza la información de tus operaciones comerciales.","features":["Registro de ventas","Administración de productos","Control de transacciones","Seguimiento de operaciones","Reportes comerciales"],"tags":["Ventas","POS","Comercio"]},
+      {"category":"GESTIÓN DE CLIENTES","name":"Customer Relationship Management","title":"Construye mejores relaciones comerciales.","description":"Centraliza la información de tus clientes, organiza oportunidades comerciales y facilita el seguimiento de cada interacción.","features":["Registro de clientes","Historial de interacciones","Seguimiento de oportunidades","Organización de contactos","Gestión de relaciones comerciales"],"tags":["CRM","Clientes","Seguimiento"]}
+    ],
+    "description": "Herramientas digitales diseñadas para simplificar procesos, organizar operaciones y ayudar a los negocios a crecer.",
+    "explore": "EXPLORAR SERVICIOS",
+    "available": "Explora nuestras soluciones.",
+    "subscriptions": "AVAILABLE SUBSCRIPTIONS",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "monthlyDescription": "Suscripción con renovación mensual.",
+    "yearlyDescription": "Suscripción con renovación anual.",
+    "priceTbd": "Precio por definir",
+    "customTitle": "¿Necesitas algo más a la medida?",
+    "customIntro": "Desarrollamos soluciones de software e ingeniería adaptadas a los procesos, objetivos y necesidades de cada organización.",
+    "customServices": "DESARROLLO Y SERVICIOS",
+    "customService": "SERVICIO PERSONALIZADO",
+    "contactTitle": "Tu siguiente paso comienza aquí.",
+    "contactDescription": "Cuéntanos qué necesita tu negocio. Nuestro equipo puede ayudarte a identificar la solución adecuada para tu operación.",
+    "contactAction": "HABLAR CON NUESTRO EQUIPO",
+    "serviceCount": "servicios"
+  },
+  "auth": {
+    "portal":"Portal de acceso","loginTitle":"Tecnología que mueve tu negocio.","loginDescription":"Ingresa a tu espacio de trabajo de Marin Industries.","registerTitle":"Construyamos algo mejor juntos.","registerDescription":"Crea tu cuenta para acceder a las oportunidades de Marin Industries.","backHome":"Volver al inicio","loginEyebrow":"ACCESO A LA PLATAFORMA","loginHeading":"Inicia sesión en tu cuenta","loginLead":"Usa tus credenciales para continuar.","registerEyebrow":"ÚNETE A MARIN INDUSTRIES","registerHeading":"Crea tu cuenta","registerLead":"Regístrate para continuar.","name":"Nombre completo","namePlaceholder":"Tu nombre","email":"Correo electrónico","emailPlaceholder":"nombre@empresa.com","password":"Contraseña","passwordPlaceholder":"Ingresa tu contraseña","passwordHint":"Al menos 8 caracteres","confirmPassword":"Confirmar contraseña","confirmPlaceholder":"Repite tu contraseña","remember":"Recordarme","signIn":"Iniciar sesión","signingIn":"Ingresando...","create":"Crear cuenta","creating":"Creando cuenta...","needAccount":"¿Aún no tienes cuenta?","register":"Crear una cuenta","haveAccount":"¿Ya tienes cuenta?","login":"Iniciar sesión","contactPrompt":"¿Necesitas ayuda para contratar o usar nuestros servicios?","contact":"Contáctanos","loginError":"No se pudo iniciar sesión. Revisa tu correo y contraseña e inténtalo de nuevo.","connectionError":"No se pudo conectar. Revisa la configuración e inténtalo de nuevo.","passwordMismatch":"Las contraseñas no coinciden.","accountCreated":"Cuenta creada. Revisa tu correo para confirmar la dirección antes de iniciar sesión.","registrationError":"No se pudo crear la cuenta. Verifica tus datos e inténtalo de nuevo."
+  },
+  "theme": { "toggle": "Alternar entre modo claro y oscuro" }
+  ,"store": {
+    "catalog":"Catálogo de productos","description":"Explora los productos disponibles y consulta sus detalles.","cart":"Carrito","viewCart":"Ver carrito","search":"Buscar productos","searchPlaceholder":"Nombre o descripción...","category":"Categoría","showAll":"Mostrar todos","offers":"Ver ofertas","emptyResults":"No se encontraron productos con esos criterios.","productsFound":"productos encontrados","requestQuote":"Solicitar una cotización","details":"Detalles de","closeDetails":"Cerrar detalles","order":"MARIN INDUSTRIES / PEDIDO","articles":"artículos","closeCart":"Cerrar carrito","cartItems":"Artículos del carrito","priceSummary":"Resumen de precios","summary":"Resumen","subtotal":"Subtotal","tax":"IVA (16%)","total":"Total","clear":"Vaciar carrito","checkout":"Completar compra","continue":"Continuar comprando","emptyCart":"Tu carrito está vacío.","explore":"Explorar productos","loading":"Cargando productos...","error":"No se pudieron cargar los productos.","offer":"OFERTA","availability":"Disponibilidad:","units":"unidades","outOfStock":"Agotado","add":"Añadir al carrito","back":"Regresar","share":"Compartir","perUnit":"por unidad","quantity":"Cantidad","reduce":"Reducir cantidad","increase":"Aumentar cantidad","remove":"Eliminar"}
 }

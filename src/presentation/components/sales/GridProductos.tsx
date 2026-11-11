@@ -17,6 +17,7 @@ import { productosEstaticos } from "@/src/infrastructure/products/static-product
 
 import { useRouter } from "next/navigation";
 import { saveStoreCheckout } from "@/src/infrastructure/sales/store-checkout.storage";
+import { useLanguage } from "../../i18n/LanguageProvider";
 
 const moneda = (precio: number) =>
   new Intl.NumberFormat("es-MX", {
@@ -31,6 +32,8 @@ type GridProductosProps = {
 export function GridProductos({
   productosInicialesProp,
 }: GridProductosProps = {}) {
+  const { translations } = useLanguage();
+  const t = translations.store;
   const [productos, setProductos] = useState<Producto[]>(
     productosInicialesProp && productosInicialesProp.length > 0
       ? productosInicialesProp
@@ -196,10 +199,10 @@ export function GridProductos({
       <div className="section-shell">
         <header className="tienda-encabezado">
           <div>
-            <span className="eyebrow">MARIN INDUSTRIES / PRODUCTOS</span>
-            <h1 className="tienda-titulo">Catálogo de productos</h1>
+            <span className="eyebrow">MARIN INDUSTRIES / {t.catalog.toUpperCase()}</span>
+            <h1 className="tienda-titulo">{t.catalog}</h1>
             <p className="tienda-descripcion">
-              Explora los productos disponibles y consulta sus detalles.
+              {t.description}
             </p>
           </div>
 
@@ -207,26 +210,26 @@ export function GridProductos({
             type="button"
             className="btn btn-primary tienda-carrito"
             onClick={() => setCarritoAbierto(true)}
-            aria-label={`Ver carrito, ${totalArticulos} artículos`}
+            aria-label={`${t.viewCart}, ${totalArticulos} ${t.articles}`}
           >
-            Carrito{" "}
+            {t.cart}{" "}
             <span className="tienda-carrito-cantidad">{totalArticulos}</span>
           </button>
         </header>
 
         <div className="tienda-controles">
           <label className="tienda-busqueda">
-            <span>Buscar productos</span>
+            <span>{t.search}</span>
             <input
               type="search"
               value={busqueda}
               onChange={(event) => setBusqueda(event.target.value)}
-              placeholder="Nombre o descripción..."
+              placeholder={t.searchPlaceholder}
             />
           </label>
 
           <label className="tienda-categoria">
-            <span>Categoría</span>
+            <span>{t.category}</span>
             <select
               value={categoria}
               onChange={(event) => setCategoria(event.target.value)}
@@ -245,7 +248,7 @@ export function GridProductos({
             aria-pressed={soloOfertas}
             onClick={() => setSoloOfertas((actual) => !actual)}
           >
-            {soloOfertas ? "Mostrar todos" : "Ver ofertas"}
+            {soloOfertas ? t.showAll : t.offers}
           </button>
         </div>
 
@@ -264,13 +267,13 @@ export function GridProductos({
           </div>
         ) : (
           <p className="tienda-vacio">
-            No se encontraron productos con esos criterios.
+            {t.emptyResults}
           </p>
         )}
 
         <footer className="tienda-pie">
-          <span>{productosFiltrados.length} productos encontrados</span>
-          <Link href="/cotizacion">Solicitar una cotización</Link>
+          <span>{productosFiltrados.length} {t.productsFound}</span>
+          <Link href="/cotizacion">{t.requestQuote}</Link>
         </footer>
       </div>
 
@@ -283,13 +286,13 @@ export function GridProductos({
             className="producto-dialogo"
             role="dialog"
             aria-modal="true"
-            aria-label={`Detalles de ${productoSeleccionado.nombre}`}
+            aria-label={`${t.details} ${productoSeleccionado.nombre}`}
             onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"
               className="tienda-modal-cerrar"
-              aria-label="Cerrar detalles"
+              aria-label={t.closeDetails}
               onClick={() => setProductoExpandido(null)}
             >
               ×
@@ -331,14 +334,14 @@ export function GridProductos({
           >
             <header className="carrito-encabezado">
               <div>
-                <span className="eyebrow">MARIN INDUSTRIES / PEDIDO</span>
-                <h2 id="carrito-titulo">Tu carrito</h2>
-                <p>{totalArticulos} artículos</p>
+                <span className="eyebrow">{t.order}</span>
+                <h2 id="carrito-titulo">{t.cart}</h2>
+                <p>{totalArticulos} {t.articles}</p>
               </div>
               <button
                 type="button"
                 className="tienda-modal-cerrar"
-                aria-label="Cerrar carrito"
+                aria-label={t.closeCart}
                 onClick={() => setCarritoAbierto(false)}
               >
                 ×
@@ -349,7 +352,7 @@ export function GridProductos({
               <div className="carrito-cuerpo">
                 <div
                   className="carrito-articulos"
-                  aria-label="Artículos del carrito"
+                  aria-label={t.cartItems}
                 >
                   {articulosCarrito.map(({ producto, cantidad }) => (
                     <CarritoItem
@@ -366,20 +369,20 @@ export function GridProductos({
 
                 <aside
                   className="carrito-resumen"
-                  aria-label="Resumen de precios"
+                  aria-label={t.priceSummary}
                 >
-                  <h3>Resumen</h3>
+                  <h3>{t.summary}</h3>
                   <dl>
                     <div>
-                      <dt>Subtotal</dt>
+                      <dt>{t.subtotal}</dt>
                       <dd>{moneda(subtotal)}</dd>
                     </div>
                     <div>
-                      <dt>IVA (16%)</dt>
+                      <dt>{t.tax}</dt>
                       <dd>{moneda(iva)}</dd>
                     </div>
                     <div className="carrito-total">
-                      <dt>Total</dt>
+                      <dt>{t.total}</dt>
                       <dd>{moneda(total)}</dd>
                     </div>
                   </dl>
@@ -388,7 +391,7 @@ export function GridProductos({
                     className="btn btn-ghost carrito-vaciar"
                     onClick={() => setCarrito({})}
                   >
-                    Vaciar carrito
+                    {t.clear}
                   </button>
                   <button
                     type="button"
@@ -415,26 +418,26 @@ export function GridProductos({
                       router.push("/tienda/pago");
                     }}
                   >
-                    Completar compra
+                    {t.checkout}
                   </button>
                   <button
                     type="button"
                     className="btn btn-primary carrito-continuar"
                     onClick={() => setCarritoAbierto(false)}
                   >
-                    Continuar comprando
+                    {t.continue}
                   </button>
                 </aside>
               </div>
             ) : (
               <div className="carrito-vacio">
-                <p>Tu carrito está vacío.</p>
+                <p>{t.emptyCart}</p>
                 <button
                   type="button"
                   className="btn btn-primary"
                   onClick={() => setCarritoAbierto(false)}
                 >
-                  Explorar productos
+                  {t.explore}
                 </button>
               </div>
             )}

@@ -5,11 +5,14 @@ import { ThemeToggle } from "../components/layout/ThemeToggle";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { createSupabaseBrowserClient } from "@/src/infrastructure/supabase/client";
+import { useLanguage } from "../i18n/LanguageProvider";
 
 export function LoginPage() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+  const { translations, language, setLanguage } = useLanguage();
+  const t = translations.auth;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -27,7 +30,7 @@ export function LoginPage() {
 
       if (error) {
         setMessage(
-          "No se pudo iniciar sesión. Revisa tu correo y contraseña e inténtalo de nuevo.",
+          t.loginError,
         );
         return;
       }
@@ -36,7 +39,7 @@ export function LoginPage() {
       router.refresh();
     } catch {
       setMessage(
-        "No se pudo conectar. Revisa la configuración de Supabase e inténtalo de nuevo.",
+        t.connectionError,
       );
     } finally {
       setIsSubmitting(false);
@@ -59,18 +62,18 @@ export function LoginPage() {
 
         <div className="relative mt-10 max-w-xl lg:mt-0">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brandAccent">
-            Portal de acceso
+            {t.portal}
           </p>
           <h1 className="max-w-lg text-4xl font-bold leading-tight sm:text-5xl">
-            Tecnología que mueve tu negocio.
+            {t.loginTitle}
           </h1>
           <p className="mt-5 max-w-md text-base leading-7 text-blue-100">
-            Ingresa a tu espacio de trabajo de Marin Industries.
+            {t.loginDescription}
           </p>
         </div>
 
         <p className="relative mt-8 text-xs text-blue-200 lg:mt-0">
-          Soluciones digitales para negocios locales
+          {translations.common.footerDescription}
         </p>
       </section>
 
@@ -81,19 +84,23 @@ export function LoginPage() {
               href="/"
               className="text-sm font-medium text-brandText transition hover:text-brandDark"
             >
-              ← Volver al sitio
+              ← {t.backHome}
             </Link>
+            <div className="flex items-center gap-2" aria-label={translations.language.select}>
+              <button type="button" aria-pressed={language === "es"} onClick={() => setLanguage("es")}>ES</button>
+              <button type="button" aria-pressed={language === "en"} onClick={() => setLanguage("en")}>EN</button>
+            </div>
             <ThemeToggle />
           </div>
           <div className="mt-10">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brandText">
-              Bienvenido
+              {t.loginEyebrow}
             </p>
             <h2 className="mt-2 text-3xl font-bold text-brandDark">
-              Iniciar sesión
+              {t.loginHeading}
             </h2>
             <p className="mt-3 text-sm leading-6 text-brandText">
-              Introduce tus datos para continuar a tu cuenta.
+              {t.loginLead}
             </p>
           </div>
 
@@ -103,7 +110,7 @@ export function LoginPage() {
                 htmlFor="email"
                 className="mb-2 block text-sm font-semibold text-brandText"
               >
-                Correo electrónico
+                {t.email}
               </label>
               <input
                 id="email"
@@ -111,7 +118,7 @@ export function LoginPage() {
                 type="email"
                 autoComplete="username"
                 required
-                placeholder="nombre@empresa.com"
+                placeholder={t.emailPlaceholder}
                 className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
@@ -120,7 +127,7 @@ export function LoginPage() {
                 htmlFor="password"
                 className="mb-2 block text-sm font-semibold text-brandText"
               >
-                Contraseña
+                {t.password}
               </label>
               <input
                 id="password"
@@ -128,7 +135,7 @@ export function LoginPage() {
                 type="password"
                 autoComplete="current-password"
                 required
-                placeholder="Ingresa tu contraseña"
+                placeholder={t.passwordPlaceholder}
                 className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
@@ -138,14 +145,14 @@ export function LoginPage() {
                 name="remember"
                 className="h-4 w-4 accent-brandBlue"
               />
-              Recordar mi correo
+              {t.remember}
             </label>
             <button
               type="submit"
               disabled={isSubmitting}
               className="w-full bg-brandAccent px-5 py-3.5 text-sm font-bold text-brandDark transition hover:bg-brandAccentHover focus:outline-none focus:ring-2 focus:ring-interactive focus:ring-offset-2"
             >
-              {isSubmitting ? "Ingresando..." : "Iniciar sesión"}
+              {isSubmitting ? t.signingIn : t.signIn}
             </button>
             {message ? (
               <p
@@ -158,23 +165,23 @@ export function LoginPage() {
           </form>
 
           <p className="mt-5 text-center text-sm text-brandText">
-            ¿No tienes cuenta?{" "}
+            {t.needAccount}{" "}
             <Link
               href="/registro"
               className="font-semibold text-brandMuted underline underline-offset-4"
             >
-              Crear cuenta
+              {t.register}
             </Link>
           </p>
 
           <p className="mt-8 border-t border-brandLine pt-5 text-sm text-brandText">
             {" "}
-            ¿Necesitas ayuda?{" "}
+            {t.contactPrompt}{" "}
             <Link
               href="/#contacto"
               className="font-semibold text-brandMuted underline underline-offset-4"
             >
-              Contacta con Marin Industries
+              {t.contact}
             </Link>
           </p>
         </div>

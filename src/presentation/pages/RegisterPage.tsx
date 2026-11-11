@@ -5,11 +5,14 @@ import { ThemeToggle } from "../components/layout/ThemeToggle";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { createSupabaseBrowserClient } from "@/src/infrastructure/supabase/client";
+import { useLanguage } from "../i18n/LanguageProvider";
 
 export function RegisterPage() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+  const { translations, language, setLanguage } = useLanguage();
+  const t = translations.auth;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -20,7 +23,7 @@ export function RegisterPage() {
     const confirmPassword = String(formData.get("confirm-password"));
 
     if (password !== confirmPassword) {
-      setMessage("Las contraseñas no coinciden.");
+      setMessage(t.passwordMismatch);
       return;
     }
 
@@ -39,7 +42,7 @@ export function RegisterPage() {
 
       if (error) {
         console.error("Error de registro:", error);
-        setMessage(error.message);
+        setMessage(t.registrationError);
         return;
       }
 
@@ -50,11 +53,11 @@ export function RegisterPage() {
       }
 
       setMessage(
-        "Cuenta creada. Revisa tu correo para confirmar la dirección antes de iniciar sesión.",
+        t.accountCreated,
       );
     } catch {
       setMessage(
-        "No se pudo conectar. Revisa la configuración de Supabase e inténtalo de nuevo.",
+        t.connectionError,
       );
     } finally {
       setIsSubmitting(false);
@@ -79,18 +82,18 @@ export function RegisterPage() {
 
         <div className="relative mt-10 max-w-xl lg:mt-0">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brandAccent">
-            Únete a Marin Industries
+            {t.registerEyebrow}
           </p>
           <h1 className="max-w-lg text-4xl font-bold leading-tight sm:text-5xl">
-            Tu siguiente proyecto empieza aquí.
+            {t.registerTitle}
           </h1>
           <p className="mt-5 max-w-md text-base leading-7 text-blue-100">
-            Crea tu cuenta para acceder a tu espacio de trabajo.
+            {t.registerDescription}
           </p>
         </div>
 
         <p className="relative mt-8 text-xs text-blue-200 lg:mt-0">
-          Soluciones digitales para negocios locales
+          {translations.common.footerDescription}
         </p>
       </section>
 
@@ -101,19 +104,23 @@ export function RegisterPage() {
               href="/"
               className="text-sm font-medium text-brandMuted transition hover:text-brandDark"
             >
-              ← Volver al sitio
+              ← {t.backHome}
             </Link>
+            <div className="flex items-center gap-2" aria-label={translations.language.select}>
+              <button type="button" aria-pressed={language === "es"} onClick={() => setLanguage("es")}>ES</button>
+              <button type="button" aria-pressed={language === "en"} onClick={() => setLanguage("en")}>EN</button>
+            </div>
             <ThemeToggle />
           </div>
           <div className="mt-10">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brandMuted">
-              Nueva cuenta
+              {t.registerEyebrow}
             </p>
             <h2 className="mt-2 text-3xl font-bold text-brandDark">
-              Crear cuenta
+              {t.registerHeading}
             </h2>
             <p className="mt-3 text-sm leading-6 text-brandText">
-              Completa tus datos para registrarte.
+              {t.registerLead}
             </p>
           </div>
 
@@ -123,7 +130,7 @@ export function RegisterPage() {
                 htmlFor="full-name"
                 className="mb-2 block text-sm font-semibold text-brandText"
               >
-                Nombre completo
+                {t.name}
               </label>
               <input
                 id="full-name"
@@ -131,7 +138,7 @@ export function RegisterPage() {
                 type="text"
                 autoComplete="name"
                 required
-                placeholder="Tu nombre"
+                placeholder={t.namePlaceholder}
                 className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
@@ -140,7 +147,7 @@ export function RegisterPage() {
                 htmlFor="email"
                 className="mb-2 block text-sm font-semibold text-brandText"
               >
-                Correo electrónico
+                {t.email}
               </label>
               <input
                 id="email"
@@ -148,7 +155,7 @@ export function RegisterPage() {
                 type="email"
                 autoComplete="email"
                 required
-                placeholder="nombre@empresa.com"
+                placeholder={t.emailPlaceholder}
                 className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
@@ -157,7 +164,7 @@ export function RegisterPage() {
                 htmlFor="password"
                 className="mb-2 block text-sm font-semibold text-brandText"
               >
-                Contraseña
+                {t.password}
               </label>
               <input
                 id="password"
@@ -166,7 +173,7 @@ export function RegisterPage() {
                 autoComplete="new-password"
                 minLength={8}
                 required
-                placeholder="Al menos 8 caracteres"
+                placeholder={t.passwordHint}
                 className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
@@ -175,7 +182,7 @@ export function RegisterPage() {
                 htmlFor="confirm-password"
                 className="mb-2 block text-sm font-semibold text-brandText"
               >
-                Confirmar contraseña
+                {t.confirmPassword}
               </label>
               <input
                 id="confirm-password"
@@ -184,7 +191,7 @@ export function RegisterPage() {
                 autoComplete="new-password"
                 minLength={8}
                 required
-                placeholder="Repite tu contraseña"
+                placeholder={t.confirmPlaceholder}
                 className="w-full border border-brandLine bg-brandSurface px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-brandMuted focus:border-interactive focus:ring-2 focus:ring-interactive/15"
               />
             </div>
@@ -193,7 +200,7 @@ export function RegisterPage() {
               disabled={isSubmitting}
               className="w-full bg-brandAccent px-5 py-3.5 text-sm font-bold text-brandDark transition hover:bg-brandAccentHover focus:outline-none focus:ring-2 focus:ring-interactive focus:ring-offset-2 disabled:cursor-wait disabled:opacity-60"
             >
-              {isSubmitting ? "Creando cuenta..." : "Crear cuenta"}
+              {isSubmitting ? t.creating : t.create}
             </button>
             {message ? (
               <p
@@ -206,12 +213,12 @@ export function RegisterPage() {
           </form>
 
           <p className="mt-8 border-t border-brandLine pt-5 text-sm text-brandMuted">
-            ¿Ya tienes cuenta?{" "}
+            {t.haveAccount}{" "}
             <Link
               href="/login"
               className="font-semibold text-brandDark underline underline-offset-4"
             >
-              Inicia sesión
+              {t.login}
             </Link>
           </p>
         </div>

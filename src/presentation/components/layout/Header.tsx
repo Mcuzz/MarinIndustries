@@ -64,7 +64,7 @@ export function Header() {
           <ThemeToggle />
           <div
             className="flex items-center gap-1 rounded-md border border-brandLine p-1"
-            aria-label="Seleccionar idioma"
+            aria-label={translations.language.select}
           >
             <button
               type="button"
