@@ -8,12 +8,20 @@ type ShippingFormProps = {
   initialAddress: StoreShippingAddress;
   onSubmit: (address: StoreShippingAddress) => void;
   onBack: () => void;
+  /** Deshabilita el formulario mientras se procesa el envío. */
+  busy?: boolean;
+  /** Mensaje de error que se muestra arriba de los botones. */
+  error?: string;
+  submitLabel?: string;
 };
 
 export function ShippingForm({
   initialAddress,
   onSubmit,
   onBack,
+  busy = false,
+  error,
+  submitLabel = "Continuar al pago →",
 }: ShippingFormProps) {
   const [address, setAddress] =
     useState<StoreShippingAddress>(initialAddress);
@@ -30,11 +38,12 @@ export function ShippingForm({
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (busy) return;
     onSubmit(address);
   }
 
   return (
-    <form className="qf-card" onSubmit={handleSubmit}>
+    <form className="qf-card" onSubmit={handleSubmit} aria-busy={busy}>
       <span className="qf-group-label">02 / Datos de entrega</span>
 
       <div className="qf-stack">
@@ -171,13 +180,17 @@ export function ShippingForm({
         </label>
       </div>
 
+      {error ? (
+        <div className="vt-alert" role="alert">{error}</div>
+      ) : null}
+
       <div className="vt-pay-actions">
-        <button type="button" className="btn btn-ghost" onClick={onBack}>
+        <button type="button" className="btn btn-ghost" onClick={onBack} disabled={busy}>
           ← Regresar
         </button>
 
-        <button type="submit" className="btn btn-primary">
-          Continuar al pago →
+        <button type="submit" className="btn btn-primary" disabled={busy}>
+          {busy ? "Procesando..." : submitLabel}
         </button>
       </div>
     </form>

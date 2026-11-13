@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { formatMXN } from "@/src/domain/sales/sale.entity";
+import { computeStoreTotals } from "@/src/domain/store/store-pricing";
 import {
   loadStoreCheckout,
   type StoreCheckoutDraft,
@@ -18,6 +19,11 @@ import {
 import { ModuleHero } from "@/src/presentation/components/ModuleHero";
 import { PageShell } from "@/src/presentation/components/layout/PageShell";
 import { ShippingForm } from "@/src/presentation/components/store/ShippingForm";
+import { MercadoPagoWaiting } from "@/src/presentation/components/store/MercadoPagoWaiting";
+import {
+  useMercadoPagoPopup,
+  type MpResult,
+} from "@/src/presentation/components/store/useMercadoPagoPopup";
 
 const initialAddress: StoreShippingAddress = {
   recipient: "",
@@ -40,22 +46,46 @@ export default function StoreShippingPage() {
   const [address, setAddress] =
     useState<StoreShippingAddress>(initialAddress);
 
+  const [method, setMethod] = useState<"tarjeta" | "mercadopago">("mercadopago");
+
+  const mercadoPago = useMercadoPagoPopup((result: MpResult) => {
+    const params = new URLSearchParams({
+      status: result.status,
+      external_reference: result.orderId,
+    });
+    if (result.paymentId) params.set("payment_id", result.paymentId);
+    router.push(`/tienda/pago/confirmacion?${params.toString()}`);
+  });
+
   useEffect(() => {
     setDraft(loadStoreCheckout());
     setAddress(loadStoreShipping() ?? initialAddress);
+    // Se lee aquí (y no con useSearchParams) para no requerir un <Suspense> en la página.
+    const metodo = new URLSearchParams(window.location.search).get("metodo");
+    if (metodo === "tarjeta") setMethod("tarjeta");
     setLoaded(true);
   }, []);
 
-  const subtotal = draft?.subtotal ?? 0;
-  const envio = Math.round(subtotal * 0.08 * 100) / 100;
-  const total = (draft?.total ?? 0) + envio;
+  // Mismo cálculo que cobra el servidor (al centavo).
+  const { subtotal, iva, envio, total } = computeStoreTotals(draft?.items ?? []);
 
   function handleShippingSubmit(nextAddress: StoreShippingAddress) {
     if (!draft) return;
 
     saveStoreShipping(nextAddress);
     setAddress(nextAddress);
-    router.push("/tienda/pago/tarjeta");
+
+    if (method === "tarjeta") {
+      router.push("/tienda/pago/tarjeta");
+      return;
+    }
+
+    // Mercado Pago Checkout Pro en ventana emergente; esta página se queda esperando.
+    // Se llama sin await antes de cualquier otra espera para que el navegador no bloquee la ventana.
+    void mercadoPago.start({
+      items: draft.items.map(({ id, cantidad }) => ({ id, cantidad })),
+      shipping: nextAddress,
+    });
   }
 
   return (
@@ -91,11 +121,27 @@ export default function StoreShippingPage() {
               </div>
             ) : (
               <>
-                <ShippingForm
-                  initialAddress={address}
-                  onBack={() => router.push("/tienda/pago")}
-                  onSubmit={handleShippingSubmit}
-                />
+                {mercadoPago.waiting ? (
+                  <MercadoPagoWaiting
+                    lastStatus={mercadoPago.lastStatus}
+                    onReopen={mercadoPago.reopen}
+                    onCancel={mercadoPago.cancel}
+                    onContinuePending={mercadoPago.continuePending}
+                  />
+                ) : (
+                  <ShippingForm
+                    initialAddress={address}
+                    onBack={() => router.push("/tienda/pago")}
+                    onSubmit={handleShippingSubmit}
+                    busy={mercadoPago.starting}
+                    error={mercadoPago.error}
+                    submitLabel={
+                      method === "tarjeta"
+                        ? "Continuar al pago con tarjeta →"
+                        : "Pagar con Mercado Pago →"
+                    }
+                  />
+                )}
 
                 <aside className="qa-card vt-summary">
                   <span className="eyebrow">Resumen del pedido</span>
@@ -128,7 +174,7 @@ export default function StoreShippingPage() {
 
                     <div>
                       <span>IVA (16%)</span>
-                      <span>{formatMXN(draft.iva)}</span>
+                      <span>{formatMXN(iva)}</span>
                     </div>
 
                     <div>
@@ -137,14 +183,14 @@ export default function StoreShippingPage() {
                     </div>
 
                     <div className="vt-breakdown-total">
-                      <span>Total estimado</span>
+                      <span>Total a pagar</span>
                       <span>{formatMXN(total)}</span>
                     </div>
                   </div>
 
                   <p className="vt-hint">
-                    El costo de envío es estimado y corresponde al 8% del
-                    subtotal de los productos.
+                    El costo de envío corresponde al 8% del subtotal de los
+                    productos.
                   </p>
                 </aside>
               </>
