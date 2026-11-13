@@ -7,8 +7,7 @@ import { CarritoItem } from "./CarritoItem";
 
 import { CompartirProductoModal } from "./CompartirProductoModal";
 
-const CARRITO_STORAGE_KEY = "marin.store.cart";
-const TASA_IVA = 0.16;
+const CARRITO_STORAGE_KEY = STORE_CART_KEY;
 
 
 
@@ -16,7 +15,8 @@ import { container } from "@/src/infrastructure/composition/root-container";
 import { productosEstaticos } from "@/src/infrastructure/products/static-product.repository";
 
 import { useRouter } from "next/navigation";
-import { saveStoreCheckout } from "@/src/infrastructure/sales/store-checkout.storage";
+import { saveStoreCheckout, STORE_CART_KEY } from "@/src/infrastructure/sales/store-checkout.storage";
+import { computeStoreTotals } from "@/src/domain/store/store-pricing";
 import { useLanguage } from "../../i18n/LanguageProvider";
 
 const moneda = (precio: number) =>
@@ -156,12 +156,11 @@ export function GridProductos({
     const cantidad = carrito[producto.id] ?? 0;
     return cantidad > 0 ? [{ producto, cantidad }] : [];
   });
-  const subtotal = articulosCarrito.reduce(
-    (total, articulo) => total + articulo.producto.precio * articulo.cantidad,
-    0,
+  // Mismo cálculo que el checkout y el servidor (el envío se suma en el checkout).
+  const { subtotal, iva, total } = computeStoreTotals(
+    articulosCarrito.map(({ producto, cantidad }) => ({ precio: producto.precio, cantidad })),
+    { includeShipping: false },
   );
-  const iva = subtotal * TASA_IVA;
-  const total = subtotal + iva;
 
   const agregarAlCarrito = (producto: Producto) => {
     setCarrito((actual) => {

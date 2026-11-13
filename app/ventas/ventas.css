@@ -284,3 +284,20 @@
     gap: 1rem;
   }
 }
+
+/* ---- Campos seguros de Mercado Pago (tienda en línea) ----
+   El número, vencimiento y CVV se capturan en iframes de Mercado Pago.
+   Estos contenedores imitan .qf-input para que se vean igual que el resto del formulario. */
+.vt-secure-field { position: relative; height: 2.75rem; padding: 0 0.85rem; display: flex; align-items: center; cursor: text; }
+.vt-secure-field iframe { width: 100% !important; height: 100% !important; border: 0; }
+.vt-secure-field[data-focused="true"] {
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-accent) 25%, transparent);
+}
+.vt-secure-field[data-invalid="true"] { border-color: var(--color-danger); }
+.vt-secure-field[data-loading="true"] { background: color-mix(in srgb, var(--brand-line) 30%, var(--brand-bg)); }
+.vt-secure-field--with-brand { padding-right: 7.5rem; }
+.vt-brand-badge { position: absolute; right: 0.6rem; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 0.4rem; pointer-events: none; }
+.vt-brand-badge img { height: 20px; width: auto; }
+.vt-brand-badge span { font-family: 'Electrolize', sans-serif; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-text); }
+.vt-card-type { margin-top: 0.4rem; font-size: 0.8rem; color: var(--brand-muted); }

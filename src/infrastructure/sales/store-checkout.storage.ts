@@ -74,3 +74,14 @@ export function clearStoreCheckout(): void {
 
   window.sessionStorage.removeItem(STORE_CHECKOUT_KEY);
 }
+
+/** Vacía el carrito guardado en localStorage (se llama al terminar una compra). */
+export function clearStoreCart(): void {
+  if (typeof window === "undefined") return;
+
+  try {
+    window.localStorage.removeItem(STORE_CART_KEY);
+  } catch {
+    // Almacenamiento bloqueado (modo privado, etc.): no hay nada que limpiar.
+  }
+}

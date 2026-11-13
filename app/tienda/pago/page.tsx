@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { formatMXN } from "@/src/domain/sales/sale.entity";
+import { computeStoreTotals } from "@/src/domain/store/store-pricing";
 import {
   loadStoreCheckout,
   saveStoreCheckout,
@@ -18,26 +19,26 @@ export default function StorePaymentPage() {
 
   const [loaded, setLoaded] = useState(false);
   const [draft, setDraft] = useState<StoreCheckoutDraft | null>(null);
-  const [selectedMethod, setSelectedMethod] = useState<string>("tarjeta");
+  const [selectedMethod, setSelectedMethod] = useState<"tarjeta" | "mercadopago">("tarjeta");
 
   useEffect(() => {
     setDraft(loadStoreCheckout());
     setLoaded(true);
   }, []);
 
-  const subtotal = draft?.subtotal ?? 0;
-  const iva = draft?.iva ?? 0;
-  const envio = Math.round(subtotal * 0.08 * 100) / 100;
-  const total = (draft?.total ?? 0) + envio;
+  // Mismo cálculo que cobra el servidor (al centavo).
+  const { subtotal, iva, envio, total } = computeStoreTotals(draft?.items ?? []);
+
+  const canContinue = selectedMethod === "tarjeta" || selectedMethod === "mercadopago";
 
   function continueToShipping() {
-    if (!draft || selectedMethod !== "tarjeta") return;
+    if (!draft || !canContinue) return;
 
     saveStoreCheckout({
       ...draft,
     });
 
-    router.push("/tienda/pago/envio?metodo=tarjeta");
+    router.push(`/tienda/pago/envio?metodo=${selectedMethod}`);
   }
 
   return (
@@ -94,12 +95,14 @@ export default function StorePaymentPage() {
                           Tarjeta de débito / crédito
                         </span>
                         <span className="vt-method-desc">
-                          Visa, Mastercard o American Express.
+                          Visa, Mastercard o American Express, sin salir de Marin.
+                          Meses sin intereses con tarjetas participantes.
                         </span>
                       </span>
                       <span aria-hidden="true">→</span>
                     </button>
 
+                    {/* PayPal: oculto por ahora hasta que exista la integración.
                     <div className="vt-method" aria-disabled="true">
                       <span className="vt-method-icon" aria-hidden="true">
                         <span>P</span>
@@ -113,25 +116,31 @@ export default function StorePaymentPage() {
                         </span>
                       </span>
                     </div>
+                    */}
 
-                    <div className="vt-method" aria-disabled="true">
+                    <button
+                      type="button"
+                      className="vt-method"
+                      data-selected={selectedMethod === "mercadopago"}
+                      onClick={() => setSelectedMethod("mercadopago")}
+                    >
                       <span className="vt-method-icon" aria-hidden="true">
                         <span>M</span>
                       </span>
                       <span className="vt-method-body">
-                        <span className="vt-method-name">
-                          Mercado Pago <span className="vt-soon">Próximamente</span>
-                        </span>
+                        <span className="vt-method-name">Mercado Pago</span>
                         <span className="vt-method-desc">
-                          La integración estará disponible más adelante.
+                          Tarjeta, saldo en cuenta, Mercado Crédito, OXXO o SPEI.
+                          Te llevaremos al sitio seguro de Mercado Pago.
                         </span>
                       </span>
-                    </div>
+                      <span aria-hidden="true">→</span>
+                    </button>
                   </div>
 
                   <div className="vt-notice">
-                    El pago es una interfaz de demostración. No se realizará
-                    ningún cargo real desde esta pantalla.
+                    Los pagos los procesa Mercado Pago de forma segura.
+                    Marin Industries no recibe ni guarda los datos de tu tarjeta.
                   </div>
 
                   <div className="vt-pay-actions">
@@ -143,7 +152,7 @@ export default function StorePaymentPage() {
                       type="button"
                       className="btn btn-primary"
                       onClick={continueToShipping}
-                      disabled={selectedMethod !== "tarjeta"}
+                      disabled={!canContinue}
                     >
                       Continuar con el envío →
                     </button>
@@ -185,14 +194,14 @@ export default function StorePaymentPage() {
                       <span>{formatMXN(envio)}</span>
                     </div>
                     <div className="vt-breakdown-total">
-                      <span>Total estimado</span>
+                      <span>Total a pagar</span>
                       <span>{formatMXN(total)}</span>
                     </div>
                   </div>
 
                   <p className="vt-hint">
                     El envío se calcula como el 8% del subtotal de productos.
-                    Confirmaremos la dirección antes de finalizar el pedido.
+                    En el siguiente paso capturarás la dirección de entrega.
                   </p>
                 </aside>
               </>

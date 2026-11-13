@@ -14,7 +14,7 @@ import {
   useSaleDraft,
 } from "../components/sales/CheckoutParts";
 
-type MethodId = "paypal" | "mercadopago" | "tarjeta";
+type MethodId = "tarjeta";
 
 const methods: {
   id: MethodId;
@@ -23,30 +23,6 @@ const methods: {
   available: boolean;
   icon: React.ReactNode;
 }[] = [
-  {
-    id: "paypal",
-    name: "PayPal",
-    description: "Paga con tu saldo o tarjetas vinculadas a tu cuenta PayPal.",
-    available: false,
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path strokeLinejoin="round" d="M7 20l2-14h6.5a4 4 0 010 8H10.5L9.5 20H7z" />
-        <path strokeLinejoin="round" d="M10 17h1.2l.8-5h3.5" opacity=".5" />
-      </svg>
-    ),
-  },
-  {
-    id: "mercadopago",
-    name: "Mercado Pago",
-    description: "Paga con tu cuenta de Mercado Pago, saldo o meses con Mercado Crédito.",
-    available: false,
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <ellipse cx="12" cy="12" rx="9" ry="6" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M7 12.5l2.5 1.5L12 11l2.5 3L17 12.5" />
-      </svg>
-    ),
-  },
   {
     id: "tarjeta",
     name: "Tarjeta de débito / crédito",
