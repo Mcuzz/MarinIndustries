@@ -7,7 +7,8 @@ import { getSupabaseAdminClient } from "../supabase/admin";
 // Pedidos de la tienda en línea → tablas pedidos_tienda / pedidos_tienda_detalles
 // (supabase/migrations/20261112_pedidos_tienda.sql).
 
-export type OnlineOrderStatus = "pendiente_pago" | "en_proceso" | "pagado" | "rechazado" | "cancelado";
+export type OnlineOrderStatus =
+  "pendiente_pago" | "en_proceso" | "pagado" | "rechazado" | "cancelado";
 
 export type NewOnlineOrder = {
   id: string;
@@ -36,9 +37,12 @@ const TABLE = "pedidos_tienda";
 const DETAILS_TABLE = "pedidos_tienda_detalles";
 
 /** false si no hay SUPABASE_SECRET_KEY: el checkout sigue funcionando pero sin guardar pedidos. */
-export const isOnlineOrderStorageEnabled = () => getSupabaseAdminClient() !== null;
+export const isOnlineOrderStorageEnabled = () =>
+  getSupabaseAdminClient() !== null;
 
-export async function createOnlineOrder(order: NewOnlineOrder): Promise<Result<true>> {
+export async function createOnlineOrder(
+  order: NewOnlineOrder,
+): Promise<Result<true>> {
   const supabase = getSupabaseAdminClient();
   if (!supabase) return fail("Supabase no está configurado.");
 
@@ -80,7 +84,10 @@ export async function createOnlineOrder(order: NewOnlineOrder): Promise<Result<t
   );
 
   if (detailsError) {
-    console.error("[pedidos] No se pudieron guardar los productos del pedido:", detailsError.message);
+    console.error(
+      "[pedidos] No se pudieron guardar los productos del pedido:",
+      detailsError.message,
+    );
     await supabase.from(TABLE).delete().eq("id", order.id);
     return fail("No pudimos registrar tu pedido. Intenta de nuevo.");
   }
@@ -88,12 +95,22 @@ export async function createOnlineOrder(order: NewOnlineOrder): Promise<Result<t
   return ok(true);
 }
 
-export async function setOnlineOrderPreference(orderId: string, preferenceId: string): Promise<void> {
+export async function setOnlineOrderPreference(
+  orderId: string,
+  preferenceId: string,
+): Promise<void> {
   const supabase = getSupabaseAdminClient();
   if (!supabase) return;
 
-  const { error } = await supabase.from(TABLE).update({ mp_preference_id: preferenceId }).eq("id", orderId);
-  if (error) console.error("[pedidos] No se pudo guardar la preferencia:", error.message);
+  const { error } = await supabase
+    .from(TABLE)
+    .update({ mp_preference_id: preferenceId })
+    .eq("id", orderId);
+  if (error)
+    console.error(
+      "[pedidos] No se pudo guardar la preferencia:",
+      error.message,
+    );
 }
 
 /**
@@ -114,7 +131,9 @@ export async function updateOnlineOrderPayment(
       mp_payment_id: update.mpPaymentId,
       mp_status: update.mpStatus,
       mp_status_detail: update.mpStatusDetail,
-      ...(update.status === "pagado" ? { pagado_en: new Date().toISOString() } : {}),
+      ...(update.status === "pagado"
+        ? { pagado_en: new Date().toISOString() }
+        : {}),
     })
     .eq("id", orderId)
     .neq("estado", "pagado");

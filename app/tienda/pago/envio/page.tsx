@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -43,10 +42,11 @@ export default function StoreShippingPage() {
 
   const [loaded, setLoaded] = useState(false);
   const [draft, setDraft] = useState<StoreCheckoutDraft | null>(null);
-  const [address, setAddress] =
-    useState<StoreShippingAddress>(initialAddress);
+  const [address, setAddress] = useState<StoreShippingAddress>(initialAddress);
 
-  const [method, setMethod] = useState<"tarjeta" | "mercadopago">("mercadopago");
+  const [method, setMethod] = useState<"tarjeta" | "mercadopago">(
+    "mercadopago",
+  );
 
   const mercadoPago = useMercadoPagoPopup((result: MpResult) => {
     const params = new URLSearchParams({
@@ -67,7 +67,9 @@ export default function StoreShippingPage() {
   }, []);
 
   // Mismo cálculo que cobra el servidor (al centavo).
-  const { subtotal, iva, envio, total } = computeStoreTotals(draft?.items ?? []);
+  const { subtotal, iva, envio, total } = computeStoreTotals(
+    draft?.items ?? [],
+  );
 
   function handleShippingSubmit(nextAddress: StoreShippingAddress) {
     if (!draft) return;
@@ -100,16 +102,12 @@ export default function StoreShippingPage() {
         <section data-tone="alt" className="vt-section">
           <div className="section-shell qt-grid">
             {!loaded ? (
-              <div className="qf-card vt-loading">
-                Cargando pedido...
-              </div>
+              <div className="qf-card vt-loading">Cargando pedido...</div>
             ) : !draft ? (
               <div className="qf-card vt-empty">
                 <span className="eyebrow">Sin pedido pendiente</span>
 
-                <h2 className="qa-title">
-                  No encontramos tu compra
-                </h2>
+                <h2 className="qa-title">No encontramos tu compra</h2>
 
                 <p className="qa-text">
                   Regresa a la tienda y agrega productos al carrito.
@@ -150,18 +148,14 @@ export default function StoreShippingPage() {
                     {draft.items.map((item) => (
                       <div className="vt-summary-item" key={item.id}>
                         <div>
-                          <p className="vt-summary-item-name">
-                            {item.nombre}
-                          </p>
+                          <p className="vt-summary-item-name">{item.nombre}</p>
 
                           <p className="vt-summary-item-qty">
                             {item.cantidad} × {formatMXN(item.precio)}
                           </p>
                         </div>
 
-                        <span>
-                          {formatMXN(item.precio * item.cantidad)}
-                        </span>
+                        <span>{formatMXN(item.precio * item.cantidad)}</span>
                       </div>
                     ))}
                   </div>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ThemeToggle } from "../components/layout/ThemeToggle";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import { createSupabaseBrowserClient } from "@/src/infrastructure/supabase/client";
+import { createSupabaseBrowserClient } from "@/src/application/auth/auth.service";
 import { useLanguage } from "../i18n/LanguageProvider";
 
 export function RegisterPage() {
@@ -52,13 +52,9 @@ export function RegisterPage() {
         return;
       }
 
-      setMessage(
-        t.accountCreated,
-      );
+      setMessage(t.accountCreated);
     } catch {
-      setMessage(
-        t.connectionError,
-      );
+      setMessage(t.connectionError);
     } finally {
       setIsSubmitting(false);
     }
@@ -106,9 +102,24 @@ export function RegisterPage() {
             >
               ← {t.backHome}
             </Link>
-            <div className="flex items-center gap-2" aria-label={translations.language.select}>
-              <button type="button" aria-pressed={language === "es"} onClick={() => setLanguage("es")}>ES</button>
-              <button type="button" aria-pressed={language === "en"} onClick={() => setLanguage("en")}>EN</button>
+            <div
+              className="flex items-center gap-2"
+              aria-label={translations.language.select}
+            >
+              <button
+                type="button"
+                aria-pressed={language === "es"}
+                onClick={() => setLanguage("es")}
+              >
+                ES
+              </button>
+              <button
+                type="button"
+                aria-pressed={language === "en"}
+                onClick={() => setLanguage("en")}
+              >
+                EN
+              </button>
             </div>
             <ThemeToggle />
           </div>

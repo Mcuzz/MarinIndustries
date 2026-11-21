@@ -6,7 +6,9 @@ type PageShellProps = {
 
 export function PageShell({ children }: PageShellProps) {
   return (
-<div className="min-h-screen bg-brandBg text-brandText">      <Header />
+    <div className="min-h-screen bg-brandBg text-brandText">
+      {" "}
+      <Header />
       {children}
       <Footer />
     </div>

@@ -21,18 +21,18 @@ Profesional, humano y directo. La marca debe sentirse cercana a comerciantes, em
 4. **Qué hacemos**
    Servicios principales:
 
-   * Sistemas de gestión para negocios.
-   * Aplicaciones móviles.
-   * Sitios web.
-   * Automatización de procesos.
-   * Consultoría tecnológica.
+   - Sistemas de gestión para negocios.
+   - Aplicaciones móviles.
+   - Sitios web.
+   - Automatización de procesos.
+   - Consultoría tecnológica.
 
 5. **Casos de éxito / proyectos destacados**
    Como aún no se proporcionaron proyectos específicos, se pueden mostrar casos tipo:
 
-   * Sistema de control de ventas e inventario.
-   * Aplicación móvil para pedidos o servicios.
-   * Sitio web para presencia digital.
+   - Sistema de control de ventas e inventario.
+   - Aplicación móvil para pedidos o servicios.
+   - Sitio web para presencia digital.
      Estos pueden cambiarse después por proyectos reales.
 
 6. **Proceso de trabajo**

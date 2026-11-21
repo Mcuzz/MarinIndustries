@@ -1,4 +1,3 @@
-
 {
   "header": {
     "navigation": {
@@ -22,10 +21,10 @@
       "index": "SONORA, MX · 2026",
       "overline": "INGENIERÍA / AUTOMATIZACIÓN / SOPORTE",
       "title": {
-  "line1": "Ingeniería",
-  "line2": "y tecnología",
-  "line3": "para crecer."
-},
+        "line1": "Ingeniería",
+        "line2": "y tecnología",
+        "line3": "para crecer."
+      },
       "description": "Soluciones de software, mecatrónica, biomédica y soporte técnico para negocios, industrias y hogares.",
       "primaryAction": "SOLICITAR UNA PROPUESTA",
       "secondaryAction": "EXPLORAR SERVICIOS"
@@ -228,10 +227,22 @@
   },
   "catalog": {
     "items": {
-      "website-basic": {"name":"Sitio web informativo","description":"Landing o sitio básico para presentar servicios, contacto y casos de trabajo."},
-      "inventory-system": {"name":"Sistema de inventario","description":"Control inicial de productos, existencias, entradas, salidas y reportes básicos."},
-      "point-of-sale": {"name":"Punto de venta","description":"Registro de ventas, productos, cortes y control operativo para negocios locales."},
-      "process-automation": {"name":"Automatización de procesos","description":"Diagnóstico, propuesta técnica y desarrollo según equipo, proceso y objetivos."}
+      "website-basic": {
+        "name": "Sitio web informativo",
+        "description": "Landing o sitio básico para presentar servicios, contacto y casos de trabajo."
+      },
+      "inventory-system": {
+        "name": "Sistema de inventario",
+        "description": "Control inicial de productos, existencias, entradas, salidas y reportes básicos."
+      },
+      "point-of-sale": {
+        "name": "Punto de venta",
+        "description": "Registro de ventas, productos, cortes y control operativo para negocios locales."
+      },
+      "process-automation": {
+        "name": "Automatización de procesos",
+        "description": "Diagnóstico, propuesta técnica y desarrollo según equipo, proceso y objetivos."
+      }
     },
     "eyebrow": "Catálogo y costos",
     "title": "Servicios con costos base para iniciar conversaciones",
@@ -242,9 +253,24 @@
   },
   "jobs": {
     "items": {
-      "web-intern": {"title":"Practicante de desarrollo web","area":"Software","status":"Convocatoria base","description":"Apoyo en interfaces, formularios, documentación y mantenimiento de proyectos internos."},
-      "automation-support": {"title":"Apoyo en automatización","area":"Ingeniería","status":"Por definir","description":"Participación en levantamiento de procesos, pruebas y documentación técnica."},
-      "graphic-designer": {"title":"Diseñador gráfico colaborador","area":"Marca","status":"Por definir","description":"Soporte visual para identidad, piezas digitales, iconografía y presentación comercial."}
+      "web-intern": {
+        "title": "Practicante de desarrollo web",
+        "area": "Software",
+        "status": "Convocatoria base",
+        "description": "Apoyo en interfaces, formularios, documentación y mantenimiento de proyectos internos."
+      },
+      "automation-support": {
+        "title": "Apoyo en automatización",
+        "area": "Ingeniería",
+        "status": "Por definir",
+        "description": "Participación en levantamiento de procesos, pruebas y documentación técnica."
+      },
+      "graphic-designer": {
+        "title": "Diseñador gráfico colaborador",
+        "area": "Marca",
+        "status": "Por definir",
+        "description": "Soporte visual para identidad, piezas digitales, iconografía y presentación comercial."
+      }
     },
     "eyebrow": "Sistema de convocatorias",
     "title": "Vacantes y oportunidades de colaboración",
@@ -256,10 +282,10 @@
   },
   "hr": {
     "items": {
-      "authorized-access":"Acceso solo para personal autorizado",
-      "employee-files":"Expedientes de colaboradores",
-      "skills-matrix":"Matriz de aptitudes y capacidades",
-      "internal-documents":"Historial y documentos internos"
+      "authorized-access": "Acceso solo para personal autorizado",
+      "employee-files": "Expedientes de colaboradores",
+      "skills-matrix": "Matriz de aptitudes y capacidades",
+      "internal-documents": "Historial y documentos internos"
     },
     "eyebrow": "Recursos humanos",
     "title": "Área interna para control de expedientes y aptitudes",
@@ -293,8 +319,19 @@
     "pending": "Pendiente por definir",
     "rules": "Reglas para automatizar",
     "requirements": "Para convertir esto en cotizador automático se necesitan:",
-    "items": ["Precios oficiales", "Variables de alcance", "Criterios administrativos", "Flujo de aprobación"],
-    "projectTypes": ["Sitio web", "Sistema administrativo", "Inventario / punto de venta", "Automatización industrial", "Otro"]
+    "items": [
+      "Precios oficiales",
+      "Variables de alcance",
+      "Criterios administrativos",
+      "Flujo de aprobación"
+    ],
+    "projectTypes": [
+      "Sitio web",
+      "Sistema administrativo",
+      "Inventario / punto de venta",
+      "Automatización industrial",
+      "Otro"
+    ]
   },
   "suite": {
     "heroOverline": "SOFTWARE / SOLUCIONES / GESTIÓN",
@@ -302,9 +339,48 @@
     "sectionLabel": "01 / SERVICIOS DISPONIBLES",
     "productCount": "03 PRODUCTOS",
     "products": [
-      {"category":"GESTIÓN DE OPERACIONES","name":"Administrador de Inventario","title":"Control total de tu inventario.","description":"Administra tus productos, existencias y movimientos desde una plataforma centralizada. Mantén el control de tus recursos y toma decisiones con información organizada.","features":["Registro y organización de productos","Control de entradas y salidas","Seguimiento de existencias","Historial de movimientos","Reportes de inventario"],"tags":["Inventario","Operaciones","Gestión"]},
-      {"category":"ADMINISTRACIÓN DE VENTAS","name":"Punto de venta (POS)","title":"Simplifica cada operación de venta.","description":"Gestiona las transacciones de tu negocio, organiza tus ventas y centraliza la información de tus operaciones comerciales.","features":["Registro de ventas","Administración de productos","Control de transacciones","Seguimiento de operaciones","Reportes comerciales"],"tags":["Ventas","POS","Comercio"]},
-      {"category":"GESTIÓN DE CLIENTES","name":"Customer Relationship Management","title":"Construye mejores relaciones comerciales.","description":"Centraliza la información de tus clientes, organiza oportunidades comerciales y facilita el seguimiento de cada interacción.","features":["Registro de clientes","Historial de interacciones","Seguimiento de oportunidades","Organización de contactos","Gestión de relaciones comerciales"],"tags":["CRM","Clientes","Seguimiento"]}
+      {
+        "category": "GESTIÓN DE OPERACIONES",
+        "name": "Administrador de Inventario",
+        "title": "Control total de tu inventario.",
+        "description": "Administra tus productos, existencias y movimientos desde una plataforma centralizada. Mantén el control de tus recursos y toma decisiones con información organizada.",
+        "features": [
+          "Registro y organización de productos",
+          "Control de entradas y salidas",
+          "Seguimiento de existencias",
+          "Historial de movimientos",
+          "Reportes de inventario"
+        ],
+        "tags": ["Inventario", "Operaciones", "Gestión"]
+      },
+      {
+        "category": "ADMINISTRACIÓN DE VENTAS",
+        "name": "Punto de venta (POS)",
+        "title": "Simplifica cada operación de venta.",
+        "description": "Gestiona las transacciones de tu negocio, organiza tus ventas y centraliza la información de tus operaciones comerciales.",
+        "features": [
+          "Registro de ventas",
+          "Administración de productos",
+          "Control de transacciones",
+          "Seguimiento de operaciones",
+          "Reportes comerciales"
+        ],
+        "tags": ["Ventas", "POS", "Comercio"]
+      },
+      {
+        "category": "GESTIÓN DE CLIENTES",
+        "name": "Customer Relationship Management",
+        "title": "Construye mejores relaciones comerciales.",
+        "description": "Centraliza la información de tus clientes, organiza oportunidades comerciales y facilita el seguimiento de cada interacción.",
+        "features": [
+          "Registro de clientes",
+          "Historial de interacciones",
+          "Seguimiento de oportunidades",
+          "Organización de contactos",
+          "Gestión de relaciones comerciales"
+        ],
+        "tags": ["CRM", "Clientes", "Seguimiento"]
+      }
     ],
     "description": "Herramientas digitales diseñadas para simplificar procesos, organizar operaciones y ayudar a los negocios a crecer.",
     "explore": "EXPLORAR SERVICIOS",
@@ -325,9 +401,87 @@
     "serviceCount": "servicios"
   },
   "auth": {
-    "portal":"Portal de acceso","loginTitle":"Tecnología que mueve tu negocio.","loginDescription":"Ingresa a tu espacio de trabajo de Marin Industries.","registerTitle":"Construyamos algo mejor juntos.","registerDescription":"Crea tu cuenta para acceder a las oportunidades de Marin Industries.","backHome":"Volver al inicio","loginEyebrow":"ACCESO A LA PLATAFORMA","loginHeading":"Inicia sesión en tu cuenta","loginLead":"Usa tus credenciales para continuar.","registerEyebrow":"ÚNETE A MARIN INDUSTRIES","registerHeading":"Crea tu cuenta","registerLead":"Regístrate para continuar.","name":"Nombre completo","namePlaceholder":"Tu nombre","email":"Correo electrónico","emailPlaceholder":"nombre@empresa.com","password":"Contraseña","passwordPlaceholder":"Ingresa tu contraseña","passwordHint":"Al menos 8 caracteres","confirmPassword":"Confirmar contraseña","confirmPlaceholder":"Repite tu contraseña","remember":"Recordarme","signIn":"Iniciar sesión","signingIn":"Ingresando...","create":"Crear cuenta","creating":"Creando cuenta...","needAccount":"¿Aún no tienes cuenta?","register":"Crear una cuenta","haveAccount":"¿Ya tienes cuenta?","login":"Iniciar sesión","contactPrompt":"¿Necesitas ayuda para contratar o usar nuestros servicios?","contact":"Contáctanos","loginError":"No se pudo iniciar sesión. Revisa tu correo y contraseña e inténtalo de nuevo.","connectionError":"No se pudo conectar. Revisa la configuración e inténtalo de nuevo.","passwordMismatch":"Las contraseñas no coinciden.","accountCreated":"Cuenta creada. Revisa tu correo para confirmar la dirección antes de iniciar sesión.","registrationError":"No se pudo crear la cuenta. Verifica tus datos e inténtalo de nuevo."
+    "portal": "Portal de acceso",
+    "loginTitle": "Tecnología que mueve tu negocio.",
+    "loginDescription": "Ingresa a tu espacio de trabajo de Marin Industries.",
+    "registerTitle": "Construyamos algo mejor juntos.",
+    "registerDescription": "Crea tu cuenta para acceder a las oportunidades de Marin Industries.",
+    "backHome": "Volver al inicio",
+    "loginEyebrow": "ACCESO A LA PLATAFORMA",
+    "loginHeading": "Inicia sesión en tu cuenta",
+    "loginLead": "Usa tus credenciales para continuar.",
+    "registerEyebrow": "ÚNETE A MARIN INDUSTRIES",
+    "registerHeading": "Crea tu cuenta",
+    "registerLead": "Regístrate para continuar.",
+    "name": "Nombre completo",
+    "namePlaceholder": "Tu nombre",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "nombre@empresa.com",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "passwordHint": "Al menos 8 caracteres",
+    "confirmPassword": "Confirmar contraseña",
+    "confirmPlaceholder": "Repite tu contraseña",
+    "remember": "Recordarme",
+    "signIn": "Iniciar sesión",
+    "signingIn": "Ingresando...",
+    "create": "Crear cuenta",
+    "creating": "Creando cuenta...",
+    "needAccount": "¿Aún no tienes cuenta?",
+    "register": "Crear una cuenta",
+    "haveAccount": "¿Ya tienes cuenta?",
+    "login": "Iniciar sesión",
+    "contactPrompt": "¿Necesitas ayuda para contratar o usar nuestros servicios?",
+    "contact": "Contáctanos",
+    "loginError": "No se pudo iniciar sesión. Revisa tu correo y contraseña e inténtalo de nuevo.",
+    "connectionError": "No se pudo conectar. Revisa la configuración e inténtalo de nuevo.",
+    "passwordMismatch": "Las contraseñas no coinciden.",
+    "accountCreated": "Cuenta creada. Revisa tu correo para confirmar la dirección antes de iniciar sesión.",
+    "registrationError": "No se pudo crear la cuenta. Verifica tus datos e inténtalo de nuevo."
   },
-  "theme": { "toggle": "Alternar entre modo claro y oscuro" }
-  ,"store": {
-    "catalog":"Catálogo de productos","description":"Explora los productos disponibles y consulta sus detalles.","cart":"Carrito","viewCart":"Ver carrito","search":"Buscar productos","searchPlaceholder":"Nombre o descripción...","category":"Categoría","showAll":"Mostrar todos","offers":"Ver ofertas","emptyResults":"No se encontraron productos con esos criterios.","productsFound":"productos encontrados","requestQuote":"Solicitar una cotización","details":"Detalles de","closeDetails":"Cerrar detalles","order":"MARIN INDUSTRIES / PEDIDO","articles":"artículos","closeCart":"Cerrar carrito","cartItems":"Artículos del carrito","priceSummary":"Resumen de precios","summary":"Resumen","subtotal":"Subtotal","tax":"IVA (16%)","total":"Total","clear":"Vaciar carrito","checkout":"Completar compra","continue":"Continuar comprando","emptyCart":"Tu carrito está vacío.","explore":"Explorar productos","loading":"Cargando productos...","error":"No se pudieron cargar los productos.","offer":"OFERTA","availability":"Disponibilidad:","units":"unidades","outOfStock":"Agotado","add":"Añadir al carrito","back":"Regresar","share":"Compartir","perUnit":"por unidad","quantity":"Cantidad","reduce":"Reducir cantidad","increase":"Aumentar cantidad","remove":"Eliminar"}
+  "theme": { "toggle": "Alternar entre modo claro y oscuro" },
+  "store": {
+    "catalog": "Catálogo de productos",
+    "description": "Explora los productos disponibles y consulta sus detalles.",
+    "cart": "Carrito",
+    "viewCart": "Ver carrito",
+    "search": "Buscar productos",
+    "searchPlaceholder": "Nombre o descripción...",
+    "category": "Categoría",
+    "showAll": "Mostrar todos",
+    "offers": "Ver ofertas",
+    "emptyResults": "No se encontraron productos con esos criterios.",
+    "productsFound": "productos encontrados",
+    "requestQuote": "Solicitar una cotización",
+    "details": "Detalles de",
+    "closeDetails": "Cerrar detalles",
+    "order": "MARIN INDUSTRIES / PEDIDO",
+    "articles": "artículos",
+    "closeCart": "Cerrar carrito",
+    "cartItems": "Artículos del carrito",
+    "priceSummary": "Resumen de precios",
+    "summary": "Resumen",
+    "subtotal": "Subtotal",
+    "tax": "IVA (16%)",
+    "total": "Total",
+    "clear": "Vaciar carrito",
+    "checkout": "Completar compra",
+    "continue": "Continuar comprando",
+    "emptyCart": "Tu carrito está vacío.",
+    "explore": "Explorar productos",
+    "loading": "Cargando productos...",
+    "error": "No se pudieron cargar los productos.",
+    "offer": "OFERTA",
+    "availability": "Disponibilidad:",
+    "units": "unidades",
+    "outOfStock": "Agotado",
+    "add": "Añadir al carrito",
+    "back": "Regresar",
+    "share": "Compartir",
+    "perUnit": "por unidad",
+    "quantity": "Cantidad",
+    "reduce": "Reducir cantidad",
+    "increase": "Aumentar cantidad",
+    "remove": "Eliminar"
+  }
 }

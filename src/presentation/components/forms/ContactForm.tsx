@@ -11,7 +11,7 @@ const services = [
   "Sitio web",
   "Automatizacion",
   "Servicios tecnicos",
-  "Otro"
+  "Otro",
 ];
 
 const problems = [
@@ -20,7 +20,7 @@ const problems = [
   "Control",
   "Ventas e inventario",
   "Presencia digital",
-  "Otro"
+  "Otro",
 ];
 
 export function ContactForm() {
@@ -40,7 +40,7 @@ export function ContactForm() {
       negocio: String(data.get("negocio") || ""),
       servicio: String(data.get("servicio") || ""),
       problema: String(data.get("problema") || ""),
-      mensaje: String(data.get("mensaje") || "")
+      mensaje: String(data.get("mensaje") || ""),
     });
 
     if (!result.ok) {
@@ -173,9 +173,7 @@ export function ContactForm() {
         {status}
       </div>
 
-      <p className="text-xs text-brandMuted">
-        {t.note}
-      </p>
+      <p className="text-xs text-brandMuted">{t.note}</p>
     </form>
   );
 }

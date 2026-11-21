@@ -8,10 +8,12 @@ export const STORE_SHIPPING_RATE = 0.08;
 export const roundMoney = (value: number) => Math.round(value * 100) / 100;
 
 /** Precio unitario con IVA incluido (redondeado por pieza, como se manda a Mercado Pago). */
-export const priceWithIva = (price: number) => roundMoney(price * (1 + STORE_IVA_RATE));
+export const priceWithIva = (price: number) =>
+  roundMoney(price * (1 + STORE_IVA_RATE));
 
 /** Envío: 8% del subtotal de productos (sin IVA). */
-export const shippingFor = (subtotal: number) => roundMoney(subtotal * STORE_SHIPPING_RATE);
+export const shippingFor = (subtotal: number) =>
+  roundMoney(subtotal * STORE_SHIPPING_RATE);
 
 export type StoreTotals = {
   /** Productos sin IVA. */
@@ -30,12 +32,22 @@ export function computeStoreTotals(
   items: { precio: number; cantidad: number }[],
   { includeShipping = true }: { includeShipping?: boolean } = {},
 ): StoreTotals {
-  const subtotal = roundMoney(items.reduce((sum, item) => sum + item.precio * item.cantidad, 0));
+  const subtotal = roundMoney(
+    items.reduce((sum, item) => sum + item.precio * item.cantidad, 0),
+  );
   const productsWithIva = roundMoney(
-    items.reduce((sum, item) => sum + priceWithIva(item.precio) * item.cantidad, 0),
+    items.reduce(
+      (sum, item) => sum + priceWithIva(item.precio) * item.cantidad,
+      0,
+    ),
   );
   const envio = includeShipping ? shippingFor(subtotal) : 0;
   const total = roundMoney(productsWithIva + envio);
 
-  return { subtotal, iva: roundMoney(productsWithIva - subtotal), envio, total };
+  return {
+    subtotal,
+    iva: roundMoney(productsWithIva - subtotal),
+    envio,
+    total,
+  };
 }

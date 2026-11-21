@@ -30,9 +30,14 @@ export function CarritoItem({
       <div className="carrito-item-info">
         <span className="producto-categoria">{producto.categoria}</span>
         <h3>{producto.nombre}</h3>
-        <p>{moneda(producto.precio)} {t.perUnit}</p>
+        <p>
+          {moneda(producto.precio)} {t.perUnit}
+        </p>
         <div className="carrito-item-controles">
-          <div className="carrito-cantidad-control" aria-label={`${t.quantity} de ${producto.nombre}`}>
+          <div
+            className="carrito-cantidad-control"
+            aria-label={`${t.quantity} de ${producto.nombre}`}
+          >
             <button
               type="button"
               aria-label={`${t.reduce} de ${producto.nombre}`}

@@ -3,6 +3,10 @@
 // de la tienda salen sin estilo al abrirlas directamente.
 import "../../ventas/ventas.css";
 
-export default function TiendaPagoLayout({ children }: { children: React.ReactNode }) {
+export default function TiendaPagoLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return children;
 }

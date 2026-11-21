@@ -18,15 +18,14 @@ export function Hero() {
         <div className="home-hero-content">
           <div className="home-hero-heading">
             <span className="home-hero-overline">{t.overline}</span>
-          
-              <h1 className="home-hero-title">
-                {t.title.line1}
-                <br />
-                {t.title.line2}
-                <br />
-                <span>{t.title.line3}</span>
-              </h1>
-            
+
+            <h1 className="home-hero-title">
+              {t.title.line1}
+              <br />
+              {t.title.line2}
+              <br />
+              <span>{t.title.line3}</span>
+            </h1>
           </div>
 
           <div className="home-hero-description">

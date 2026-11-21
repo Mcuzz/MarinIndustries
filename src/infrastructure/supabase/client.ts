@@ -11,7 +11,7 @@ export function createSupabaseBrowserClient() {
 
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error(
-      "Faltan NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY (o SUPABASE_URL y SUPABASE_PUBLISHABLE_KEY) en las variables de entorno."
+      "Faltan NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY (o SUPABASE_URL y SUPABASE_PUBLISHABLE_KEY) en las variables de entorno.",
     );
   }
 

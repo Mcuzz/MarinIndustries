@@ -36,7 +36,11 @@ export type CheckoutProPreference = {
 
 function getClient(): MercadoPagoConfig | null {
   const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
-  if (!accessToken || accessToken.startsWith("pega_aqui") || accessToken.startsWith("tu_")) {
+  if (
+    !accessToken ||
+    accessToken.startsWith("pega_aqui") ||
+    accessToken.startsWith("tu_")
+  ) {
     return null;
   }
   return new MercadoPagoConfig({ accessToken, options: { timeout: 10000 } });
@@ -47,14 +51,18 @@ export async function createCheckoutProPreference(
 ): Promise<Result<CheckoutProPreference>> {
   const client = getClient();
   if (!client) {
-    return fail("Mercado Pago no está configurado (falta MERCADOPAGO_ACCESS_TOKEN).");
+    return fail(
+      "Mercado Pago no está configurado (falta MERCADOPAGO_ACCESS_TOKEN).",
+    );
   }
 
   const returnUrl = `${request.siteUrl}/tienda/pago/confirmacion${request.popup ? "?ventana=1" : ""}`;
   // Mercado Pago rechaza auto_return con URLs locales (http://localhost).
   const canAutoReturn = request.siteUrl.startsWith("https://");
   const now = new Date();
-  const expiresAt = new Date(now.getTime() + CHECKOUT_EXPIRATION_MINUTES * 60_000);
+  const expiresAt = new Date(
+    now.getTime() + CHECKOUT_EXPIRATION_MINUTES * 60_000,
+  );
 
   try {
     const preference = await new Preference(client).create({
@@ -86,14 +94,20 @@ export async function createCheckoutProPreference(
       return fail("Mercado Pago no devolvió la liga de pago.");
     }
 
-    return ok({ preferenceId: preference.id, initPoint: preference.init_point });
+    return ok({
+      preferenceId: preference.id,
+      initPoint: preference.init_point,
+    });
   } catch (error) {
     console.error("[mercadopago] Error al crear la preferencia:", error);
-    return fail("No pudimos conectar con Mercado Pago. Intenta de nuevo en unos minutos.");
+    return fail(
+      "No pudimos conectar con Mercado Pago. Intenta de nuevo en unos minutos.",
+    );
   }
 }
 
-export type CheckoutProPaymentStatus = "approved" | "pending" | "rejected" | "none";
+export type CheckoutProPaymentStatus =
+  "approved" | "pending" | "rejected" | "none";
 
 export type CheckoutProPaymentLookup = {
   status: CheckoutProPaymentStatus;
@@ -103,8 +117,18 @@ export type CheckoutProPaymentLookup = {
   mpStatusDetail: string | null;
 };
 
-const PENDING_STATUSES = new Set(["pending", "in_process", "authorized", "in_mediation"]);
-const REJECTED_STATUSES = new Set(["rejected", "cancelled", "refunded", "charged_back"]);
+const PENDING_STATUSES = new Set([
+  "pending",
+  "in_process",
+  "authorized",
+  "in_mediation",
+]);
+const REJECTED_STATUSES = new Set([
+  "rejected",
+  "cancelled",
+  "refunded",
+  "charged_back",
+]);
 
 /**
  * Consulta a Mercado Pago los pagos de un pedido (por external_reference).
@@ -116,19 +140,29 @@ export async function findCheckoutProPayment(
 ): Promise<Result<CheckoutProPaymentLookup>> {
   const client = getClient();
   if (!client) {
-    return fail("Mercado Pago no está configurado (falta MERCADOPAGO_ACCESS_TOKEN).");
+    return fail(
+      "Mercado Pago no está configurado (falta MERCADOPAGO_ACCESS_TOKEN).",
+    );
   }
 
   try {
     const search = await new Payment(client).search({
-      options: { external_reference: orderId, sort: "date_created", criteria: "desc", limit: 20 },
+      options: {
+        external_reference: orderId,
+        sort: "date_created",
+        criteria: "desc",
+        limit: 20,
+      },
     });
     const payments = search.results ?? [];
 
     const pick = (match: (status: string) => boolean) =>
       payments.find((payment) => payment.status && match(payment.status));
 
-    const describe = (status: CheckoutProPaymentStatus, payment: (typeof payments)[number]) =>
+    const describe = (
+      status: CheckoutProPaymentStatus,
+      payment: (typeof payments)[number],
+    ) =>
       ok({
         status,
         paymentId: String(payment.id),
@@ -145,7 +179,12 @@ export async function findCheckoutProPayment(
     const rejected = pick((status) => REJECTED_STATUSES.has(status));
     if (rejected) return describe("rejected", rejected);
 
-    return ok({ status: "none", paymentId: null, mpStatus: null, mpStatusDetail: null });
+    return ok({
+      status: "none",
+      paymentId: null,
+      mpStatus: null,
+      mpStatusDetail: null,
+    });
   } catch (error) {
     console.error("[mercadopago] Error al consultar el pago:", error);
     return fail("No pudimos consultar el estado del pago.");
@@ -192,10 +231,14 @@ type OrdersResponse = {
   message?: string;
 };
 
-export async function createCardPayment(request: CardPaymentRequest): Promise<Result<CardPaymentResult>> {
+export async function createCardPayment(
+  request: CardPaymentRequest,
+): Promise<Result<CardPaymentResult>> {
   const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
   if (!getClient() || !accessToken) {
-    return fail("Mercado Pago no está configurado (falta MERCADOPAGO_ACCESS_TOKEN).");
+    return fail(
+      "Mercado Pago no está configurado (falta MERCADOPAGO_ACCESS_TOKEN).",
+    );
   }
 
   const amount = request.amount.toFixed(2);
@@ -237,7 +280,9 @@ export async function createCardPayment(request: CardPaymentRequest): Promise<Re
     data = (await response.json().catch(() => ({}))) as OrdersResponse;
   } catch (error) {
     console.error("[mercadopago] Error de red al cobrar con tarjeta:", error);
-    return fail("No pudimos conectar con Mercado Pago. Intenta de nuevo en unos minutos.");
+    return fail(
+      "No pudimos conectar con Mercado Pago. Intenta de nuevo en unos minutos.",
+    );
   }
 
   // Aprobado o pendiente: 201 con el detalle del pago.
@@ -263,8 +308,11 @@ export async function createCardPayment(request: CardPaymentRequest): Promise<Re
   if (response.status === 402) {
     const detailLine = data.errors?.flatMap((e) => e.details ?? [])[0] ?? "";
     const separator = detailLine.indexOf(":");
-    const paymentId = separator > 0 ? detailLine.slice(0, separator).trim() : null;
-    const reason = (separator > 0 ? detailLine.slice(separator + 1) : detailLine).trim();
+    const paymentId =
+      separator > 0 ? detailLine.slice(0, separator).trim() : null;
+    const reason = (
+      separator > 0 ? detailLine.slice(separator + 1) : detailLine
+    ).trim();
 
     return ok({
       status: "rejected",
@@ -274,18 +322,28 @@ export async function createCardPayment(request: CardPaymentRequest): Promise<Re
     });
   }
 
-  console.error("[mercadopago] Error al cobrar con tarjeta:", response.status, JSON.stringify(data).slice(0, 500));
-  const base = "No pudimos procesar la tarjeta. Revisa los datos e intenta de nuevo.";
+  console.error(
+    "[mercadopago] Error al cobrar con tarjeta:",
+    response.status,
+    JSON.stringify(data).slice(0, 500),
+  );
+  const base =
+    "No pudimos procesar la tarjeta. Revisa los datos e intenta de nuevo.";
   // En desarrollo se muestra el motivo real de Mercado Pago para poder diagnosticar.
   if (process.env.NODE_ENV !== "production") {
     const detail = data.errors?.[0]?.message ?? data.message;
-    return fail(detail ? `${base} [Mercado Pago ${response.status}: ${detail}]` : base);
+    return fail(
+      detail ? `${base} [Mercado Pago ${response.status}: ${detail}]` : base,
+    );
   }
   return fail(base);
 }
 
 /** Mensaje para el cliente según el motivo que da Mercado Pago (Orders API o Payments API). */
-export function cardStatusMessage(status: CheckoutProPaymentStatus, detail: string | null): string {
+export function cardStatusMessage(
+  status: CheckoutProPaymentStatus,
+  detail: string | null,
+): string {
   if (status === "approved") return "Pago aprobado.";
   if (status === "pending") {
     return detail?.includes("challenge")
@@ -299,16 +357,30 @@ export function cardStatusMessage(status: CheckoutProPaymentStatus, detail: stri
     [["security_code"], "Revisa el código de seguridad (CVV)."],
     [["date", "expir"], "Revisa la fecha de vencimiento."],
     [["card_number"], "Revisa el número de la tarjeta."],
-    [["call_for_authorize", "authorize"], "Tu banco pide que autorices el pago. Llámales y vuelve a intentarlo."],
-    [["disabled"], "La tarjeta está inactiva. Actívala con tu banco o usa otra."],
-    [["duplicated"], "Ya hiciste un pago por este monto. Si necesitas volver a pagar, usa otra tarjeta."],
-    [["high_risk", "fraud", "blacklist"], "El pago fue rechazado por seguridad. Usa otra tarjeta o paga con Mercado Pago."],
+    [
+      ["call_for_authorize", "authorize"],
+      "Tu banco pide que autorices el pago. Llámales y vuelve a intentarlo.",
+    ],
+    [
+      ["disabled"],
+      "La tarjeta está inactiva. Actívala con tu banco o usa otra.",
+    ],
+    [
+      ["duplicated"],
+      "Ya hiciste un pago por este monto. Si necesitas volver a pagar, usa otra tarjeta.",
+    ],
+    [
+      ["high_risk", "fraud", "blacklist"],
+      "El pago fue rechazado por seguridad. Usa otra tarjeta o paga con Mercado Pago.",
+    ],
     [["installments"], "La tarjeta no acepta esa cantidad de meses."],
     [["max_attempts"], "Llegaste al límite de intentos. Usa otra tarjeta."],
     [["bad_filled", "card_data"], "Revisa los datos de la tarjeta."],
   ];
   const match = rules.find(([keys]) => keys.some((key) => d.includes(key)));
-  return match ? match[1] : "Tu banco rechazó el pago. Intenta con otra tarjeta.";
+  return match
+    ? match[1]
+    : "Tu banco rechazó el pago. Intenta con otra tarjeta.";
 }
 
 // ---------------------------------------------------------------------------
@@ -326,7 +398,9 @@ export type MercadoPagoLookup = {
 };
 
 /** Pagos de Checkout Pro (topic "payment"). */
-export async function lookupPayment(paymentId: string): Promise<Result<MercadoPagoLookup>> {
+export async function lookupPayment(
+  paymentId: string,
+): Promise<Result<MercadoPagoLookup>> {
   const client = getClient();
   if (!client) return fail("Mercado Pago no está configurado.");
 
@@ -352,29 +426,56 @@ export async function lookupPayment(paymentId: string): Promise<Result<MercadoPa
   } catch (error) {
     // Pago inexistente (p. ej. aviso de prueba del panel): no tiene caso que MP reintente.
     if ((error as { name?: string } | null)?.name === "MPNotFoundError") {
-      return ok({ orderId: null, status: "none", paymentId, mpStatus: null, mpStatusDetail: null });
+      return ok({
+        orderId: null,
+        status: "none",
+        paymentId,
+        mpStatus: null,
+        mpStatusDetail: null,
+      });
     }
-    console.error("[mercadopago] No se pudo consultar el pago", paymentId, error);
+    console.error(
+      "[mercadopago] No se pudo consultar el pago",
+      paymentId,
+      error,
+    );
     return fail("No se pudo consultar el pago.");
   }
 }
 
 /** Órdenes de la Orders API, usadas por el pago con tarjeta (topic "order"). */
-export async function lookupOrder(mpOrderId: string): Promise<Result<MercadoPagoLookup>> {
+export async function lookupOrder(
+  mpOrderId: string,
+): Promise<Result<MercadoPagoLookup>> {
   const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
-  if (!getClient() || !accessToken) return fail("Mercado Pago no está configurado.");
+  if (!getClient() || !accessToken)
+    return fail("Mercado Pago no está configurado.");
 
   try {
-    const response = await fetch(`${ORDERS_URL}/${encodeURIComponent(mpOrderId)}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-      signal: AbortSignal.timeout(15000),
-    });
+    const response = await fetch(
+      `${ORDERS_URL}/${encodeURIComponent(mpOrderId)}`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        signal: AbortSignal.timeout(15000),
+      },
+    );
     if (response.status === 404) {
-      return ok({ orderId: null, status: "none", paymentId: null, mpStatus: null, mpStatusDetail: null });
+      return ok({
+        orderId: null,
+        status: "none",
+        paymentId: null,
+        mpStatus: null,
+        mpStatusDetail: null,
+      });
     }
-    if (!response.ok) return fail(`Mercado Pago respondió ${response.status} al consultar la orden.`);
+    if (!response.ok)
+      return fail(
+        `Mercado Pago respondió ${response.status} al consultar la orden.`,
+      );
 
-    const order = (await response.json()) as OrdersResponse & { external_reference?: string };
+    const order = (await response.json()) as OrdersResponse & {
+      external_reference?: string;
+    };
     const payment = order.transactions?.payments?.[0];
     const mpStatus = order.status ?? null;
     const status: CheckoutProPaymentStatus =
@@ -382,7 +483,9 @@ export async function lookupOrder(mpOrderId: string): Promise<Result<MercadoPago
         ? "approved"
         : mpStatus === "processing" || mpStatus === "action_required"
           ? "pending"
-          : mpStatus === "failed" || mpStatus === "canceled" || mpStatus === "expired"
+          : mpStatus === "failed" ||
+              mpStatus === "canceled" ||
+              mpStatus === "expired"
             ? "rejected"
             : "none";
 
@@ -394,7 +497,11 @@ export async function lookupOrder(mpOrderId: string): Promise<Result<MercadoPago
       mpStatusDetail: payment?.status_detail ?? order.status_detail ?? null,
     });
   } catch (error) {
-    console.error("[mercadopago] No se pudo consultar la orden", mpOrderId, error);
+    console.error(
+      "[mercadopago] No se pudo consultar la orden",
+      mpOrderId,
+      error,
+    );
     return fail("No se pudo consultar la orden.");
   }
 }

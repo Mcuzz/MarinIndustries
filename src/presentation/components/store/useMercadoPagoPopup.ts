@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { StoreShippingAddress } from "@/src/infrastructure/sales/store-shipping.storage";
+import type { StoreShippingAddress } from "@/src/application/store/store.service";
 
 // Abre el checkout de Mercado Pago en una ventana emergente y espera el resultado.
 //
@@ -23,7 +23,11 @@ export type MpReturnMessage = {
   paymentId: string | null;
 };
 
-export type MpResult = { orderId: string; status: "approved" | "pending"; paymentId: string | null };
+export type MpResult = {
+  orderId: string;
+  status: "approved" | "pending";
+  paymentId: string | null;
+};
 
 type Session = { orderId: string; initPoint: string };
 
@@ -103,7 +107,9 @@ export function useMercadoPagoPopup(onFinished: (result: MpResult) => void) {
         };
 
         if (!response.ok || !data.initPoint || !data.orderId) {
-          throw new Error(data.error || "No pudimos iniciar el pago con Mercado Pago.");
+          throw new Error(
+            data.error || "No pudimos iniciar el pago con Mercado Pago.",
+          );
         }
 
         if (!popup || popup.closed) {
@@ -116,7 +122,11 @@ export function useMercadoPagoPopup(onFinished: (result: MpResult) => void) {
         setSession({ orderId: data.orderId, initPoint: data.initPoint });
       } catch (err) {
         closePopup();
-        setError(err instanceof Error ? err.message : "No pudimos iniciar el pago con Mercado Pago.");
+        setError(
+          err instanceof Error
+            ? err.message
+            : "No pudimos iniciar el pago con Mercado Pago.",
+        );
       } finally {
         setStarting(false);
       }
@@ -145,7 +155,11 @@ export function useMercadoPagoPopup(onFinished: (result: MpResult) => void) {
     if (!session) return;
     finishedRef.current = true;
     closePopup();
-    onFinishedRef.current({ orderId: session.orderId, status: "pending", paymentId: null });
+    onFinishedRef.current({
+      orderId: session.orderId,
+      status: "pending",
+      paymentId: null,
+    });
   }, [closePopup, session]);
 
   // Aviso instantáneo desde la página de regreso.
@@ -154,7 +168,10 @@ export function useMercadoPagoPopup(onFinished: (result: MpResult) => void) {
     const channel = new BroadcastChannel(MP_CHANNEL);
     channel.onmessage = (event: MessageEvent<MpReturnMessage>) => {
       const message = event.data;
-      if (message?.type === "mp-return" && message.orderId === session.orderId) {
+      if (
+        message?.type === "mp-return" &&
+        message.orderId === session.orderId
+      ) {
         handleStatus(message.orderId, message.status, message.paymentId);
       }
     };
@@ -173,8 +190,12 @@ export function useMercadoPagoPopup(onFinished: (result: MpResult) => void) {
           { cache: "no-store" },
         );
         if (!response.ok || cancelled) return;
-        const data = (await response.json()) as { status: MpPaymentStatus; paymentId: string | null };
-        if (!cancelled) handleStatus(session!.orderId, data.status, data.paymentId);
+        const data = (await response.json()) as {
+          status: MpPaymentStatus;
+          paymentId: string | null;
+        };
+        if (!cancelled)
+          handleStatus(session!.orderId, data.status, data.paymentId);
       } catch {
         // Error de red momentáneo: se reintenta en la siguiente vuelta.
       }

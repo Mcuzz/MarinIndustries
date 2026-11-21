@@ -5,11 +5,11 @@ const features: HrFeature[] = [
   { id: "authorized-access", label: "Acceso solo para personal autorizado" },
   { id: "employee-files", label: "Expedientes de colaboradores" },
   { id: "skills-matrix", label: "Matriz de aptitudes y capacidades" },
-  { id: "internal-documents", label: "Historial y documentos internos" }
+  { id: "internal-documents", label: "Historial y documentos internos" },
 ];
 
 export const staticHrAccessRepository: HrAccessRepository = {
   async listFeatures() {
     return features;
-  }
+  },
 };

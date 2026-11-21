@@ -1,5 +1,9 @@
 import "./ventas.css";
 
-export default function VentasLayout({ children }: { children: React.ReactNode }) {
+export default function VentasLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return children;
 }

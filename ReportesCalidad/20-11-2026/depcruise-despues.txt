@@ -1,0 +1,7 @@
+﻿
+  error no-circular: src/application/payments/card-payment.service.ts ÔåÆ 
+      src/infrastructure/payments/mock-card-payment.gateway.ts ÔåÆ
+      src/application/payments/card-payment.service.ts
+
+x 1 dependency violations (1 errors, 0 warnings). 123 modules, 305 dependencies cruised.
+

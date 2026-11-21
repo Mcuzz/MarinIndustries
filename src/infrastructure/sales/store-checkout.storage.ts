@@ -1,4 +1,3 @@
-
 import type {
   StoreOrderDraft,
   StoreOrderItem,
@@ -47,10 +46,7 @@ function isValidDraft(value: unknown): value is StoreOrderDraft {
 export function saveStoreCheckout(draft: StoreCheckoutDraft): void {
   if (typeof window === "undefined") return;
 
-  window.sessionStorage.setItem(
-    STORE_CHECKOUT_KEY,
-    JSON.stringify(draft),
-  );
+  window.sessionStorage.setItem(STORE_CHECKOUT_KEY, JSON.stringify(draft));
 }
 
 export function loadStoreCheckout(): StoreCheckoutDraft | null {

@@ -18,7 +18,8 @@ export function HomeSuiteCallout() {
         <p>{t.description}</p>
       </div>
       <Link href="/servicios#suite" className="suite-home-button">
-        {t.action}<span aria-hidden="true">↗</span>
+        {t.action}
+        <span aria-hidden="true">↗</span>
       </Link>
     </div>
   );
@@ -32,7 +33,9 @@ export function HomeCaseStudies({ studies }: { studies: CaseStudy[] }) {
       <SalesPreview key={study.id} />
     ) : (
       <div key={study.id} className="media-slot">
-        <span>{t.mediaPlaceholder} · {study.tag.toUpperCase()}</span>
+        <span>
+          {t.mediaPlaceholder} · {study.tag.toUpperCase()}
+        </span>
       </div>
     ),
   );

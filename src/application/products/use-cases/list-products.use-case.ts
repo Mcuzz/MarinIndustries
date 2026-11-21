@@ -6,7 +6,7 @@ import type { ProductRepository } from "../ports/product.repository";
 
 export async function listProducts(
   repo: ProductRepository,
-  filtro?: FiltroProductos
+  filtro?: FiltroProductos,
 ): Promise<Producto[]> {
   return repo.listarProductos(filtro);
 }

@@ -22,12 +22,13 @@ export function CaseAccordion({ studies, visuals }: CaseAccordionProps) {
     () => () => {
       if (timer.current) clearTimeout(timer.current);
     },
-    []
+    [],
   );
 
   // Abrir al pasar el mouse (solo desktop con mouse), con pequeña pausa
   const hoverOpen = (i: number) => {
-    if (!window.matchMedia("(hover: hover) and (min-width: 901px)").matches) return;
+    if (!window.matchMedia("(hover: hover) and (min-width: 901px)").matches)
+      return;
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => setActive(i), 110);
   };
@@ -94,7 +95,9 @@ export function CaseAccordion({ studies, visuals }: CaseAccordionProps) {
             {/* Estado abierto */}
             <div className="ca-open" inert={!isActive}>
               <div className="ca-open-inner">
-                <div className="ca-visual">{s.img?.[0] ? <img src={s.img[0]} alt={title} /> : visuals[i]}</div>
+                <div className="ca-visual">
+                  {s.img?.[0] ? <img src={s.img[0]} alt={title} /> : visuals[i]}
+                </div>
 
                 <div className="ca-info">
                   <div className="ca-meta">
@@ -117,7 +120,11 @@ export function CaseAccordion({ studies, visuals }: CaseAccordionProps) {
                           strokeWidth="2.2"
                           aria-hidden="true"
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M5 13l4 4L19 7"
+                          />
                         </svg>
                         {b}
                       </li>

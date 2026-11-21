@@ -1,0 +1,20 @@
+﻿
+  error no-presentation-to-infrastructure: src/presentation/pages/SalesPage.tsx ÔåÆ src/infrastructure/sales/static-sales.data.ts
+  error no-presentation-to-infrastructure: src/presentation/pages/SalesPage.tsx ÔåÆ src/infrastructure/sales/sale-session.storage.ts
+  error no-presentation-to-infrastructure: src/presentation/pages/RegisterPage.tsx ÔåÆ src/infrastructure/supabase/client.ts
+  error no-presentation-to-infrastructure: src/presentation/pages/LoginPage.tsx ÔåÆ src/infrastructure/supabase/client.ts
+  error no-presentation-to-infrastructure: src/presentation/pages/CardPaymentPage.tsx ÔåÆ src/infrastructure/sales/sale-session.storage.ts
+  error no-presentation-to-infrastructure: src/presentation/pages/CardPaymentPage.tsx ÔåÆ src/infrastructure/payments/mock-card-payment.gateway.ts
+  error no-presentation-to-infrastructure: src/presentation/components/store/useMercadoPagoPopup.ts ÔåÆ src/infrastructure/sales/store-shipping.storage.ts
+  error no-presentation-to-infrastructure: src/presentation/components/store/StoreCardForm.tsx ÔåÆ src/infrastructure/sales/store-shipping.storage.ts
+  error no-presentation-to-infrastructure: src/presentation/components/store/StoreCardForm.tsx ÔåÆ src/infrastructure/sales/store-checkout.storage.ts
+  error no-presentation-to-infrastructure: src/presentation/components/store/ShippingForm.tsx ÔåÆ src/infrastructure/sales/store-shipping.storage.ts
+  error no-presentation-to-infrastructure: src/presentation/components/sales/GridProductos.tsx ÔåÆ src/infrastructure/sales/store-checkout.storage.ts
+  error no-presentation-to-infrastructure: src/presentation/components/sales/GridProductos.tsx ÔåÆ src/infrastructure/products/static-product.repository.ts
+  error no-presentation-to-infrastructure: src/presentation/components/sales/GridProductos.tsx ÔåÆ src/infrastructure/composition/root-container.ts
+  error no-presentation-to-infrastructure: src/presentation/components/sales/CheckoutParts.tsx ÔåÆ src/infrastructure/sales/sale-session.storage.ts
+  error no-presentation-to-infrastructure: src/presentation/components/home/SalesPreview.tsx ÔåÆ src/infrastructure/sales/static-sales.data.ts
+  error no-presentation-to-infrastructure: src/presentation/components/auth/LogoutButton.tsx ÔåÆ src/infrastructure/supabase/client.ts
+
+x 16 dependency violations (16 errors, 0 warnings). 119 modules, 297 dependencies cruised.
+

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { formatMXN, type SaleDraft } from "@/src/domain/sales/sale.entity";
-import { loadSaleDraft } from "@/src/infrastructure/sales/sale-session.storage";
+import { loadSaleDraft } from "@/src/application/sales/sales.service";
 
 const steps = ["Venta", "Método de pago", "Datos de pago"];
 
@@ -27,7 +27,10 @@ export function CheckoutSteps({ current }: { current: 0 | 1 | 2 }) {
 
 /** Carga la venta en curso guardada al confirmar en /ventas. */
 export function useSaleDraft() {
-  const [state, setState] = useState<{ loaded: boolean; draft: SaleDraft | null }>({
+  const [state, setState] = useState<{
+    loaded: boolean;
+    draft: SaleDraft | null;
+  }>({
     loaded: false,
     draft: null,
   });
@@ -46,9 +49,18 @@ export function SaleSummary({ draft }: { draft: SaleDraft }) {
       <p className="vt-summary-folio">#{draft.folio}</p>
 
       <dl className="vt-summary-meta">
-        <div><dt>Cliente</dt><dd>{draft.client.name}</dd></div>
-        <div><dt>RFC</dt><dd className="font-mono">{draft.client.rfc}</dd></div>
-        <div><dt>Sucursal</dt><dd>{draft.branch.name}</dd></div>
+        <div>
+          <dt>Cliente</dt>
+          <dd>{draft.client.name}</dd>
+        </div>
+        <div>
+          <dt>RFC</dt>
+          <dd className="font-mono">{draft.client.rfc}</dd>
+        </div>
+        <div>
+          <dt>Sucursal</dt>
+          <dd>{draft.branch.name}</dd>
+        </div>
       </dl>
 
       <div className="vt-summary-item">
@@ -62,8 +74,14 @@ export function SaleSummary({ draft }: { draft: SaleDraft }) {
       </div>
 
       <div className="vt-breakdown">
-        <div><span>Subtotal</span><span>{formatMXN(draft.subtotal)}</span></div>
-        <div><span>IVA (16%)</span><span>{formatMXN(draft.tax)}</span></div>
+        <div>
+          <span>Subtotal</span>
+          <span>{formatMXN(draft.subtotal)}</span>
+        </div>
+        <div>
+          <span>IVA (16%)</span>
+          <span>{formatMXN(draft.tax)}</span>
+        </div>
         <div className="vt-breakdown-total">
           <span>Total a cobrar</span>
           <span>{formatMXN(draft.total)}</span>
@@ -79,8 +97,8 @@ export function NoSaleInProgress() {
       <span className="eyebrow">Sin venta en curso</span>
       <h2 className="qa-title">No hay una venta pendiente de pago</h2>
       <p className="qa-text">
-        Registra una operación en el módulo de ventas y presiona “Confirmar venta” para
-        continuar con el cobro.
+        Registra una operación en el módulo de ventas y presiona “Confirmar
+        venta” para continuar con el cobro.
       </p>
       <Link href="/ventas" className="btn btn-primary qa-btn">
         Ir a ventas <span aria-hidden="true">→</span>
@@ -90,5 +108,9 @@ export function NoSaleInProgress() {
 }
 
 export function LoadingBlock() {
-  return <div className="qf-card vt-loading" aria-busy="true">Cargando venta…</div>;
+  return (
+    <div className="qf-card vt-loading" aria-busy="true">
+      Cargando venta…
+    </div>
+  );
 }

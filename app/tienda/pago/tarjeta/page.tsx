@@ -35,7 +35,9 @@ export default function StoreCardPaymentPage() {
   }, []);
 
   // Mismo cálculo que cobra el servidor (al centavo).
-  const { subtotal, iva, envio, total } = computeStoreTotals(draft?.items ?? []);
+  const { subtotal, iva, envio, total } = computeStoreTotals(
+    draft?.items ?? [],
+  );
 
   function handlePaid(outcome: CardPaymentOutcome) {
     const params = new URLSearchParams({
@@ -58,13 +60,16 @@ export default function StoreCardPaymentPage() {
         <section data-tone="alt" className="vt-section">
           <div className="section-shell qt-grid">
             {!loaded ? (
-              <div className="qf-card vt-loading">Cargando información del pedido...</div>
+              <div className="qf-card vt-loading">
+                Cargando información del pedido...
+              </div>
             ) : !draft || !shipping ? (
               <div className="qf-card vt-empty">
                 <span className="eyebrow">Checkout incompleto</span>
                 <h2 className="qa-title">Faltan datos de tu pedido</h2>
                 <p className="qa-text">
-                  Necesitamos un pedido y una dirección de envío antes de continuar al pago.
+                  Necesitamos un pedido y una dirección de envío antes de
+                  continuar al pago.
                 </p>
                 <Link href="/tienda" className="btn btn-primary">
                   Volver a la tienda →
@@ -72,7 +77,11 @@ export default function StoreCardPaymentPage() {
               </div>
             ) : (
               <>
-                <StoreCardForm draft={draft} shipping={shipping} onPaid={handlePaid} />
+                <StoreCardForm
+                  draft={draft}
+                  shipping={shipping}
+                  onPaid={handlePaid}
+                />
 
                 <aside className="qa-card vt-summary">
                   <span className="eyebrow">Resumen del pedido</span>
@@ -116,13 +125,18 @@ export default function StoreCardPaymentPage() {
                       {shipping.recipient}
                       <br />
                       {shipping.street} {shipping.exteriorNumber}
-                      {shipping.interiorNumber ? `, Int. ${shipping.interiorNumber}` : ""}
+                      {shipping.interiorNumber
+                        ? `, Int. ${shipping.interiorNumber}`
+                        : ""}
                       <br />
                       {shipping.neighborhood}, C. P. {shipping.zip}
                       <br />
                       {shipping.city}, {shipping.state}
                     </p>
-                    <Link href="/tienda/pago/envio?metodo=tarjeta" className="btn btn-ghost">
+                    <Link
+                      href="/tienda/pago/envio?metodo=tarjeta"
+                      className="btn btn-ghost"
+                    >
                       Editar dirección
                     </Link>
                   </div>

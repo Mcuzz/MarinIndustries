@@ -16,7 +16,11 @@ export function MercadoPagoWaiting({
   onContinuePending,
 }: MercadoPagoWaitingProps) {
   return (
-    <div className="qf-card" aria-live="polite" aria-busy={lastStatus !== "pending"}>
+    <div
+      className="qf-card"
+      aria-live="polite"
+      aria-busy={lastStatus !== "pending"}
+    >
       <span className="qf-group-label">03 / Pago con Mercado Pago</span>
 
       <div className="vt-confirmation-header">
@@ -39,8 +43,8 @@ export function MercadoPagoWaiting({
 
       {lastStatus === "rejected" ? (
         <div className="vt-alert" role="alert">
-          El último intento fue rechazado. Puedes probar con otro método de pago en la ventana
-          de Mercado Pago.
+          El último intento fue rechazado. Puedes probar con otro método de pago
+          en la ventana de Mercado Pago.
         </div>
       ) : null}
 
@@ -50,7 +54,11 @@ export function MercadoPagoWaiting({
         </button>
 
         {lastStatus === "pending" ? (
-          <button type="button" className="btn btn-primary" onClick={onContinuePending}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={onContinuePending}
+          >
             Ver resumen →
           </button>
         ) : (

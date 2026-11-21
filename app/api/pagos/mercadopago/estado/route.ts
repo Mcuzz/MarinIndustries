@@ -18,7 +18,10 @@ import {
 
 const ORDER_ID_PATTERN = /^MI-\d{10,16}-[0-9a-f]{8}$/;
 
-const ORDER_STATUS: Record<Exclude<CheckoutProPaymentStatus, "none">, OnlineOrderPaymentUpdate["status"]> = {
+const ORDER_STATUS: Record<
+  Exclude<CheckoutProPaymentStatus, "none">,
+  OnlineOrderPaymentUpdate["status"]
+> = {
   approved: "pagado",
   pending: "en_proceso",
   rejected: "rechazado",

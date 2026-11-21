@@ -26,10 +26,16 @@ const methods: {
   {
     id: "tarjeta",
     name: "Tarjeta de débito / crédito",
-    description: "Visa, Mastercard o American Express. Meses sin intereses con crédito.",
+    description:
+      "Visa, Mastercard o American Express. Meses sin intereses con crédito.",
     available: true,
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+      >
         <rect x="3" y="5.5" width="18" height="13" />
         <path d="M3 10h18" />
         <path strokeLinecap="round" d="M7 15h4" />
@@ -87,23 +93,34 @@ export function PaymentMethodPage() {
                         data-selected={selected === m.id}
                         onClick={() => choose(m.id)}
                       >
-                        <span className="vt-method-icon" aria-hidden="true">{m.icon}</span>
+                        <span className="vt-method-icon" aria-hidden="true">
+                          {m.icon}
+                        </span>
                         <span className="vt-method-body">
                           <span className="vt-method-name">
                             {m.name}
-                            {!m.available ? <span className="vt-soon">Próximamente</span> : null}
+                            {!m.available ? (
+                              <span className="vt-soon">Próximamente</span>
+                            ) : null}
                           </span>
-                          <span className="vt-method-desc">{m.description}</span>
+                          <span className="vt-method-desc">
+                            {m.description}
+                          </span>
                         </span>
-                        <span className="vt-method-arrow" aria-hidden="true">→</span>
+                        <span className="vt-method-arrow" aria-hidden="true">
+                          →
+                        </span>
                       </button>
                     ))}
                   </div>
 
                   {selectedMethod && !selectedMethod.available ? (
                     <div className="vt-notice" role="status">
-                      <strong>{selectedMethod.name} aún no está disponible.</strong> La integración
-                      está en desarrollo; por ahora cobra con tarjeta de débito o crédito.
+                      <strong>
+                        {selectedMethod.name} aún no está disponible.
+                      </strong>{" "}
+                      La integración está en desarrollo; por ahora cobra con
+                      tarjeta de débito o crédito.
                     </div>
                   ) : null}
 

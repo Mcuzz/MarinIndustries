@@ -37,35 +37,43 @@ export function CatalogPage({ catalog }: CatalogPageProps) {
             </div>
 
             {catalog.length === 0 ? (
-              <p className="jo-empty">
-                {t.empty}
-              </p>
+              <p className="jo-empty">{t.empty}</p>
             ) : (
               <div className="cg-grid">
                 {catalog.map((item, i) => (
                   <article key={item.id} className="cg-card">
                     {(() => {
-                      const localized = t.items[item.id as keyof typeof t.items];
-                      return <>
-                    <div className="cg-top">
-                      <span className="cg-num">{pad(i + 1)}</span>
-                      <span className="cg-label">{t.item}</span>
-                    </div>
+                      const localized =
+                        t.items[item.id as keyof typeof t.items];
+                      return (
+                        <>
+                          <div className="cg-top">
+                            <span className="cg-num">{pad(i + 1)}</span>
+                            <span className="cg-label">{t.item}</span>
+                          </div>
 
-                    <h2 className="cg-name">{localized?.name ?? item.name}</h2>
+                          <h2 className="cg-name">
+                            {localized?.name ?? item.name}
+                          </h2>
 
-                    <div className="cg-price">
-                      <small>{common.price}</small>
-                      <p>{item.price}</p>
-                    </div>
+                          <div className="cg-price">
+                            <small>{common.price}</small>
+                            <p>{item.price}</p>
+                          </div>
 
-                    <p className="cg-desc">{localized?.description ?? item.description}</p>
+                          <p className="cg-desc">
+                            {localized?.description ?? item.description}
+                          </p>
 
-                    <Link href="/cotizacion" className="btn btn-primary cg-btn">
-                      {common.requestQuote}
-                      <span aria-hidden="true">→</span>
-                    </Link>
-                      </>;
+                          <Link
+                            href="/cotizacion"
+                            className="btn btn-primary cg-btn"
+                          >
+                            {common.requestQuote}
+                            <span aria-hidden="true">→</span>
+                          </Link>
+                        </>
+                      );
                     })()}
                   </article>
                 ))}

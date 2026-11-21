@@ -19,7 +19,10 @@ export type MpFieldStyle = Partial<{
 
 export type MpFieldEventMap = {
   binChange: { bin: string | null };
-  validityChange: { field: MpFieldType; errorMessages: { message: string; cause: string }[] };
+  validityChange: {
+    field: MpFieldType;
+    errorMessages: { message: string; cause: string }[];
+  };
   focus: { field: MpFieldType };
   blur: { field: MpFieldType };
   ready: { field: MpFieldType };
@@ -30,7 +33,10 @@ export interface MpField {
   mount(containerId: string): MpField;
   unmount(): void;
   update(options: { settings?: unknown; placeholder?: string }): void;
-  on<E extends keyof MpFieldEventMap>(event: E, handler: (data: MpFieldEventMap[E]) => void): MpField;
+  on<E extends keyof MpFieldEventMap>(
+    event: E,
+    handler: (data: MpFieldEventMap[E]) => void,
+  ): MpField;
 }
 
 export type MpPaymentMethod = {
@@ -52,11 +58,21 @@ export type MpPayerCost = {
 
 export interface MercadoPagoInstance {
   fields: {
-    create(type: MpFieldType, options?: { placeholder?: string; style?: MpFieldStyle }): MpField;
-    createCardToken(data: { cardholderName: string }): Promise<{ id: string; last_four_digits?: string }>;
+    create(
+      type: MpFieldType,
+      options?: { placeholder?: string; style?: MpFieldStyle },
+    ): MpField;
+    createCardToken(data: {
+      cardholderName: string;
+    }): Promise<{ id: string; last_four_digits?: string }>;
   };
-  getPaymentMethods(data: { bin: string }): Promise<{ results: MpPaymentMethod[] }>;
-  getIssuers(data: { paymentMethodId: string; bin: string }): Promise<{ id: number; name: string }[]>;
+  getPaymentMethods(data: {
+    bin: string;
+  }): Promise<{ results: MpPaymentMethod[] }>;
+  getIssuers(data: {
+    paymentMethodId: string;
+    bin: string;
+  }): Promise<{ id: number; name: string }[]>;
   getInstallments(data: {
     amount: string;
     bin: string;
@@ -66,7 +82,10 @@ export interface MercadoPagoInstance {
 
 declare global {
   interface Window {
-    MercadoPago?: new (publicKey: string, options?: { locale?: string }) => MercadoPagoInstance;
+    MercadoPago?: new (
+      publicKey: string,
+      options?: { locale?: string },
+    ) => MercadoPagoInstance;
   }
 }
 
@@ -77,9 +96,11 @@ export function getMercadoPago(): Promise<MercadoPagoInstance> {
   if (!instance) {
     instance = (async () => {
       const publicKey = process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY;
-      if (!publicKey) throw new Error("Falta NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY.");
+      if (!publicKey)
+        throw new Error("Falta NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY.");
       await loadMercadoPago();
-      if (!window.MercadoPago) throw new Error("No se pudo cargar MercadoPago.js.");
+      if (!window.MercadoPago)
+        throw new Error("No se pudo cargar MercadoPago.js.");
       return new window.MercadoPago(publicKey, { locale: "es-MX" });
     })();
     instance.catch(() => {

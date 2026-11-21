@@ -1,8 +1,7 @@
-
 "use client";
 
 import { useState, type FormEvent } from "react";
-import type { StoreShippingAddress } from "@/src/infrastructure/sales/store-shipping.storage";
+import type { StoreShippingAddress } from "@/src/application/store/store.service";
 
 type ShippingFormProps = {
   initialAddress: StoreShippingAddress;
@@ -23,8 +22,7 @@ export function ShippingForm({
   error,
   submitLabel = "Continuar al pago →",
 }: ShippingFormProps) {
-  const [address, setAddress] =
-    useState<StoreShippingAddress>(initialAddress);
+  const [address, setAddress] = useState<StoreShippingAddress>(initialAddress);
 
   function update<K extends keyof StoreShippingAddress>(
     field: K,
@@ -181,11 +179,18 @@ export function ShippingForm({
       </div>
 
       {error ? (
-        <div className="vt-alert" role="alert">{error}</div>
+        <div className="vt-alert" role="alert">
+          {error}
+        </div>
       ) : null}
 
       <div className="vt-pay-actions">
-        <button type="button" className="btn btn-ghost" onClick={onBack} disabled={busy}>
+        <button
+          type="button"
+          className="btn btn-ghost"
+          onClick={onBack}
+          disabled={busy}
+        >
           ← Regresar
         </button>
 

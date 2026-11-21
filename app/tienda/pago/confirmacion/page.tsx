@@ -40,7 +40,11 @@ function readMercadoPagoReturn(): MercadoPagoReturn | null {
   if (!raw) return null;
 
   const status =
-    raw === "approved" ? "approved" : raw === "pending" || raw === "in_process" ? "pending" : "rejected";
+    raw === "approved"
+      ? "approved"
+      : raw === "pending" || raw === "in_process"
+        ? "pending"
+        : "rejected";
 
   return {
     status,
@@ -59,7 +63,8 @@ export default function StoreConfirmationPage() {
 
   useEffect(() => {
     const mp = readMercadoPagoReturn();
-    const inPopup = new URLSearchParams(window.location.search).get("ventana") === "1";
+    const inPopup =
+      new URLSearchParams(window.location.search).get("ventana") === "1";
 
     // Dentro de la ventana emergente: avisar a la página de Marin que está esperando y cerrarse.
     if (inPopup && mp?.orderId && typeof BroadcastChannel !== "undefined") {
@@ -67,7 +72,8 @@ export default function StoreConfirmationPage() {
         type: "mp-return",
         orderId: mp.orderId,
         status: mp.status,
-        paymentId: mp.paymentId && mp.paymentId !== "null" ? mp.paymentId : null,
+        paymentId:
+          mp.paymentId && mp.paymentId !== "null" ? mp.paymentId : null,
       };
       const channel = new BroadcastChannel(MP_CHANNEL);
       channel.postMessage(message);
@@ -92,13 +98,24 @@ export default function StoreConfirmationPage() {
 
     // Verificar con el servidor (fuente confiable) y sincronizar el pedido en Supabase.
     if (mp?.orderId) {
-      fetch(`/api/pagos/mercadopago/estado?pedido=${encodeURIComponent(mp.orderId)}`, { cache: "no-store" })
+      fetch(
+        `/api/pagos/mercadopago/estado?pedido=${encodeURIComponent(mp.orderId)}`,
+        { cache: "no-store" },
+      )
         .then((response) => (response.ok ? response.json() : null))
         .then((data: { status?: string; paymentId?: string | null } | null) => {
           if (!data?.status || data.status === "none") return;
           const status: MercadoPagoReturn["status"] =
-            data.status === "approved" ? "approved" : data.status === "pending" ? "pending" : "rejected";
-          setMpReturn({ ...mp, status, paymentId: data.paymentId ?? mp.paymentId });
+            data.status === "approved"
+              ? "approved"
+              : data.status === "pending"
+                ? "pending"
+                : "rejected";
+          setMpReturn({
+            ...mp,
+            status,
+            paymentId: data.paymentId ?? mp.paymentId,
+          });
         })
         .catch(() => {
           // Sin conexión: se queda el estado que indicó Mercado Pago en la URL.
@@ -110,7 +127,9 @@ export default function StoreConfirmationPage() {
   const pending = mpReturn?.status === "pending";
 
   // Mismo cálculo que cobró el servidor (al centavo).
-  const { subtotal, iva, envio, total } = computeStoreTotals(draft?.items ?? []);
+  const { subtotal, iva, envio, total } = computeStoreTotals(
+    draft?.items ?? [],
+  );
 
   function handleFinish() {
     clearStoreCheckout();

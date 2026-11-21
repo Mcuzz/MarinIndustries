@@ -1,0 +1,15 @@
+rules:
+  - id: supabase-service-role-in-client
+    languages:
+      - typescript
+    message: La clave de servicio de Supabase (SUPABASE_SERVICE_ROLE_KEY / service_role) no debe usarse en código del navegador.
+    severity: ERROR
+    patterns:
+      - pattern-either:
+          - pattern: SUPABASE_SERVICE_ROLE_KEY
+          - pattern: service_role
+    paths:
+      include:
+        - src/presentation/**
+        - "**/*"
+    file-regex: ^("use client"|'use client')

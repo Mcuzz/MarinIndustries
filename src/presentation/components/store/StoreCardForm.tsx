@@ -5,8 +5,8 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 
 import { formatMXN } from "@/src/domain/sales/sale.entity";
 import { computeStoreTotals } from "@/src/domain/store/store-pricing";
-import type { StoreCheckoutDraft } from "@/src/infrastructure/sales/store-checkout.storage";
-import type { StoreShippingAddress } from "@/src/infrastructure/sales/store-shipping.storage";
+import type { StoreCheckoutDraft } from "@/src/application/store/store.service";
+import type { StoreShippingAddress } from "@/src/application/store/store.service";
 import {
   brandLabel,
   cardTypeLabel,
@@ -58,12 +58,15 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
   const [ready, setReady] = useState(false);
   const [loadError, setLoadError] = useState("");
   const [focused, setFocused] = useState<MpFieldType | null>(null);
-  const [fieldErrors, setFieldErrors] = useState<Partial<Record<MpFieldType, boolean>>>({});
-  const [blurred, setBlurred] = useState<Partial<Record<MpFieldType, boolean>>>({});
+  const [fieldErrors, setFieldErrors] = useState<
+    Partial<Record<MpFieldType, boolean>>
+  >({});
+  const [blurred, setBlurred] = useState<Partial<Record<MpFieldType, boolean>>>(
+    {},
+  );
 
   const [bin, setBin] = useState<string | null>(null);
   const [method, setMethod] = useState<MpPaymentMethod | null>(null);
-  const [issuerId, setIssuerId] = useState<number | undefined>();
   const [payerCosts, setPayerCosts] = useState<MpPayerCost[]>([]);
   const [installments, setInstallments] = useState(1);
 
@@ -120,7 +123,6 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
 
           if (!newBin) {
             setMethod(null);
-            setIssuerId(undefined);
             setPayerCosts([]);
             setInstallments(1);
             return;
@@ -135,17 +137,23 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
 
             // Ajustar longitud del número y del CVV (p. ej. American Express usa 4 dígitos).
             const settings = found.settings?.[0];
-            if (settings?.card_number) cardNumber.update({ settings: settings.card_number });
+            if (settings?.card_number)
+              cardNumber.update({ settings: settings.card_number });
             if (settings?.security_code) {
-              fieldsRef.current.securityCode?.update({ settings: settings.security_code });
+              fieldsRef.current.securityCode?.update({
+                settings: settings.security_code,
+              });
             }
 
-            const issuers = await mp.getIssuers({ paymentMethodId: found.id, bin: newBin }).catch(() => []);
-            setIssuerId(issuers[0]?.id ?? found.issuer?.id);
+            await mp.getIssuers({ paymentMethodId: found.id, bin: newBin }).catch(() => []);
 
             if (found.payment_type_id === "credit_card") {
               const options = await mp
-                .getInstallments({ amount: String(total), bin: newBin, paymentTypeId: "credit_card" })
+                .getInstallments({
+                  amount: String(total),
+                  bin: newBin,
+                  paymentTypeId: "credit_card",
+                })
                 .catch(() => []);
               setPayerCosts(options[0]?.payer_costs ?? []);
             } else {
@@ -160,7 +168,10 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
         setReady(true);
       })
       .catch(() => {
-        if (!cancelled) setLoadError("No pudimos cargar el formulario seguro de Mercado Pago. Recarga la página.");
+        if (!cancelled)
+          setLoadError(
+            "No pudimos cargar el formulario seguro de Mercado Pago. Recarga la página.",
+          );
       });
 
     return () => {
@@ -177,10 +188,18 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
     };
   }, [total]);
 
-  const holderError = submitted && !holder.trim() ? "Escribe el nombre como aparece en la tarjeta." : "";
-  const emailError = submitted && !EMAIL_PATTERN.test(email.trim()) ? "Escribe un correo válido." : "";
-  const termsError = submitted && !acceptTerms ? "Debes autorizar el cargo para continuar." : "";
-  const showFieldError = (type: MpFieldType) => (blurred[type] || submitted) && fieldErrors[type];
+  const holderError =
+    submitted && !holder.trim()
+      ? "Escribe el nombre como aparece en la tarjeta."
+      : "";
+  const emailError =
+    submitted && !EMAIL_PATTERN.test(email.trim())
+      ? "Escribe un correo válido."
+      : "";
+  const termsError =
+    submitted && !acceptTerms ? "Debes autorizar el cargo para continuar." : "";
+  const showFieldError = (type: MpFieldType) =>
+    (blurred[type] || submitted) && fieldErrors[type];
   const brand = brandLabel(method);
   const cardType = cardTypeLabel(method);
 
@@ -189,7 +208,13 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
     setSubmitted(true);
     setPaymentError("");
 
-    if (!ready || !holder.trim() || !EMAIL_PATTERN.test(email.trim()) || !acceptTerms) return;
+    if (
+      !ready ||
+      !holder.trim() ||
+      !EMAIL_PATTERN.test(email.trim()) ||
+      !acceptTerms
+    )
+      return;
     if (!method) {
       setPaymentError("Escribe un número de tarjeta válido.");
       return;
@@ -200,9 +225,13 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
       const mp = await getMercadoPago();
       let token: string;
       try {
-        token = (await mp.fields.createCardToken({ cardholderName: holder.trim() })).id;
+        token = (
+          await mp.fields.createCardToken({ cardholderName: holder.trim() })
+        ).id;
       } catch {
-        throw new Error("Revisa los datos de la tarjeta: número, vencimiento y CVV.");
+        throw new Error(
+          "Revisa los datos de la tarjeta: número, vencimiento y CVV.",
+        );
       }
 
       const response = await fetch("/api/pagos/mercadopago/tarjeta", {
@@ -215,7 +244,8 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
             token,
             paymentMethodId: method.id,
             paymentTypeId: method.payment_type_id,
-            installments: method.payment_type_id === "credit_card" ? installments : 1,
+            installments:
+              method.payment_type_id === "credit_card" ? installments : 1,
             email: email.trim(),
           },
         }),
@@ -229,26 +259,56 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
       };
 
       if (!response.ok || !data.orderId || !data.status) {
-        throw new Error(data.error || "No pudimos procesar el pago. Intenta de nuevo.");
+        throw new Error(
+          data.error || "No pudimos procesar el pago. Intenta de nuevo.",
+        );
       }
       if (data.status === "rejected") {
-        throw new Error(data.message || "Tu banco rechazó el pago. Intenta con otra tarjeta.");
+        throw new Error(
+          data.message || "Tu banco rechazó el pago. Intenta con otra tarjeta.",
+        );
       }
 
-      onPaid({ orderId: data.orderId, status: data.status, paymentId: data.paymentId ?? null });
+      onPaid({
+        orderId: data.orderId,
+        status: data.status,
+        paymentId: data.paymentId ?? null,
+      });
     } catch (error) {
-      setPaymentError(error instanceof Error ? error.message : "No pudimos procesar el pago.");
+      setPaymentError(
+        error instanceof Error ? error.message : "No pudimos procesar el pago.",
+      );
       setSubmitting(false);
     }
   }
 
-  const binPreview = (bin ?? "").padEnd(16, "•").replace(/(.{4})/g, "$1 ").trim();
+  const binPreview = (bin ?? "")
+    .padEnd(16, "•")
+    .replace(/(.{4})/g, "$1 ")
+    .trim();
 
   return (
-    <form className="qf-card" onSubmit={handleSubmit} noValidate aria-busy={submitting}>
+    <form
+      className="qf-card"
+      onSubmit={handleSubmit}
+      noValidate
+      aria-busy={submitting}
+    >
       {/* Solo para copiar el estilo de .qf-input a los campos seguros */}
-      <input ref={styleRef} className="qf-input" aria-hidden="true" tabIndex={-1} readOnly
-        placeholder="x" style={{ position: "absolute", visibility: "hidden", pointerEvents: "none", width: 0 }} />
+      <input
+        ref={styleRef}
+        className="qf-input"
+        aria-hidden="true"
+        tabIndex={-1}
+        readOnly
+        placeholder="x"
+        style={{
+          position: "absolute",
+          visibility: "hidden",
+          pointerEvents: "none",
+          width: 0,
+        }}
+      />
 
       <div className="vt-card-preview" aria-hidden="true">
         <div className="vt-card-top">
@@ -268,14 +328,20 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
         </div>
       </div>
 
-      {loadError ? <div className="vt-alert" role="alert">{loadError}</div> : null}
+      {loadError ? (
+        <div className="vt-alert" role="alert">
+          {loadError}
+        </div>
+      ) : null}
 
       <fieldset className="qf-group vt-fieldset" disabled={submitting}>
         <legend className="qf-group-label">03 / Datos de la tarjeta</legend>
 
         <div className="qf-stack">
           <div>
-            <label htmlFor="cp-holder" className="qf-label">Nombre del titular</label>
+            <label htmlFor="cp-holder" className="qf-label">
+              Nombre del titular
+            </label>
             <input
               id="cp-holder"
               className="qf-input"
@@ -308,11 +374,16 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
                 </span>
               ) : null}
             </div>
-            {showFieldError("cardNumber") ? <p className="vt-error">{FIELD_ERRORS.cardNumber}</p> : null}
+            {showFieldError("cardNumber") ? (
+              <p className="vt-error">{FIELD_ERRORS.cardNumber}</p>
+            ) : null}
             {method ? (
               <p className="vt-card-type" aria-live="polite">
-                Tarjeta {brand}{cardType ? ` de ${cardType.toLowerCase()}` : ""}
-                {method.issuer?.name && method.issuer.name !== brand ? ` · ${method.issuer.name}` : ""}
+                Tarjeta {brand}
+                {cardType ? ` de ${cardType.toLowerCase()}` : ""}
+                {method.issuer?.name && method.issuer.name !== brand
+                  ? ` · ${method.issuer.name}`
+                  : ""}
               </p>
             ) : null}
           </div>
@@ -324,10 +395,14 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
                 id={FIELD_IDS.expirationDate}
                 className="qf-input vt-secure-field"
                 data-focused={focused === "expirationDate"}
-                data-invalid={showFieldError("expirationDate") ? true : undefined}
+                data-invalid={
+                  showFieldError("expirationDate") ? true : undefined
+                }
                 data-loading={!ready}
               />
-              {showFieldError("expirationDate") ? <p className="vt-error">{FIELD_ERRORS.expirationDate}</p> : null}
+              {showFieldError("expirationDate") ? (
+                <p className="vt-error">{FIELD_ERRORS.expirationDate}</p>
+              ) : null}
             </div>
             <div>
               <span className="qf-label">Código de seguridad (CVV)</span>
@@ -338,13 +413,18 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
                 data-invalid={showFieldError("securityCode") ? true : undefined}
                 data-loading={!ready}
               />
-              {showFieldError("securityCode") ? <p className="vt-error">{FIELD_ERRORS.securityCode}</p> : null}
+              {showFieldError("securityCode") ? (
+                <p className="vt-error">{FIELD_ERRORS.securityCode}</p>
+              ) : null}
             </div>
           </div>
 
-          {method?.payment_type_id === "credit_card" && payerCosts.length > 1 ? (
+          {method?.payment_type_id === "credit_card" &&
+          payerCosts.length > 1 ? (
             <div>
-              <label htmlFor="cp-installments" className="qf-label">Forma de pago</label>
+              <label htmlFor="cp-installments" className="qf-label">
+                Forma de pago
+              </label>
               <select
                 id="cp-installments"
                 className="qf-input"
@@ -353,7 +433,9 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
               >
                 {payerCosts.map((cost) => (
                   <option key={cost.installments} value={cost.installments}>
-                    {cost.installments === 1 ? `Pago de contado · ${formatMXN(cost.total_amount)}` : cost.recommended_message}
+                    {cost.installments === 1
+                      ? `Pago de contado · ${formatMXN(cost.total_amount)}`
+                      : cost.recommended_message}
                   </option>
                 ))}
               </select>
@@ -363,9 +445,13 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
       </fieldset>
 
       <fieldset className="qf-group vt-fieldset" disabled={submitting}>
-        <legend className="qf-group-label">04 / Contacto para el comprobante</legend>
+        <legend className="qf-group-label">
+          04 / Contacto para el comprobante
+        </legend>
         <div>
-          <label htmlFor="cp-email" className="qf-label">Correo electrónico</label>
+          <label htmlFor="cp-email" className="qf-label">
+            Correo electrónico
+          </label>
           <input
             id="cp-email"
             className="qf-input"
@@ -391,23 +477,32 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
             disabled={submitting}
           />
           <span>
-            Autorizo el cargo de <strong>{formatMXN(total)}</strong> y acepto los términos y el aviso de
-            privacidad de Marin Industries.
+            Autorizo el cargo de <strong>{formatMXN(total)}</strong> y acepto
+            los términos y el aviso de privacidad de Marin Industries.
           </span>
         </label>
         {termsError ? <p className="vt-error">{termsError}</p> : null}
       </div>
 
-      {paymentError ? <div className="vt-alert" role="alert">{paymentError}</div> : null}
+      {paymentError ? (
+        <div className="vt-alert" role="alert">
+          {paymentError}
+        </div>
+      ) : null}
 
       <div className="vt-pay-actions">
         <Link href="/tienda/pago" className="btn btn-ghost">
           <span aria-hidden="true">←</span> Cambiar método
         </Link>
-        <button type="submit" className="btn btn-primary qf-submit" disabled={submitting || !ready}>
+        <button
+          type="submit"
+          className="btn btn-primary qf-submit"
+          disabled={submitting || !ready}
+        >
           {submitting ? (
             <>
-              <span className="vt-spinner" aria-hidden="true" /> Procesando pago…
+              <span className="vt-spinner" aria-hidden="true" /> Procesando
+              pago…
             </>
           ) : (
             <>
@@ -418,15 +513,17 @@ export function StoreCardForm({ draft, shipping, onPaid }: Props) {
       </div>
 
       <p className="vt-hint">
-        Pago procesado de forma segura por Mercado Pago. Marin Industries no ve ni guarda el número de
-        tu tarjeta ni el CVV.
+        Pago procesado de forma segura por Mercado Pago. Marin Industries no ve
+        ni guarda el número de tu tarjeta ni el CVV.
       </p>
 
       {IS_TEST ? (
         <p className="vt-hint vt-test">
-          <strong>Modo prueba.</strong> Mastercard <code>5474 9254 3267 0366</code> · Visa{" "}
-          <code>4075 5957 1648 3764</code> · CVV <code>123</code> · vence <code>11/30</code>. Titular{" "}
-          <code>APRO</code> = aprobado, <code>OTHE</code> = rechazado, <code>CONT</code> = pendiente.
+          <strong>Modo prueba.</strong> Mastercard{" "}
+          <code>5474 9254 3267 0366</code> · Visa{" "}
+          <code>4075 5957 1648 3764</code> · CVV <code>123</code> · vence{" "}
+          <code>11/30</code>. Titular <code>APRO</code> = aprobado,{" "}
+          <code>OTHE</code> = rechazado, <code>CONT</code> = pendiente.
         </p>
       ) : null}
     </form>

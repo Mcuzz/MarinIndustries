@@ -1,5 +1,8 @@
 import Link from "next/link";
-import { baseKpis, seedOrders } from "@/src/infrastructure/sales/static-sales.data";
+import {
+  baseKpis,
+  seedOrders,
+} from "@/src/application/sales/sales.service";
 import { formatMXN } from "@/src/domain/sales/sale.entity";
 
 export default function SalesPreview() {
@@ -9,9 +12,12 @@ export default function SalesPreview() {
       className="case-visual sp-link"
       aria-label="Abrir la demostración del punto de venta de Terrazitas"
     >
-
       <div className="mock-window sp-window" aria-hidden="true">
-        <div className="mock-dots"><span></span><span></span><span></span></div>
+        <div className="mock-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
 
         <div className="sp-kpis">
           <div>

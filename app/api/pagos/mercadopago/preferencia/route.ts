@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 
 import { createCheckoutProPreference } from "@/src/infrastructure/payments/mercadopago-checkout-pro.gateway";
-import { isCheckoutError, prepareOnlineOrder } from "@/src/infrastructure/store/online-checkout";
+import {
+  isCheckoutError,
+  prepareOnlineOrder,
+} from "@/src/infrastructure/store/online-checkout";
 import {
   setOnlineOrderPreference,
   updateOnlineOrderPayment,
@@ -50,5 +53,8 @@ export async function POST(request: Request) {
 
   await setOnlineOrderPreference(order.orderId, result.value.preferenceId);
 
-  return NextResponse.json({ initPoint: result.value.initPoint, orderId: order.orderId });
+  return NextResponse.json({
+    initPoint: result.value.initPoint,
+    orderId: order.orderId,
+  });
 }

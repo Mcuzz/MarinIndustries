@@ -21,9 +21,7 @@ export function QuotePage() {
           <div className="section-shell qt-grid">
             <form className="qf-card">
               <div className="qf-group">
-                <span className="qf-group-label">
-                  {t.applicant}
-                </span>
+                <span className="qf-group-label">{t.applicant}</span>
 
                 <div className="qf-row">
                   <Field
@@ -63,7 +61,11 @@ export function QuotePage() {
                       <option value="" disabled>
                         {t.select}
                       </option>
-                      {t.projectTypes.map((type, index) => <option key={index} value={index}>{type}</option>)}
+                      {t.projectTypes.map((type, index) => (
+                        <option key={index} value={index}>
+                          {type}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -91,9 +93,7 @@ export function QuotePage() {
               <span className="eyebrow">{t.pending}</span>
               <h2 className="qa-title">{t.rules}</h2>
 
-              <p className="qa-text">
-                {t.requirements}
-              </p>
+              <p className="qa-text">{t.requirements}</p>
 
               <ul>
                 {t.items.map((item, i) => (

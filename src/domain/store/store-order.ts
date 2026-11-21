@@ -1,4 +1,3 @@
-
 export type StoreOrderItem = {
   id: string;
   nombre: string;

@@ -1,0 +1,5 @@
+paso 2: 0 errores encontrados.
+paso 3: 12 advertencias encontradas.
+paso 4: lineas totales 8388. total de advertencias por linea: 1.43
+paso 5: 0 advertencias para el uso de 'any'
+paso 6: Total de 130 archivos que no cumplen con el formato.

@@ -1,0 +1,175 @@
+﻿Checking formatting...
+node.exe : [[33mwarn[39m] .vscode/settings.json
+En línea: 1 Carácter: 1
++ & "A:\Program Files\nodejs/node.exe" "A:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo          : NotSpecified: ([[33mwarn[39m] .vs 
+   code/settings.json:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[[33mwarn[39m] app/api/pagos/mercadopago/estado/route.ts
+[[33mwarn[39m] app/api/pagos/mercadopago/preferencia/route.ts
+[[33mwarn[39m] app/api/pagos/mercadopago/tarjeta/route.ts
+[[33mwarn[39m] app/api/pagos/mercadopago/webhook/route.ts
+[[33mwarn[39m] app/catalogo/page.tsx
+[[33mwarn[39m] app/convocatorias/page.tsx
+[[33mwarn[39m] app/cotizacion/page.tsx
+[[33mwarn[39m] app/design-tokens.css
+[[33mwarn[39m] app/globals.css
+[[33mwarn[39m] app/layout.tsx
+[[33mwarn[39m] app/login/page.tsx
+[[33mwarn[39m] app/page.tsx
+[[33mwarn[39m] app/registro/page.tsx
+[[33mwarn[39m] app/rh/page.tsx
+[[33mwarn[39m] app/servicios/page.tsx
+[[33mwarn[39m] app/suite/page.tsx
+[[33mwarn[39m] app/tienda/page.tsx
+[[33mwarn[39m] app/tienda/pago/confirmacion/page.tsx
+[[33mwarn[39m] app/tienda/pago/envio/page.tsx
+[[33mwarn[39m] app/tienda/pago/layout.tsx
+[[33mwarn[39m] app/tienda/pago/page.tsx
+[[33mwarn[39m] app/tienda/pago/tarjeta/page.tsx
+[[33mwarn[39m] app/tienda/producto/[id]/page.tsx
+[[33mwarn[39m] app/ventas/layout.tsx
+[[33mwarn[39m] app/ventas/page.tsx
+[[33mwarn[39m] app/ventas/pago/page.tsx
+[[33mwarn[39m] app/ventas/pago/tarjeta/page.tsx
+[[33mwarn[39m] app/ventas/ventas.css
+[[33mwarn[39m] brief.md
+[[33mwarn[39m] DESIGN-SYSTEM.md
+[[33mwarn[39m] eslint.config.mjs
+[[33mwarn[39m] global.d.ts
+[[31merror[39m] index.html: SyntaxError: Void elements do not 
+have end tags "Link" (108:9)
+[[31merror[39m]   106 |         >
+[[31merror[39m]   107 |           Solicitar una propuesta
+[[31merror[39m] > 108 |         </Link>
+[[31merror[39m]       |         ^^^^^^^
+[[31merror[39m]   109 |
+[[31merror[39m]   110 |         <Link
+[[31merror[39m]   111 |           href="/#servicios"
+[[33mwarn[39m] next-env.d.ts
+[[33mwarn[39m] next.config.mjs
+[[33mwarn[39m] package.json
+[[33mwarn[39m] pnpm-workspace.yaml
+[[33mwarn[39m] postcss.config.mjs
+[[33mwarn[39m] 
+src/application/catalog/ports/service-catalog.repository.ts
+[[33mwarn[39m] 
+src/application/catalog/use-cases/list-service-catalog.use-case.ts
+[[33mwarn[39m] src/application/contact/use-cases/create-whatsapp
+-contact-link.use-case.ts
+[[33mwarn[39m] src/application/hr/ports/hr-access.repository.ts
+[[33mwarn[39m] 
+src/application/hr/use-cases/get-hr-access-overview.use-case.ts
+[[33mwarn[39m] 
+src/application/jobs/ports/job-opening.repository.ts
+[[33mwarn[39m] 
+src/application/jobs/use-cases/list-job-openings.use-case.ts
+[[33mwarn[39m] 
+src/application/marketing/ports/landing-content.repository.ts
+[[33mwarn[39m] src/application/marketing/use-cases/get-landing-c
+ontent.use-case.ts
+[[33mwarn[39m] 
+src/application/products/ports/product.repository.ts
+[[33mwarn[39m] 
+src/application/products/use-cases/list-categories.use-case.ts
+[[33mwarn[39m] 
+src/application/products/use-cases/list-products.use-case.ts
+[[33mwarn[39m] src/domain/catalog/service-offering.entity.ts
+[[33mwarn[39m] src/domain/contact/contact-phone.ts
+[[33mwarn[39m] src/domain/contact/contact-request.entity.ts
+[[33mwarn[39m] src/domain/hr/hr-feature.entity.ts
+[[33mwarn[39m] src/domain/jobs/job-opening.entity.ts
+[[33mwarn[39m] src/domain/marketing/landing-content.entity.ts
+[[33mwarn[39m] src/domain/payments/card-payment.ts
+[[33mwarn[39m] src/domain/products/product.entity.ts
+[[33mwarn[39m] src/domain/sales/sale.entity.ts
+[[33mwarn[39m] src/domain/shared/result.ts
+[[33mwarn[39m] src/domain/store/store-order.ts
+[[33mwarn[39m] src/domain/store/store-pricing.ts
+[[33mwarn[39m] 
+src/infrastructure/catalog/static-service-catalog.repository.ts
+[[33mwarn[39m] src/infrastructure/composition/root-container.ts
+[[33mwarn[39m] 
+src/infrastructure/hr/static-hr-access.repository.ts
+[[33mwarn[39m] 
+src/infrastructure/jobs/static-job-opening.repository.ts
+[[33mwarn[39m] 
+src/infrastructure/marketing/static-landing-content.repository.ts
+[[33mwarn[39m] 
+src/infrastructure/payments/mercadopago-checkout-pro.gateway.ts
+[[33mwarn[39m] 
+src/infrastructure/payments/mock-card-payment.gateway.ts
+[[33mwarn[39m] 
+src/infrastructure/products/static-product.repository.ts
+[[33mwarn[39m] 
+src/infrastructure/products/supabase-product.repository.ts
+[[33mwarn[39m] src/infrastructure/sales/sale-session.storage.ts
+[[33mwarn[39m] src/infrastructure/sales/static-sales.data.ts
+[[33mwarn[39m] 
+src/infrastructure/sales/store-checkout.storage.ts
+[[33mwarn[39m] 
+src/infrastructure/sales/store-shipping.storage.ts
+[[33mwarn[39m] src/infrastructure/store/online-checkout.ts
+[[33mwarn[39m] 
+src/infrastructure/store/supabase-online-order.repository.ts
+[[33mwarn[39m] src/infrastructure/supabase/admin.ts
+[[33mwarn[39m] src/infrastructure/supabase/client.ts
+[[33mwarn[39m] src/infrastructure/supabase/server.ts
+[[33mwarn[39m] src/presentation/components/auth/LogoutButton.tsx
+[[33mwarn[39m] src/presentation/components/forms/ContactForm.tsx
+[[33mwarn[39m] 
+src/presentation/components/home/CaseAccordion.tsx
+[[33mwarn[39m] src/presentation/components/home/Hero.tsx
+[[33mwarn[39m] src/presentation/components/home/InfoPanel.tsx
+[[33mwarn[39m] 
+src/presentation/components/home/LocalizedHomeSections.tsx
+[[33mwarn[39m] src/presentation/components/home/SalesPreview.tsx
+[[33mwarn[39m] src/presentation/components/home/SectionRail.tsx
+[[33mwarn[39m] src/presentation/components/layout/Footer.tsx
+[[33mwarn[39m] src/presentation/components/layout/Header.tsx
+[[33mwarn[39m] src/presentation/components/layout/PageShell.tsx
+[[33mwarn[39m] 
+src/presentation/components/layout/ThemeToggle.tsx
+[[33mwarn[39m] src/presentation/components/ModuleHero.tsx
+[[33mwarn[39m] src/presentation/components/sales/CarritoItem.tsx
+[[33mwarn[39m] 
+src/presentation/components/sales/CheckoutParts.tsx
+[[33mwarn[39m] 
+src/presentation/components/sales/CompartirProductoModal.tsx
+[[33mwarn[39m] 
+src/presentation/components/sales/GridProductos.tsx
+[[33mwarn[39m] 
+src/presentation/components/sales/PlantillaProducto.tsx
+[[33mwarn[39m] 
+src/presentation/components/sales/TarjetaProducto.tsx
+[[33mwarn[39m] 
+src/presentation/components/store/mercadopago-js.ts
+[[33mwarn[39m] 
+src/presentation/components/store/MercadoPagoWaiting.tsx
+[[33mwarn[39m] 
+src/presentation/components/store/ShippingForm.tsx
+[[33mwarn[39m] 
+src/presentation/components/store/StoreCardForm.tsx
+[[33mwarn[39m] 
+src/presentation/components/store/useMercadoPagoPopup.ts
+[[33mwarn[39m] src/presentation/i18n/dictionaries/en.json
+[[33mwarn[39m] src/presentation/i18n/dictionaries/es.json
+[[33mwarn[39m] src/presentation/i18n/LanguageProvider.tsx
+[[33mwarn[39m] src/presentation/pages/CardPaymentPage.tsx
+[[33mwarn[39m] src/presentation/pages/CatalogPage.tsx
+[[33mwarn[39m] src/presentation/pages/HomePage.tsx
+[[33mwarn[39m] src/presentation/pages/HrAccessPage.tsx
+[[33mwarn[39m] src/presentation/pages/JobOpeningsPage.tsx
+[[33mwarn[39m] src/presentation/pages/LoginPage.tsx
+[[33mwarn[39m] src/presentation/pages/PaymentMethodPage.tsx
+[[33mwarn[39m] src/presentation/pages/QuotePage.tsx
+[[33mwarn[39m] src/presentation/pages/RegisterPage.tsx
+[[33mwarn[39m] src/presentation/pages/SalesPage.tsx
+[[33mwarn[39m] src/presentation/pages/ServiceSuitePage.tsx
+[[33mwarn[39m] tailwind.config.ts
+[[33mwarn[39m] tsconfig.json
+Error occurred when checking code style in the above file.

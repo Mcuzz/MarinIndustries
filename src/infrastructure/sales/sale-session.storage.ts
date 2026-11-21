@@ -34,7 +34,8 @@ export function clearSaleDraft() {
   }
 }
 
-export const loadCompletedOrders = () => read<SalesOrder[]>(COMPLETED_KEY) ?? [];
+export const loadCompletedOrders = () =>
+  read<SalesOrder[]>(COMPLETED_KEY) ?? [];
 
 export function saveCompletedOrder(order: SalesOrder) {
   const current = loadCompletedOrders().filter((o) => o.id !== order.id);

@@ -1,0 +1,7 @@
+.next
+node_modules
+ReportesCalidad
+reportes
+package-lock.json
+pnpm-lock.yaml
+index.html

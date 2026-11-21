@@ -53,7 +53,10 @@ export const MAX_SERVICE_QUANTITY = 99;
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
-export function computeSaleTotals(unitPrice: number, quantity: number): SaleTotals {
+export function computeSaleTotals(
+  unitPrice: number,
+  quantity: number,
+): SaleTotals {
   const safeQty = Number.isFinite(quantity) && quantity > 0 ? quantity : 0;
   const subtotal = round2(unitPrice * safeQty);
   const tax = round2(subtotal * IVA_RATE);
@@ -84,7 +87,8 @@ export function validateSaleInput(
   const errors: SaleInputErrors = {};
 
   if (!input.clientId) errors.clientId = "Selecciona la empresa o cliente.";
-  if (!input.itemId || !item) errors.itemId = "Selecciona un producto o servicio del catálogo.";
+  if (!input.itemId || !item)
+    errors.itemId = "Selecciona un producto o servicio del catálogo.";
 
   const raw = input.quantity.trim();
   const qty = Number(raw);
@@ -93,7 +97,11 @@ export function validateSaleInput(
     errors.quantity = "Indica la cantidad.";
   } else if (!/^\d+$/.test(raw) || qty < 1) {
     errors.quantity = "La cantidad debe ser un número entero mayor a 0.";
-  } else if (item?.stock !== null && item?.stock !== undefined && qty > item.stock) {
+  } else if (
+    item?.stock !== null &&
+    item?.stock !== undefined &&
+    qty > item.stock
+  ) {
     errors.quantity = `Solo hay ${item.stock} pzs en stock.`;
   } else if (item?.stock === null && qty > MAX_SERVICE_QUANTITY) {
     errors.quantity = `Máximo ${MAX_SERVICE_QUANTITY} unidades por servicio.`;

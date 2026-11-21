@@ -32,11 +32,38 @@ export const INSTALLMENT_OPTIONS = [
 export const MIN_AMOUNT_FOR_INSTALLMENTS = 1500;
 
 export const MX_STATES = [
-  "Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas",
-  "Chihuahua", "Ciudad de México", "Coahuila", "Colima", "Durango", "Estado de México",
-  "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Michoacán", "Morelos", "Nayarit",
-  "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo", "San Luis Potosí",
-  "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas",
+  "Aguascalientes",
+  "Baja California",
+  "Baja California Sur",
+  "Campeche",
+  "Chiapas",
+  "Chihuahua",
+  "Ciudad de México",
+  "Coahuila",
+  "Colima",
+  "Durango",
+  "Estado de México",
+  "Guanajuato",
+  "Guerrero",
+  "Hidalgo",
+  "Jalisco",
+  "Michoacán",
+  "Morelos",
+  "Nayarit",
+  "Nuevo León",
+  "Oaxaca",
+  "Puebla",
+  "Querétaro",
+  "Quintana Roo",
+  "San Luis Potosí",
+  "Sinaloa",
+  "Sonora",
+  "Tabasco",
+  "Tamaulipas",
+  "Tlaxcala",
+  "Veracruz",
+  "Yucatán",
+  "Zacatecas",
 ] as const;
 
 export const emptyCardPaymentForm: CardPaymentForm = {
@@ -62,7 +89,8 @@ export function detectCardBrand(value: string): CardBrand {
   const d = onlyDigits(value);
   if (/^4/.test(d)) return "visa";
   if (/^3[47]/.test(d)) return "amex";
-  if (/^5[1-5]/.test(d) || /^2(2[2-9]|[3-6]\d|7[01]|720)/.test(d)) return "mastercard";
+  if (/^5[1-5]/.test(d) || /^2(2[2-9]|[3-6]\d|7[01]|720)/.test(d))
+    return "mastercard";
   return "unknown";
 }
 
@@ -73,7 +101,8 @@ export const cardBrandLabel: Record<CardBrand, string> = {
   unknown: "Tarjeta",
 };
 
-export const cardNumberLength = (brand: CardBrand) => (brand === "amex" ? 15 : 16);
+export const cardNumberLength = (brand: CardBrand) =>
+  brand === "amex" ? 15 : 16;
 export const cvvLength = (brand: CardBrand) => (brand === "amex" ? 4 : 3);
 
 export function luhnCheck(value: string): boolean {
@@ -98,7 +127,9 @@ export function formatCardNumber(value: string): string {
   const brand = detectCardBrand(value);
   const d = onlyDigits(value).slice(0, cardNumberLength(brand));
   if (brand === "amex") {
-    return [d.slice(0, 4), d.slice(4, 10), d.slice(10, 15)].filter(Boolean).join(" ");
+    return [d.slice(0, 4), d.slice(4, 10), d.slice(10, 15)]
+      .filter(Boolean)
+      .join(" ");
   }
   return d.replace(/(\d{4})(?=\d)/g, "$1 ");
 }
@@ -128,8 +159,10 @@ export function validateCardField(
     case "holder": {
       const v = form.holder.trim().replace(/\s+/g, " ");
       if (!v) return "Escribe el nombre como aparece en la tarjeta.";
-      if (!NAME_RE.test(v)) return "El nombre solo puede contener letras y espacios.";
-      if (v.length < 5 || v.split(" ").length < 2) return "Incluye nombre y apellido.";
+      if (!NAME_RE.test(v))
+        return "El nombre solo puede contener letras y espacios.";
+      if (v.length < 5 || v.split(" ").length < 2)
+        return "Incluye nombre y apellido.";
       if (v.length > 60) return "Máximo 60 caracteres.";
       return;
     }
@@ -137,7 +170,8 @@ export function validateCardField(
       const d = onlyDigits(form.number);
       const brand = detectCardBrand(d);
       if (!d) return "Ingresa el número de la tarjeta.";
-      if (brand === "unknown") return "Solo se aceptan Visa, Mastercard o American Express.";
+      if (brand === "unknown")
+        return "Solo se aceptan Visa, Mastercard o American Express.";
       if (d.length !== cardNumberLength(brand))
         return `El número debe tener ${cardNumberLength(brand)} dígitos.`;
       if (!luhnCheck(d)) return "El número de tarjeta no es válido.";
@@ -154,7 +188,8 @@ export function validateCardField(
       // La tarjeta es válida hasta el último día del mes indicado.
       const endOfMonth = new Date(year, month, 0, 23, 59, 59);
       if (endOfMonth < now) return "La tarjeta está vencida.";
-      if (year > now.getFullYear() + 20) return "La fecha de vencimiento no es válida.";
+      if (year > now.getFullYear() + 20)
+        return "La fecha de vencimiento no es válida.";
       return;
     }
     case "cvv": {
@@ -203,7 +238,8 @@ export function validateCardField(
       return;
     case "zip":
       if (!form.zip) return "Ingresa el código postal.";
-      if (!/^\d{5}$/.test(form.zip)) return "El código postal debe tener 5 dígitos.";
+      if (!/^\d{5}$/.test(form.zip))
+        return "El código postal debe tener 5 dígitos.";
       return;
     case "city":
       if (form.city.trim().length < 3) return "Escribe la ciudad o municipio.";
@@ -212,14 +248,27 @@ export function validateCardField(
       if (!form.state) return "Selecciona el estado.";
       return;
     case "acceptTerms":
-      if (!form.acceptTerms) return "Debes aceptar los términos para continuar.";
+      if (!form.acceptTerms)
+        return "Debes aceptar los términos para continuar.";
       return;
   }
 }
 
 export const CARD_FIELDS_ORDER: CardPaymentField[] = [
-  "holder", "number", "expiry", "cvv", "cardType", "installments",
-  "email", "phone", "street", "neighborhood", "zip", "city", "state", "acceptTerms",
+  "holder",
+  "number",
+  "expiry",
+  "cvv",
+  "cardType",
+  "installments",
+  "email",
+  "phone",
+  "street",
+  "neighborhood",
+  "zip",
+  "city",
+  "state",
+  "acceptTerms",
 ];
 
 export function validateCardPayment(

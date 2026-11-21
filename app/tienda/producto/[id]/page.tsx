@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -47,9 +46,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function PaginaProducto({
-  params,
-}: PaginaProductoProps) {
+export default async function PaginaProducto({ params }: PaginaProductoProps) {
   const { id } = await params;
   const producto = await obtenerProducto(id);
 
@@ -80,9 +77,7 @@ export default async function PaginaProducto({
             </div>
 
             <div className="producto-publico__contenido">
-              <span className="eyebrow">
-                MARIN INDUSTRIES / PRODUCTOS
-              </span>
+              <span className="eyebrow">MARIN INDUSTRIES / PRODUCTOS</span>
 
               <p className="producto-publico__categoria">
                 {producto.categoria}
@@ -96,10 +91,7 @@ export default async function PaginaProducto({
                 {producto.descripcion}
               </p>
 
-              <Link
-                href="/tienda"
-                className="btn btn-primary"
-              >
+              <Link href="/tienda" className="btn btn-primary">
                 Ir a la tienda
               </Link>
 

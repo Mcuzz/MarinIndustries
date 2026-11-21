@@ -3,7 +3,7 @@ import {
   detectCardBrand,
   onlyDigits,
   type CardPaymentForm,
-} from "@/src/domain/payments/card-payment";
+} from "@/src/application/payments/card-payment.service";
 import type { SaleDraft } from "@/src/domain/sales/sale.entity";
 
 // Pasarela SIMULADA: no envía datos a ningún lado ni cobra nada.
@@ -32,7 +32,9 @@ export async function processMockCardPayment(
   const digits = onlyDigits(form.number);
 
   if (digits === onlyDigits(TEST_CARD_DECLINED)) {
-    return fail("El banco rechazó el cargo por fondos insuficientes (simulado). Intenta con otra tarjeta.");
+    return fail(
+      "El banco rechazó el cargo por fondos insuficientes (simulado). Intenta con otra tarjeta.",
+    );
   }
 
   return ok({

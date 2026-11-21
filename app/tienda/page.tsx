@@ -5,7 +5,9 @@ import { GridProductos } from "@/src/presentation/components/sales/GridProductos
 export const dynamic = "force-dynamic";
 
 export default async function TiendaPage() {
-  const productos = await container.products.listProducts({ soloActivos: true });
+  const productos = await container.products.listProducts({
+    soloActivos: true,
+  });
 
   return (
     <PageShell>

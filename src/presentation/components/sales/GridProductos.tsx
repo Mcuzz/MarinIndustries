@@ -9,13 +9,14 @@ import { CompartirProductoModal } from "./CompartirProductoModal";
 
 const CARRITO_STORAGE_KEY = STORE_CART_KEY;
 
-
-
-import { container } from "@/src/infrastructure/composition/root-container";
-import { productosEstaticos } from "@/src/infrastructure/products/static-product.repository";
+import { container } from "@/src/application/store/store.service";
+import { productosEstaticos } from "@/src/application/store/store.service";
 
 import { useRouter } from "next/navigation";
-import { saveStoreCheckout, STORE_CART_KEY } from "@/src/infrastructure/sales/store-checkout.storage";
+import {
+  saveStoreCheckout,
+  STORE_CART_KEY,
+} from "@/src/application/store/store.service";
 import { computeStoreTotals } from "@/src/domain/store/store-pricing";
 import { useLanguage } from "../../i18n/LanguageProvider";
 
@@ -40,7 +41,6 @@ export function GridProductos({
       : productosEstaticos,
   );
 
-  const [cargando, setCargando] = useState(false);
   const [busqueda, setBusqueda] = useState("");
   const [categoria, setCategoria] = useState("Todas");
   const [soloOfertas, setSoloOfertas] = useState(false);
@@ -53,12 +53,11 @@ export function GridProductos({
   const router = useRouter();
 
   const [productoParaCompartir, setProductoParaCompartir] =
-  useState<Producto | null>(null);
+    useState<Producto | null>(null);
 
   // Cargar productos desde la base de datos (Supabase o respaldo estático)
   useEffect(() => {
     let activo = true;
-    setCargando(true);
     container.products
       .listProducts({ soloActivos: true })
       .then((items) => {
@@ -71,9 +70,6 @@ export function GridProductos({
           "No se pudieron cargar productos de la base de datos:",
           err,
         );
-      })
-      .finally(() => {
-        if (activo) setCargando(false);
       });
 
     return () => {
@@ -158,7 +154,10 @@ export function GridProductos({
   });
   // Mismo cálculo que el checkout y el servidor (el envío se suma en el checkout).
   const { subtotal, iva, total } = computeStoreTotals(
-    articulosCarrito.map(({ producto, cantidad }) => ({ precio: producto.precio, cantidad })),
+    articulosCarrito.map(({ producto, cantidad }) => ({
+      precio: producto.precio,
+      cantidad,
+    })),
     { includeShipping: false },
   );
 
@@ -198,11 +197,11 @@ export function GridProductos({
       <div className="section-shell">
         <header className="tienda-encabezado">
           <div>
-            <span className="eyebrow">MARIN INDUSTRIES / {t.catalog.toUpperCase()}</span>
+            <span className="eyebrow">
+              MARIN INDUSTRIES / {t.catalog.toUpperCase()}
+            </span>
             <h1 className="tienda-titulo">{t.catalog}</h1>
-            <p className="tienda-descripcion">
-              {t.description}
-            </p>
+            <p className="tienda-descripcion">{t.description}</p>
           </div>
 
           <button
@@ -265,13 +264,13 @@ export function GridProductos({
             ))}
           </div>
         ) : (
-          <p className="tienda-vacio">
-            {t.emptyResults}
-          </p>
+          <p className="tienda-vacio">{t.emptyResults}</p>
         )}
 
         <footer className="tienda-pie">
-          <span>{productosFiltrados.length} {t.productsFound}</span>
+          <span>
+            {productosFiltrados.length} {t.productsFound}
+          </span>
           <Link href="/cotizacion">{t.requestQuote}</Link>
         </footer>
       </div>
@@ -335,7 +334,9 @@ export function GridProductos({
               <div>
                 <span className="eyebrow">{t.order}</span>
                 <h2 id="carrito-titulo">{t.cart}</h2>
-                <p>{totalArticulos} {t.articles}</p>
+                <p>
+                  {totalArticulos} {t.articles}
+                </p>
               </div>
               <button
                 type="button"
@@ -349,10 +350,7 @@ export function GridProductos({
 
             {articulosCarrito.length > 0 ? (
               <div className="carrito-cuerpo">
-                <div
-                  className="carrito-articulos"
-                  aria-label={t.cartItems}
-                >
+                <div className="carrito-articulos" aria-label={t.cartItems}>
                   {articulosCarrito.map(({ producto, cantidad }) => (
                     <CarritoItem
                       key={producto.id}
@@ -366,10 +364,7 @@ export function GridProductos({
                   ))}
                 </div>
 
-                <aside
-                  className="carrito-resumen"
-                  aria-label={t.priceSummary}
-                >
+                <aside className="carrito-resumen" aria-label={t.priceSummary}>
                   <h3>{t.summary}</h3>
                   <dl>
                     <div>

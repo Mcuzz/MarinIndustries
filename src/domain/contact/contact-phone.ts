@@ -14,7 +14,11 @@ export function createContactPhone(value: string): Result<ContactPhone> {
     return fail("El telefono o WhatsApp es obligatorio.");
   }
 
-  if (!phoneFormatPattern.test(trimmed) || digits.length < 7 || digits.length > 15) {
+  if (
+    !phoneFormatPattern.test(trimmed) ||
+    digits.length < 7 ||
+    digits.length > 15
+  ) {
     return fail("Ingresa un telefono o WhatsApp valido.");
   }
 

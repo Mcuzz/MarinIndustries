@@ -14,16 +14,17 @@ import { supabaseProductRepository } from "../products/supabase-product.reposito
 
 export const container = {
   marketing: {
-    getLandingContent: () => getLandingContent(staticLandingContentRepository)
+    getLandingContent: () => getLandingContent(staticLandingContentRepository),
   },
   catalog: {
-    listServiceCatalog: () => listServiceCatalog(staticServiceCatalogRepository)
+    listServiceCatalog: () =>
+      listServiceCatalog(staticServiceCatalogRepository),
   },
   jobs: {
-    listJobOpenings: () => listJobOpenings(staticJobOpeningRepository)
+    listJobOpenings: () => listJobOpenings(staticJobOpeningRepository),
   },
   hr: {
-    getAccessOverview: () => getHrAccessOverview(staticHrAccessRepository)
+    getAccessOverview: () => getHrAccessOverview(staticHrAccessRepository),
   },
   products: {
     listProducts: (filtro?: FiltroProductos) =>
@@ -31,6 +32,5 @@ export const container = {
     listCategories: () => listCategories(supabaseProductRepository),
     getProductById: (id: string) =>
       supabaseProductRepository.obtenerProductoPorId(id),
-  }
+  },
 };
-

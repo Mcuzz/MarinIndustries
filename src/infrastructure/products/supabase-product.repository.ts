@@ -41,7 +41,8 @@ function mapearFilaAProducto(row: ProductoRow): Producto {
   return {
     id: row.id,
     nombre: row.nombre,
-    precio: typeof row.precio === "string" ? parseFloat(row.precio) : row.precio,
+    precio:
+      typeof row.precio === "string" ? parseFloat(row.precio) : row.precio,
     descripcion: row.descripcion ?? "",
     existencia: row.existencia ?? 0,
     estado: row.estado ?? "activo",
@@ -65,17 +66,16 @@ function mapearFilaAProducto(row: ProductoRow): Producto {
 export class SupabaseProductRepository implements ProductRepository {
   private hasSupabaseCredentials(): boolean {
     const hasUrl = Boolean(
-      process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL
+      process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL,
     );
     const hasKey = Boolean(
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
-        process.env.SUPABASE_PUBLISHABLE_KEY ||
-        process.env.SUPABASE_ANON_KEY
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+      process.env.SUPABASE_PUBLISHABLE_KEY ||
+      process.env.SUPABASE_ANON_KEY,
     );
     return hasUrl && hasKey;
   }
-
 
   async listarProductos(filtro?: FiltroProductos): Promise<Producto[]> {
     if (!this.hasSupabaseCredentials()) {
@@ -84,9 +84,7 @@ export class SupabaseProductRepository implements ProductRepository {
 
     try {
       const supabase = createSupabaseBrowserClient();
-      let query = supabase
-        .from("productos")
-        .select("*, producto_imagenes(*)");
+      let query = supabase.from("productos").select("*, producto_imagenes(*)");
 
       if (filtro?.soloActivos !== false) {
         query = query.eq("estado", "activo");
@@ -102,13 +100,20 @@ export class SupabaseProductRepository implements ProductRepository {
 
       if (filtro?.busqueda) {
         const busqueda = `%${filtro.busqueda.trim()}%`;
-        query = query.or(`nombre.ilike.${busqueda},descripcion.ilike.${busqueda}`);
+        query = query.or(
+          `nombre.ilike.${busqueda},descripcion.ilike.${busqueda}`,
+        );
       }
 
-      const { data, error } = await query.order("creado_en", { ascending: false });
+      const { data, error } = await query.order("creado_en", {
+        ascending: false,
+      });
 
       if (error || !data) {
-        console.warn("Error al consultar Supabase, usando respaldo estático:", error?.message);
+        console.warn(
+          "Error al consultar Supabase, usando respaldo estático:",
+          error?.message,
+        );
         return staticProductRepository.listarProductos(filtro);
       }
 

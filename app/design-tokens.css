@@ -142,20 +142,72 @@
   padding-left: var(--section-gutter);
 }
 
-.type-display { font-family: var(--font-display); font-size: var(--type-display); font-weight: 800; line-height: var(--leading-display); letter-spacing: -0.055em; }
-.type-h1 { font-family: var(--font-display); font-size: var(--type-h1); font-weight: 800; line-height: var(--leading-heading); letter-spacing: -0.045em; }
-.type-h2 { font-family: var(--font-display); font-size: var(--type-h2); font-weight: 700; line-height: var(--leading-heading); letter-spacing: -0.035em; }
-.type-h3 { font-family: var(--font-display); font-size: var(--type-h3); font-weight: 700; line-height: 1.15; letter-spacing: -0.025em; }
-.type-subtitle { font-size: var(--type-subtitle); line-height: 1.5; }
-.type-body { font-size: var(--type-body); line-height: var(--leading-body); }
-.type-secondary { color: var(--color-text-secondary); }
-.type-meta { font-size: var(--type-meta); letter-spacing: 0.07em; }
+.type-display {
+  font-family: var(--font-display);
+  font-size: var(--type-display);
+  font-weight: 800;
+  line-height: var(--leading-display);
+  letter-spacing: -0.055em;
+}
+.type-h1 {
+  font-family: var(--font-display);
+  font-size: var(--type-h1);
+  font-weight: 800;
+  line-height: var(--leading-heading);
+  letter-spacing: -0.045em;
+}
+.type-h2 {
+  font-family: var(--font-display);
+  font-size: var(--type-h2);
+  font-weight: 700;
+  line-height: var(--leading-heading);
+  letter-spacing: -0.035em;
+}
+.type-h3 {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+.type-subtitle {
+  font-size: var(--type-subtitle);
+  line-height: 1.5;
+}
+.type-body {
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+}
+.type-secondary {
+  color: var(--color-text-secondary);
+}
+.type-meta {
+  font-size: var(--type-meta);
+  letter-spacing: 0.07em;
+}
 
 /* Reusable section tones. Existing pages may combine these with layout classes. */
-[data-tone="base"] { color: var(--color-text-primary); background-color: var(--color-background); }
-[data-tone="alt"] { color: var(--color-text-primary); background-color: var(--color-surface-secondary); }
-[data-tone="contrast"] { color: var(--color-contrast-text); background-color: var(--brand-blue-deep); }
-[data-tone="featured"] { color: var(--color-text-primary); background-color: var(--color-accent-soft); }
-[data-tone="editorial"] { color: var(--color-text-primary); background-color: var(--color-surface); }
-[data-tone="dark"] { color: var(--color-text-primary); background-color: var(--color-surface); }
-
+[data-tone="base"] {
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+}
+[data-tone="alt"] {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-secondary);
+}
+[data-tone="contrast"] {
+  color: var(--color-contrast-text);
+  background-color: var(--brand-blue-deep);
+}
+[data-tone="featured"] {
+  color: var(--color-text-primary);
+  background-color: var(--color-accent-soft);
+}
+[data-tone="editorial"] {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+}
+[data-tone="dark"] {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+}

@@ -8,7 +8,10 @@ const SECTION_IDS = ["inicio", "empresa", "casos", "contacto"] as const;
 export function SectionRail() {
   const { translations } = useLanguage();
   const labels = translations.home.sectionRail.sections;
-  const sections = SECTION_IDS.map((id) => ({ id, label: labels[id as keyof typeof labels] }));
+  const sections = SECTION_IDS.map((id) => ({
+    id,
+    label: labels[id as keyof typeof labels],
+  }));
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -66,10 +69,13 @@ export function SectionRail() {
   }, [open]);
 
   const goTo = (id: string) => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    document
-      .getElementById(id)
-      ?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    document.getElementById(id)?.scrollIntoView({
+      behavior: reduce ? "auto" : "smooth",
+      block: "start",
+    });
     setOpen(false);
   };
 
@@ -78,7 +84,10 @@ export function SectionRail() {
   return (
     <div ref={boxRef}>
       {/* Desktop: riel de marcas */}
-      <nav className="rail" aria-label={translations.home.sectionRail.ariaLabel}>
+      <nav
+        className="rail"
+        aria-label={translations.home.sectionRail.ariaLabel}
+      >
         {sections.map((s, i) => (
           <button
             key={s.id}

@@ -110,10 +110,11 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
     setActive(Math.max(0, Math.min(TAB_IDS.length - 1, i)));
 
   return (
-    <section id="empresa" data-tone="alt" className="pn-section relative">      {TAB_IDS.map((id) => (
+    <section id="empresa" data-tone="alt" className="pn-section relative">
+      {" "}
+      {TAB_IDS.map((id) => (
         <span key={id} id={id} className="pn-anchor" aria-hidden />
       ))}
-
       <div
         className="section-shell"
         onKeyDown={(e) => {
@@ -189,14 +190,23 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
                     </p>
                     <ul>
                       {services.map((s, n) => {
-                        const localized = t.services.items[s.icon as keyof typeof t.services.items];
-                        return <li key={s.icon} className="pn-row">
-                          <span className="pn-row-n">
-                            {String(n + 1).padStart(2, "0")}
-                          </span>
-                          <span className="pn-row-t">{localized?.title ?? s.title}</span>
-                          <span className="pn-row-d">{localized?.copy ?? s.copy}</span>
-                        </li>
+                        const localized =
+                          t.services.items[
+                            s.icon as keyof typeof t.services.items
+                          ];
+                        return (
+                          <li key={s.icon} className="pn-row">
+                            <span className="pn-row-n">
+                              {String(n + 1).padStart(2, "0")}
+                            </span>
+                            <span className="pn-row-t">
+                              {localized?.title ?? s.title}
+                            </span>
+                            <span className="pn-row-d">
+                              {localized?.copy ?? s.copy}
+                            </span>
+                          </li>
+                        );
                       })}
                     </ul>
                   </div>
@@ -221,7 +231,9 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
                     </p>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="card p-6">
-                        <span className="eyebrow">{t.company.missionLabel}</span>
+                        <span className="eyebrow">
+                          {t.company.missionLabel}
+                        </span>
                         <p className="mt-3 text-sm text-[var(--brand-text)]">
                           {t.company.mission}
                         </p>
@@ -252,14 +264,26 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
                     </p>
                     <ul>
                       {process.map((step, n) => {
-                        const localized = t.process.steps[String(n + 1).padStart(2, "0") as keyof typeof t.process.steps];
-                        return <li key={step} className="pn-row">
-                          <span className="pn-row-n">
-                            {String(n + 1).padStart(2, "0")}
-                          </span>
-                          <span className="pn-row-t">{localized?.title ?? step}</span>
-                          <span className="pn-row-d">{localized?.description ?? ""}</span>
-                        </li>
+                        const localized =
+                          t.process.steps[
+                            String(n + 1).padStart(
+                              2,
+                              "0",
+                            ) as keyof typeof t.process.steps
+                          ];
+                        return (
+                          <li key={step} className="pn-row">
+                            <span className="pn-row-n">
+                              {String(n + 1).padStart(2, "0")}
+                            </span>
+                            <span className="pn-row-t">
+                              {localized?.title ?? step}
+                            </span>
+                            <span className="pn-row-d">
+                              {localized?.description ?? ""}
+                            </span>
+                          </li>
+                        );
                       })}
                     </ul>
                   </div>
@@ -270,7 +294,11 @@ export function InfoPanel({ services, process }: InfoPanelProps) {
           </div>
 
           {/* Fila de etiquetas: parece decoración, funciona como navegación */}
-          <div className="pn-slots" role="tablist" aria-label={translations.common.sections}>
+          <div
+            className="pn-slots"
+            role="tablist"
+            aria-label={translations.common.sections}
+          >
             {TAB_IDS.map((id, i) => (
               <button
                 key={id}

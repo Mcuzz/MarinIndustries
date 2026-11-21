@@ -6,10 +6,30 @@ import type {
 } from "@/src/domain/products/product.entity";
 
 export const categoriasEstaticas: Categoria[] = [
-  { id: "a0000000-0000-0000-0000-000000000001", nombre: "Herramientas", slug: "herramientas", descripcion: "Herramientas técnicas y de precisión" },
-  { id: "a0000000-0000-0000-0000-000000000002", nombre: "Seguridad", slug: "seguridad", descripcion: "Equipo de protección y seguridad industrial" },
-  { id: "a0000000-0000-0000-0000-000000000003", nombre: "Accesorios", slug: "accesorios", descripcion: "Accesorios de instalación y repuestos" },
-  { id: "a0000000-0000-0000-0000-000000000004", nombre: "Consumibles", slug: "consumibles", descripcion: "Materiales y consumibles para operaciones técnicas" },
+  {
+    id: "a0000000-0000-0000-0000-000000000001",
+    nombre: "Herramientas",
+    slug: "herramientas",
+    descripcion: "Herramientas técnicas y de precisión",
+  },
+  {
+    id: "a0000000-0000-0000-0000-000000000002",
+    nombre: "Seguridad",
+    slug: "seguridad",
+    descripcion: "Equipo de protección y seguridad industrial",
+  },
+  {
+    id: "a0000000-0000-0000-0000-000000000003",
+    nombre: "Accesorios",
+    slug: "accesorios",
+    descripcion: "Accesorios de instalación y repuestos",
+  },
+  {
+    id: "a0000000-0000-0000-0000-000000000004",
+    nombre: "Consumibles",
+    slug: "consumibles",
+    descripcion: "Materiales y consumibles para operaciones técnicas",
+  },
 ];
 
 export const productosEstaticos: Producto[] = [
@@ -31,8 +51,7 @@ export const productosEstaticos: Producto[] = [
     id: "P002",
     nombre: "Equipo de protección",
     precio: 420,
-    descripcion:
-      "Equipo de protección para actividades de trabajo industrial.",
+    descripcion: "Equipo de protección para actividades de trabajo industrial.",
     existencia: 20,
     estado: "activo",
     imagen:
@@ -73,8 +92,7 @@ export const productosEstaticos: Producto[] = [
     id: "P005",
     nombre: "Consumibles técnicos",
     precio: 280,
-    descripcion:
-      "Materiales de consumo para actividades de mantenimiento.",
+    descripcion: "Materiales de consumo para actividades de mantenimiento.",
     existencia: 30,
     estado: "activo",
     imagen:
@@ -94,7 +112,9 @@ export const staticProductRepository: ProductRepository = {
     }
 
     if (filtro?.categoria && filtro.categoria !== "Todas") {
-      items = items.filter((p) => p.categoria.toLowerCase() === filtro.categoria?.toLowerCase());
+      items = items.filter(
+        (p) => p.categoria.toLowerCase() === filtro.categoria?.toLowerCase(),
+      );
     }
 
     if (filtro?.soloOfertas) {
@@ -106,7 +126,7 @@ export const staticProductRepository: ProductRepository = {
       items = items.filter(
         (p) =>
           p.nombre.toLowerCase().includes(q) ||
-          p.descripcion.toLowerCase().includes(q)
+          p.descripcion.toLowerCase().includes(q),
       );
     }
 

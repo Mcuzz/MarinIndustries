@@ -1,0 +1,36 @@
+﻿INFO: Scanner configuration file: C:\Users\kevyn\AppData\Local\npm-cache\_npx\4c634e31006915c7\node_modules\sonar-scanner\bin\..\conf\sonar-scanner.properties
+INFO: Project root configuration file: NONE
+INFO: SonarQube Scanner 3.1.0.1141
+INFO: Java 25.0.3 Eclipse Adoptium (64-bit)
+INFO: Windows 11 10.0 amd64
+INFO: User cache: C:\Users\kevyn\.sonar\cache
+INFO: SonarQube server 13.19.0.6869
+INFO: Default locale: "es_MX", source code encoding: "UTF-8" (analysis is platform dependent)
+node.exe : WARN: You are using an outdated Scanner to run the analysis: 
+ScannerCli/3.1.0.1141. Please update to a more recent version.
+En línea: 1 Carácter: 1
++ & "A:\Program Files\nodejs/node.exe" "A:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARN: You are u...recent version.:String) [], R 
+   emoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+INFO: Load global settings
+INFO: Load global settings (done) | time=1003ms
+INFO: Server id: 1BD809FA-AWHW8ct9-T_TB3XqouNu
+INFO: Inferred api base url 'https://api.sonarcloud.io' from host url 'https://sonarcloud.io'.
+INFO: Loading required plugins
+INFO: Load plugins index
+INFO: ------------------------------------------------------------------------
+INFO: EXECUTION FAILURE
+INFO: ------------------------------------------------------------------------
+INFO: Total time: 3.066s
+INFO: Final Memory: 9M/34M
+ERROR: Error during SonarQube Scanner execution
+INFO: ------------------------------------------------------------------------
+ERROR: Fail to load the list of plugins installed on the server: Not authorized or 
+organization not found
+ERROR: Caused by: GET https://sonarcloud.io/api/plugins/installed failed with HTTP 404: Not 
+authorized or organization not found
+ERROR: 
+ERROR: Re-run SonarQube Scanner using the -X switch to enable full debug logging.

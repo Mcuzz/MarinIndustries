@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -19,7 +18,9 @@ export default function StorePaymentPage() {
 
   const [loaded, setLoaded] = useState(false);
   const [draft, setDraft] = useState<StoreCheckoutDraft | null>(null);
-  const [selectedMethod, setSelectedMethod] = useState<"tarjeta" | "mercadopago">("tarjeta");
+  const [selectedMethod, setSelectedMethod] = useState<
+    "tarjeta" | "mercadopago"
+  >("tarjeta");
 
   useEffect(() => {
     setDraft(loadStoreCheckout());
@@ -27,9 +28,12 @@ export default function StorePaymentPage() {
   }, []);
 
   // Mismo cálculo que cobra el servidor (al centavo).
-  const { subtotal, iva, envio, total } = computeStoreTotals(draft?.items ?? []);
+  const { subtotal, iva, envio, total } = computeStoreTotals(
+    draft?.items ?? [],
+  );
 
-  const canContinue = selectedMethod === "tarjeta" || selectedMethod === "mercadopago";
+  const canContinue =
+    selectedMethod === "tarjeta" || selectedMethod === "mercadopago";
 
   function continueToShipping() {
     if (!draft || !canContinue) return;
@@ -53,15 +57,11 @@ export default function StorePaymentPage() {
         <section data-tone="alt" className="vt-section">
           <div className="section-shell qt-grid">
             {!loaded ? (
-              <div className="qf-card vt-loading">
-                Cargando pedido...
-              </div>
+              <div className="qf-card vt-loading">Cargando pedido...</div>
             ) : !draft ? (
               <div className="qf-card vt-empty">
                 <span className="eyebrow">Carrito vacío</span>
-                <h2 className="qa-title">
-                  No encontramos un pedido pendiente
-                </h2>
+                <h2 className="qa-title">No encontramos un pedido pendiente</h2>
                 <p className="qa-text">
                   Regresa a la tienda y agrega productos antes de continuar.
                 </p>
@@ -72,11 +72,13 @@ export default function StorePaymentPage() {
             ) : (
               <>
                 <div className="qf-card">
-                  <span className="qf-group-label">
-                    01 / Método de pago
-                  </span>
+                  <span className="qf-group-label">01 / Método de pago</span>
 
-                  <div className="vt-methods" role="group" aria-label="Métodos de pago">
+                  <div
+                    className="vt-methods"
+                    role="group"
+                    aria-label="Métodos de pago"
+                  >
                     <button
                       type="button"
                       className="vt-method"
@@ -84,7 +86,12 @@ export default function StorePaymentPage() {
                       onClick={() => setSelectedMethod("tarjeta")}
                     >
                       <span className="vt-method-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        >
                           <rect x="3" y="5.5" width="18" height="13" />
                           <path d="M3 10h18" />
                           <path d="M7 15h4" />
@@ -95,8 +102,8 @@ export default function StorePaymentPage() {
                           Tarjeta de débito / crédito
                         </span>
                         <span className="vt-method-desc">
-                          Visa, Mastercard o American Express, sin salir de Marin.
-                          Meses sin intereses con tarjetas participantes.
+                          Visa, Mastercard o American Express, sin salir de
+                          Marin. Meses sin intereses con tarjetas participantes.
                         </span>
                       </span>
                       <span aria-hidden="true">→</span>
@@ -130,8 +137,8 @@ export default function StorePaymentPage() {
                       <span className="vt-method-body">
                         <span className="vt-method-name">Mercado Pago</span>
                         <span className="vt-method-desc">
-                          Tarjeta, saldo en cuenta, Mercado Crédito, OXXO o SPEI.
-                          Te llevaremos al sitio seguro de Mercado Pago.
+                          Tarjeta, saldo en cuenta, Mercado Crédito, OXXO o
+                          SPEI. Te llevaremos al sitio seguro de Mercado Pago.
                         </span>
                       </span>
                       <span aria-hidden="true">→</span>
@@ -139,8 +146,8 @@ export default function StorePaymentPage() {
                   </div>
 
                   <div className="vt-notice">
-                    Los pagos los procesa Mercado Pago de forma segura.
-                    Marin Industries no recibe ni guarda los datos de tu tarjeta.
+                    Los pagos los procesa Mercado Pago de forma segura. Marin
+                    Industries no recibe ni guarda los datos de tu tarjeta.
                   </div>
 
                   <div className="vt-pay-actions">
@@ -166,16 +173,12 @@ export default function StorePaymentPage() {
                     {draft.items.map((item) => (
                       <div className="vt-summary-item" key={item.id}>
                         <div>
-                          <p className="vt-summary-item-name">
-                            {item.nombre}
-                          </p>
+                          <p className="vt-summary-item-name">{item.nombre}</p>
                           <p className="vt-summary-item-qty">
                             {item.cantidad} × {formatMXN(item.precio)}
                           </p>
                         </div>
-                        <span>
-                          {formatMXN(item.precio * item.cantidad)}
-                        </span>
+                        <span>{formatMXN(item.precio * item.cantidad)}</span>
                       </div>
                     ))}
                   </div>
@@ -200,8 +203,8 @@ export default function StorePaymentPage() {
                   </div>
 
                   <p className="vt-hint">
-                    El envío se calcula como el 8% del subtotal de productos.
-                    En el siguiente paso capturarás la dirección de entrega.
+                    El envío se calcula como el 8% del subtotal de productos. En
+                    el siguiente paso capturarás la dirección de entrega.
                   </p>
                 </aside>
               </>

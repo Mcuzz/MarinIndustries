@@ -80,7 +80,8 @@ export function HrAccessPage({ features }: HrAccessPageProps) {
               <div className="jo-head">
                 <span className="eyebrow">{t.features}</span>
                 <p className="jo-count">
-                  {pad(features.length)} <span>{translations.common.functions}</span>
+                  {pad(features.length)}{" "}
+                  <span>{translations.common.functions}</span>
                 </p>
               </div>
 
@@ -88,19 +89,33 @@ export function HrAccessPage({ features }: HrAccessPageProps) {
                 {features.map((feature, i) => (
                   <div key={feature.id} className="hr-feature">
                     {(() => {
-                      const localized = t.items[feature.id as keyof typeof t.items];
-                      return <>
-                    <div className="hr-feature-top">
-                      <span className="hr-check" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                      </span>
-                      <span className="jo-num">{pad(i + 1)}</span>
-                    </div>
+                      const localized =
+                        t.items[feature.id as keyof typeof t.items];
+                      return (
+                        <>
+                          <div className="hr-feature-top">
+                            <span className="hr-check" aria-hidden="true">
+                              <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2.6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M5 13l4 4L19 7"
+                                />
+                              </svg>
+                            </span>
+                            <span className="jo-num">{pad(i + 1)}</span>
+                          </div>
 
-                    <p className="hr-feature-label">{localized ?? feature.label}</p>
-                      </>;
+                          <p className="hr-feature-label">
+                            {localized ?? feature.label}
+                          </p>
+                        </>
+                      );
                     })()}
                   </div>
                 ))}

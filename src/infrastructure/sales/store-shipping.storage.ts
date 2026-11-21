@@ -1,4 +1,3 @@
-
 const STORE_SHIPPING_KEY = "marin.store.shipping";
 
 export type StoreShippingAddress = {
@@ -14,15 +13,10 @@ export type StoreShippingAddress = {
   references: string;
 };
 
-export function saveStoreShipping(
-  address: StoreShippingAddress,
-): void {
+export function saveStoreShipping(address: StoreShippingAddress): void {
   if (typeof window === "undefined") return;
 
-  window.sessionStorage.setItem(
-    STORE_SHIPPING_KEY,
-    JSON.stringify(address),
-  );
+  window.sessionStorage.setItem(STORE_SHIPPING_KEY, JSON.stringify(address));
 }
 
 export function loadStoreShipping(): StoreShippingAddress | null {

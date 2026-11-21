@@ -3,10 +3,7 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   darkMode: "class",
 
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/**/*.{js,ts,jsx,tsx,mdx}"
-  ],
+  content: ["./app/**/*.{js,ts,jsx,tsx,mdx}", "./src/**/*.{js,ts,jsx,tsx,mdx}"],
 
   theme: {
     extend: {
@@ -35,13 +32,13 @@ const config: Config = {
         brandAccentHover: "var(--brand-accent-hover)",
         brandLight: "var(--brand-light)",
         brandText: "rgb(var(--color-text-secondary-rgb) / <alpha-value>)",
-        brandMuted: "var(--brand-muted)"
+        brandMuted: "var(--brand-muted)",
       },
 
       fontFamily: {
         sans: ["var(--font-body)"],
         display: ["var(--font-display)"],
-        mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"]
+        mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
       },
 
       borderRadius: {
@@ -53,7 +50,7 @@ const config: Config = {
         xl: "0px",
         "2xl": "0px",
         "3xl": "0px",
-        full: "0px"
+        full: "0px",
       },
 
       boxShadow: {
@@ -62,7 +59,7 @@ const config: Config = {
         md: "0 0 0 1px rgba(0,0,0,0.06)",
         lg: "0 0 0 1px rgba(0,0,0,0.08)",
         xl: "0 1px 0 0 rgba(255,176,0,0.25)",
-        "2xl": "0 1px 0 0 rgba(255,176,0,0.35)"
+        "2xl": "0 1px 0 0 rgba(255,176,0,0.35)",
       },
 
       backdropBlur: {
@@ -70,12 +67,12 @@ const config: Config = {
         sm: "0px",
         DEFAULT: "0px",
         md: "0px",
-        lg: "0px"
-      }
-    }
+        lg: "0px",
+      },
+    },
   },
 
-  plugins: []
+  plugins: [],
 };
 
 export default config;

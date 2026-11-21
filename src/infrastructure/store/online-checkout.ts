@@ -3,7 +3,10 @@ import "server-only";
 import { container } from "@/src/infrastructure/composition/root-container";
 import type { CheckoutProItem } from "@/src/infrastructure/payments/mercadopago-checkout-pro.gateway";
 import type { StoreShippingAddress } from "@/src/infrastructure/sales/store-shipping.storage";
-import { computeStoreTotals, priceWithIva } from "@/src/domain/store/store-pricing";
+import {
+  computeStoreTotals,
+  priceWithIva,
+} from "@/src/domain/store/store-pricing";
 import {
   createOnlineOrder,
   isOnlineOrderStorageEnabled,
@@ -32,14 +35,20 @@ export type PreparedOrder = {
 type RequestItem = { id: string; cantidad: number };
 
 function parseItems(value: unknown): RequestItem[] | null {
-  if (!Array.isArray(value) || value.length === 0 || value.length > MAX_ITEMS) return null;
+  if (!Array.isArray(value) || value.length === 0 || value.length > MAX_ITEMS)
+    return null;
 
   const items: RequestItem[] = [];
   for (const raw of value) {
     if (typeof raw !== "object" || raw === null) return null;
     const { id, cantidad } = raw as Record<string, unknown>;
-    if (typeof id !== "string" || id.length === 0 || id.length > 100) return null;
-    if (!Number.isInteger(cantidad) || (cantidad as number) < 1 || (cantidad as number) > MAX_QUANTITY) {
+    if (typeof id !== "string" || id.length === 0 || id.length > 100)
+      return null;
+    if (
+      !Number.isInteger(cantidad) ||
+      (cantidad as number) < 1 ||
+      (cantidad as number) > MAX_QUANTITY
+    ) {
       return null;
     }
     items.push({ id, cantidad: cantidad as number });
@@ -67,11 +76,16 @@ function parseShipping(value: unknown): StoreShippingAddress | null {
   const raw = value as Record<string, unknown>;
   const result = {} as StoreShippingAddress;
 
-  for (const [field, rule] of Object.entries(SHIPPING_FIELDS) as [keyof StoreShippingAddress, FieldRule][]) {
-    const fieldValue = typeof raw[field] === "string" ? (raw[field] as string).trim() : "";
+  for (const [field, rule] of Object.entries(SHIPPING_FIELDS) as [
+    keyof StoreShippingAddress,
+    FieldRule,
+  ][]) {
+    const fieldValue =
+      typeof raw[field] === "string" ? (raw[field] as string).trim() : "";
     if (rule.required && !fieldValue) return null;
     if (fieldValue.length > rule.max) return null;
-    if (fieldValue && rule.pattern && !rule.pattern.test(fieldValue)) return null;
+    if (fieldValue && rule.pattern && !rule.pattern.test(fieldValue))
+      return null;
     result[field] = fieldValue;
   }
   return result;
@@ -89,7 +103,10 @@ export async function prepareOnlineOrder(
   body: unknown,
   paymentMethod: NewOnlineOrder["paymentMethod"],
 ): Promise<PreparedOrder | CheckoutError> {
-  const { items: rawItems, shipping: rawShipping } = (body ?? {}) as Record<string, unknown>;
+  const { items: rawItems, shipping: rawShipping } = (body ?? {}) as Record<
+    string,
+    unknown
+  >;
 
   const requested = parseItems(rawItems);
   if (!requested) return { error: "El carrito no es válido.", status: 400 };
@@ -103,7 +120,10 @@ export async function prepareOnlineOrder(
   for (const { id, cantidad } of requested) {
     const product = await container.products.getProductById(id);
     if (!product || product.estado !== "activo") {
-      return { error: "Uno de los productos ya no está disponible. Revisa tu carrito.", status: 409 };
+      return {
+        error: "Uno de los productos ya no está disponible. Revisa tu carrito.",
+        status: 409,
+      };
     }
     if (product.existencia < cantidad) {
       return {
@@ -115,7 +135,12 @@ export async function prepareOnlineOrder(
       };
     }
 
-    orderItems.push({ productId: product.id, name: product.nombre, quantity: cantidad, unitPrice: product.precio });
+    orderItems.push({
+      productId: product.id,
+      name: product.nombre,
+      quantity: cantidad,
+      unitPrice: product.precio,
+    });
     chargeItems.push({
       id: product.id,
       title: product.nombre.slice(0, 250),
@@ -126,23 +151,43 @@ export async function prepareOnlineOrder(
 
   // Misma función que usan las páginas: el total mostrado y el cobrado coinciden al centavo.
   const { subtotal, iva, envio, total } = computeStoreTotals(
-    orderItems.map((item) => ({ precio: item.unitPrice, cantidad: item.quantity })),
+    orderItems.map((item) => ({
+      precio: item.unitPrice,
+      cantidad: item.quantity,
+    })),
   );
   if (envio > 0) {
-    chargeItems.push({ id: "envio", title: "Envío", quantity: 1, unitPrice: envio });
+    chargeItems.push({
+      id: "envio",
+      title: "Envío",
+      quantity: 1,
+      unitPrice: envio,
+    });
   }
 
   const orderId = newOrderId();
 
   if (isOnlineOrderStorageEnabled()) {
-    const saved = await createOnlineOrder({ id: orderId, paymentMethod, subtotal, iva, envio, total, shipping, items: orderItems });
+    const saved = await createOnlineOrder({
+      id: orderId,
+      paymentMethod,
+      subtotal,
+      iva,
+      envio,
+      total,
+      shipping,
+      items: orderItems,
+    });
     if (!saved.ok) return { error: saved.error, status: 500 };
   } else {
-    console.warn(`[pedidos] SUPABASE_SECRET_KEY no configurada: el pedido ${orderId} no se guardará.`);
+    console.warn(
+      `[pedidos] SUPABASE_SECRET_KEY no configurada: el pedido ${orderId} no se guardará.`,
+    );
   }
 
   return { orderId, chargeItems, total, shipping };
 }
 
-export const isCheckoutError = (value: PreparedOrder | CheckoutError): value is CheckoutError =>
-  "error" in value;
+export const isCheckoutError = (
+  value: PreparedOrder | CheckoutError,
+): value is CheckoutError => "error" in value;

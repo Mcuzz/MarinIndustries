@@ -35,7 +35,8 @@ export function JobOpeningsPage({ openings }: JobOpeningsPageProps) {
               </div>
 
               <p className="jo-count">
-                {pad(openings.length)} <span>{translations.common.vacancies}</span>
+                {pad(openings.length)}{" "}
+                <span>{translations.common.vacancies}</span>
               </p>
             </div>
 
@@ -46,26 +47,38 @@ export function JobOpeningsPage({ openings }: JobOpeningsPageProps) {
                 {openings.map((opening, i) => (
                   <article key={opening.id} className="jo-card">
                     {(() => {
-                      const localized = t.items[opening.id as keyof typeof t.items];
-                      return <>
-                    <div className="jo-top">
-                      <span className="jo-num">{pad(i + 1)}</span>
-                      <span className="jo-status">
-                        <i aria-hidden="true" />
-                        {localized?.status ?? opening.status}
-                      </span>
-                    </div>
+                      const localized =
+                        t.items[opening.id as keyof typeof t.items];
+                      return (
+                        <>
+                          <div className="jo-top">
+                            <span className="jo-num">{pad(i + 1)}</span>
+                            <span className="jo-status">
+                              <i aria-hidden="true" />
+                              {localized?.status ?? opening.status}
+                            </span>
+                          </div>
 
-                    <span className="jo-area">{localized?.area ?? opening.area}</span>
+                          <span className="jo-area">
+                            {localized?.area ?? opening.area}
+                          </span>
 
-                    <h3 className="jo-h3">{localized?.title ?? opening.title}</h3>
-                    <p className="jo-desc">{localized?.description ?? opening.description}</p>
+                          <h3 className="jo-h3">
+                            {localized?.title ?? opening.title}
+                          </h3>
+                          <p className="jo-desc">
+                            {localized?.description ?? opening.description}
+                          </p>
 
-                    <button type="button" className="btn btn-ghost jo-btn">
-                      {t.requestInfo}
-                      <span aria-hidden="true">→</span>
-                    </button>
-                      </>;
+                          <button
+                            type="button"
+                            className="btn btn-ghost jo-btn"
+                          >
+                            {t.requestInfo}
+                            <span aria-hidden="true">→</span>
+                          </button>
+                        </>
+                      );
                     })()}
                   </article>
                 ))}

@@ -13,7 +13,12 @@ export function getSupabaseAdminClient(): SupabaseClient | null {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
   const secretKey = process.env.SUPABASE_SECRET_KEY;
 
-  if (!url || !secretKey || secretKey.startsWith("pega_aqui") || secretKey.startsWith("tu_")) {
+  if (
+    !url ||
+    !secretKey ||
+    secretKey.startsWith("pega_aqui") ||
+    secretKey.startsWith("tu_")
+  ) {
     cached = null;
     return cached;
   }

@@ -15,17 +15,24 @@
     "html-to-image": "^1.11.13",
     "mercadopago": "^3.6.2",
     "next": "15.4.10",
+    "nodejs": "^0.0.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "server-only": "^0.0.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
     "@types/node": "22.13.14",
     "@types/react": "19.0.12",
     "@types/react-dom": "19.0.4",
     "autoprefixer": "10.4.21",
+    "dependency-cruiser": "^18.8.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^15.4.10",
     "postcss": "8.5.6",
+    "prettier": "^3.10.1",
     "tailwindcss": "3.4.17",
-    "typescript": "5.8.2"
+    "typescript": "5.8.2",
+    "typescript-eslint": "^8.73.0"
   }
 }
